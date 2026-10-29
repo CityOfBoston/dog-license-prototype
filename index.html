@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>License Your Dog | Boston.gov</title>
+  <meta name="description" content="License your dog in Boston. Find fees, deadlines, required documents, and how to apply online, by mail, or in person.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="prototype-banner" role="note">
+    Design prototype — for review only. Not a live City of Boston page.
+  </div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+
+    <div class="trustbar">
+      <div class="trustbar__bar">
+        <div class="trustbar__seal" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="8.5" stroke="white" stroke-width="1.2"/>
+            <circle cx="10" cy="10" r="5.5" stroke="white" stroke-width="0.8"/>
+            <text x="10" y="13.5" text-anchor="middle" fill="white"
+              font-size="6" font-family="sans-serif" font-weight="700">B</text>
+          </svg>
+        </div>
+        <p class="trustbar__text">An official website of the City of Boston.</p>
+        <button class="trustbar__toggle"
+          id="trustbar-btn"
+          aria-expanded="false"
+          aria-controls="trustbar-panel">
+          Here's how you know
+          <svg class="trustbar__chevron" width="14" height="14" viewBox="0 0 14 14"
+            fill="none" aria-hidden="true">
+            <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="trustbar__panel" id="trustbar-panel" hidden>
+        <div class="trustbar__panel-inner">
+          <div class="trustbar__fact">
+            <div class="trustbar__fact-icon" aria-hidden="true">🏛️</div>
+            <div>
+              <p class="trustbar__fact-heading">Official websites use .boston.gov</p>
+              <p class="trustbar__fact-body">A <strong>.boston.gov</strong> website belongs to
+                an official government organization in the City of Boston.</p>
+            </div>
+          </div>
+          <div class="trustbar__fact">
+            <div class="trustbar__fact-icon" aria-hidden="true">🔒</div>
+            <div>
+              <p class="trustbar__fact-heading">Secure .gov websites use HTTPS</p>
+              <p class="trustbar__fact-body">A lock icon or <strong>https://</strong> means
+                you have safely connected to the .gov website. Share sensitive information
+                only on official, secure websites.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="main-nav" aria-label="Site navigation">
+      <div class="main-nav__inner">
+        <!--
+          Logo: header-nav.png (1291×113px) from CoB design system Figma node 5726:3237.
+          Cropped via CSS: overflow hidden, margin-top -40px hides the trustbar row,
+          leaving only the main nav row with the official CITY of BOSTON wordmark.
+          Replace with official standalone SVG from Figma brand assets (node 5032:2619)
+          when available. See review-notes.md.
+        -->
+        <a href="https://www.boston.gov" class="cob-logo"
+          aria-label="City of Boston — go to boston.gov homepage">
+          <img src="assets/header-nav.png"
+            alt="City of Boston, Mayor Michelle Wu"
+            class="cob-logo__img">
+        </a>
+        <div class="main-nav__links">
+          <a class="nav-link nav-link--text"
+            href="https://www.boston.gov/departments/animal-care-and-control">
+            Animal Care &amp; Control
+          </a>
+          <a class="nav-link nav-link--text"
+            href="https://www.boston.gov">
+            boston.gov
+          </a>
+          <button class="nav-link nav-link--icon" aria-label="Search boston.gov" type="button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+              <path d="M17 17l3.5 3.5" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+
+  <!-- ===================== MAIN ======================= -->
+  <main id="main-content">
+
+    <!-- ===== HERO ZONE (white) ===== -->
+    <div class="hero-zone">
+      <div class="hero-container">
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.boston.gov">Home</a></li>
+            <li><a href="https://www.boston.gov/departments/animal-care-and-control">Animal Care and Control</a></li>
+            <li aria-current="page">License Your Dog</li>
+          </ol>
+        </nav>
+
+        <div class="hero-layout">
+
+          <div class="hero-content">
+            <h1>License Your Dog</h1>
+            <p class="hero-subtitle">If you live in Boston and your dog is six months or older, you must get a dog license each year. Boston Animal Care and Control issues dog licenses.</p>
+            <hr class="hero-divider" aria-hidden="true">
+            <p class="hero-body">Apply online, by mail, or in person. You'll need your dog's current rabies certificate, and any outstanding Animal Care and Control fines must be cleared before applying by mail or in person.</p>
+            <div class="hero-subsection">
+              <h2 class="hero-subsection__heading">Who can apply</h2>
+              <p class="hero-body">Boston residents can apply for a new dog license or renew an existing one. All dogs six months of age or older must be licensed annually.</p>
+            </div>
+          </div>
+
+          <aside class="fact-sidebar" aria-label="Quick facts">
+            <div class="fact-row">
+              <div class="fact-row__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="6" width="18" height="15" rx="1" stroke="#091f2f" stroke-width="1.5"/>
+                  <path d="M16 6V4a1 1 0 00-1-1H9a1 1 0 00-1 1v2" stroke="#091f2f" stroke-width="1.5"/>
+                  <path d="M8 11h2m4 0h2M8 15h2m4 0h2" stroke="#091f2f" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="fact-row__text">
+                <p class="fact-row__label">Contact</p>
+                <p class="fact-row__value">
+                  <a href="tel:6176355348" class="cob-link">617-635-5348</a><br>
+                  <a href="mailto:animalcontrol@boston.gov" class="cob-link">animalcontrol@boston.gov</a>
+                </p>
+              </div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-row__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="9" stroke="#091f2f" stroke-width="1.5"/>
+                  <path d="M12 8v1m0 6v1m3.5-5.5a3.5 3.5 0 00-7 0 3.5 3.5 0 003.5 3.5 2.5 2.5 0 010 5" stroke="#091f2f" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="fact-row__text">
+                <p class="fact-row__label">Fees</p>
+                <p class="fact-row__value">$15 spayed/neutered · $30 intact · No fee for eligible owners 70+</p>
+              </div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-row__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="9" stroke="#091f2f" stroke-width="1.5"/>
+                  <path d="M12 7v5l3 3" stroke="#091f2f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="fact-row__text">
+                <p class="fact-row__label">Annual deadline</p>
+                <p class="fact-row__value">April 1 each year</p>
+              </div>
+            </div>
+            <div class="fact-row">
+              <div class="fact-row__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect x="4" y="3" width="16" height="18" rx="1" stroke="#091f2f" stroke-width="1.5"/>
+                  <path d="M8 8h8M8 12h8M8 16h5" stroke="#091f2f" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="fact-row__text">
+                <p class="fact-row__label">Application method</p>
+                <p class="fact-row__value">Online · Mail · In person</p>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </div><!-- end hero-zone -->
+
+    <!-- ===== CONTENT ZONE (off-white) ===== -->
+    <div class="content-zone">
+      <div class="content-container">
+        <div class="content-layout">
+
+          <!-- Left: sticky TOC -->
+          <nav class="toc" aria-label="On this page">
+            <p class="toc__heading">On this page</p>
+            <ol class="toc__list">
+              <li class="toc__item">
+                <div class="toc__track" aria-hidden="true">
+                  <div class="toc__circle toc__circle--active">1</div>
+                  <div class="toc__line"></div>
+                </div>
+                <div class="toc__link-wrap">
+                  <a href="#before-you-apply" class="toc__link">Before you apply</a>
+                </div>
+              </li>
+              <li class="toc__item">
+                <div class="toc__track" aria-hidden="true">
+                  <div class="toc__circle">2</div>
+                  <div class="toc__line"></div>
+                </div>
+                <div class="toc__link-wrap">
+                  <a href="#fees" class="toc__link">Fees</a>
+                </div>
+              </li>
+              <li class="toc__item">
+                <div class="toc__track" aria-hidden="true">
+                  <div class="toc__circle">3</div>
+                  <div class="toc__line"></div>
+                </div>
+                <div class="toc__link-wrap">
+                  <a href="#how-to-apply" class="toc__link">How to apply</a>
+                </div>
+              </li>
+              <li class="toc__item">
+                <div class="toc__track" aria-hidden="true">
+                  <div class="toc__circle">4</div>
+                  <div class="toc__line"></div>
+                </div>
+                <div class="toc__link-wrap">
+                  <a href="#after-you-apply" class="toc__link">After you apply</a>
+                </div>
+              </li>
+              <li class="toc__item">
+                <div class="toc__track" aria-hidden="true">
+                  <div class="toc__circle">5</div>
+                </div>
+                <div class="toc__link-wrap">
+                  <a href="#get-help" class="toc__link">Get help</a>
+                </div>
+              </li>
+            </ol>
+          </nav>
+
+          <!-- Right: section content -->
+          <div class="content-body">
+
+            <!-- ─── Section 1: Before you apply ─── -->
+            <section aria-labelledby="before-you-apply">
+              <h2 id="before-you-apply">Before you apply</h2>
+              <p>Before you start, have these items ready:</p>
+              <ul class="checklist" role="list">
+                <li>
+                  <span class="checklist__icon" aria-hidden="true">✓</span>
+                  <span><strong>Current rabies certificate</strong> — required for all applications</span>
+                </li>
+                <li>
+                  <span class="checklist__icon" aria-hidden="true">✓</span>
+                  <span><strong>Proof of spay or neuter</strong> — required if your dog is altered, to qualify for the $15 fee</span>
+                </li>
+                <li>
+                  <span class="checklist__icon" aria-hidden="true">✓</span>
+                  <span><strong>Payment</strong> — the license fee, plus any outstanding Animal Care and Control fines (fines must be cleared before applying by mail or in person)</span>
+                </li>
+              </ul>
+              <p>You must license your dog each year before <strong>April&nbsp;1</strong>. Failure to license may result in a <strong>$50 fine</strong>.</p>
+              <p class="notice">
+                <strong>Renewing an existing license?</strong> Have your dog's current license number ready. If you do not have it, <a href="http://www.cityofboston.gov/animals/owners.asp" class="cob-link">search the dog license database</a> or contact Animal Care and Control at <a href="tel:6176355348" class="cob-link">617-635-5348</a>.
+              </p>
+            </section>
+
+            <hr class="section-divider" aria-hidden="true">
+
+            <!-- ─── Section 2: Fees ─── -->
+            <section aria-labelledby="fees">
+              <h2 id="fees">Fees</h2>
+              <p>The annual fee depends on whether your dog is spayed or neutered.</p>
+              <div class="fee-table-wrap">
+                <table class="fee-table">
+                  <caption class="visually-hidden">Annual dog license fees</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Dog status</th>
+                      <th scope="col">Annual fee</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Spayed female or neutered male (proof required)</td>
+                      <td>$15</td>
+                    </tr>
+                    <tr>
+                      <td>Intact female or intact male</td>
+                      <td>$30</td>
+                    </tr>
+                    <tr>
+                      <td>Owner age 70 or older</td>
+                      <td>No fee (mail or in person only)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="fee-notes">
+                <p>Online applications include a 2.7% service fee (minimum $1.00) added at checkout.</p>
+                <p>For mail and in-person applications, pay by check or money order payable to <strong>City of Boston Animal Care and Control</strong>.</p>
+                <p>Licenses expire annually. The renewal deadline is <strong>April&nbsp;1</strong>. Failure to license your dog may result in a <strong>$50 fine</strong>.</p>
+              </div>
+            </section>
+
+            <hr class="section-divider" aria-hidden="true">
+
+            <!-- ─── Section 3: How to apply ─── -->
+            <section aria-labelledby="how-to-apply">
+              <h2 id="how-to-apply">How to apply</h2>
+
+              <p class="notice">
+                <strong>Age 70 or older?</strong> The fee waiver is not available through
+                the online portal — apply by mail or in person to use this waiver.
+              </p>
+
+              <div class="accordion-controls">
+                <button type="button" class="accordion-control" id="expand-all-btn">Expand all</button>
+                <button type="button" class="accordion-control" id="collapse-all-btn">Collapse all</button>
+              </div>
+
+              <div class="accordion-group">
+
+                <!-- Apply online -->
+                <div class="accordion-item" id="apply-online">
+                  <h3 class="accordion-heading">
+                    <button
+                      type="button"
+                      class="accordion-trigger"
+                      aria-expanded="false"
+                      aria-controls="panel-apply-online"
+                      id="btn-apply-online"
+                    >
+                      <span class="accordion-trigger__label">Apply online</span>
+                      <svg class="accordion-trigger__icon" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none"
+                        aria-hidden="true" focusable="false">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                  </h3>
+                  <div
+                    id="panel-apply-online"
+                    class="accordion-panel"
+                    role="region"
+                    aria-labelledby="btn-apply-online"
+                    hidden
+                  >
+                    <ol class="process-list" aria-label="Steps to apply online">
+                      <li class="process-list__item">
+                        <div class="process-list__track" aria-hidden="true">
+                          <div class="process-list__symbol">1</div>
+                          <div class="process-list__trail"></div>
+                        </div>
+                        <div class="process-list__body">
+                          <p class="process-list__label">Gather your documents</p>
+                          <div class="process-list__desc">
+                            <p>Have your dog's current rabies certificate ready. If your dog is
+                              spayed or neutered, also have proof on hand — you will need it to
+                              qualify for the $15 fee.</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="process-list__item">
+                        <div class="process-list__track" aria-hidden="true">
+                          <div class="process-list__symbol">2</div>
+                          <div class="process-list__trail"></div>
+                        </div>
+                        <div class="process-list__body">
+                          <p class="process-list__label">Complete the online application</p>
+                          <div class="process-list__desc">
+                            <p>Apply at <a href="https://www.cityofboston.gov/animals/licenseapp"
+                              class="cob-link">cityofboston.gov/animals/licenseapp</a>.
+                              Payment is by credit card only. A 2.7% service fee (minimum $1.00)
+                              is added at checkout.</p>
+                            <p>The age-70+ fee waiver is not available through the online portal.
+                              Apply by mail or in person instead.</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="process-list__item">
+                        <div class="process-list__track" aria-hidden="true">
+                          <div class="process-list__symbol">3</div>
+                        </div>
+                        <div class="process-list__body">
+                          <p class="process-list__label">Receive your license by mail</p>
+                          <div class="process-list__desc">
+                            <p>Your license will be mailed to you after processing.</p>
+                          </div>
+                        </div>
+                      </li>
+                    </ol>
+                    <p class="apply-cta">
+                      <a href="https://www.cityofboston.gov/animals/licenseapp"
+                        class="btn-primary">Apply online</a>
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Apply by mail -->
+                <div class="accordion-item" id="apply-by-mail">
+                  <h3 class="accordion-heading">
+                    <button
+                      type="button"
+                      class="accordion-trigger"
+                      aria-expanded="false"
+                      aria-controls="panel-apply-by-mail"
+                      id="btn-apply-by-mail"
+                    >
+                      <span class="accordion-trigger__label">Apply by mail</span>
+                      <svg class="accordion-trigger__icon" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none"
+                        aria-hidden="true" focusable="false">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                  </h3>
+                  <div
+                    id="panel-apply-by-mail"
+                    class="accordion-panel"
+                    role="region"
+                    aria-labelledby="btn-apply-by-mail"
+                    hidden
+                  >
+                    <ol class="process-list" aria-label="Steps to apply by mail">
+                      <li class="process-list__item">
+                        <div class="process-list__track" aria-hidden="true">
+                          <div class="process-list__symbol">1</div>
+                          <div class="process-list__trail"></div>
+                        </div>
+                        <div class="process-list__body">
+                          <p class="process-list__label">Gather your documents and clear any outstanding fines</p>
+                          <div class="process-list__desc">
+                            <p>Collect your dog's rabies certificate and, if your dog is altered,
+                              proof of spay or neuter. Any outstanding Animal Care and Control fines
+                              must be cleared before your application can be processed.</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="process-list__item">
+                        <div class="process-list__track" aria-hidden="true">
+                          <div class="process-list__symbol">2</div>
+                          <div class="process-list__trail"></div>
+                        </div>
+                        <div class="process-list__body">
+                          <p class="process-list__label">Obtain and complete the application form</p>
+                          <div class="process-list__desc">
+                            <p>Download or request a printed application from
+                              <a href="https://www.boston.gov/departments/animal-care-and-control"
+                                class="cob-link">boston.gov/departments/animal-care-and-control</a>
+                              or by calling
+                              <a href="tel:6176355348" class="cob-link">617-635-5348</a>.</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="process-list__item">
+                        <div class="process-list__track" aria-hidden="true">
+                          <div class="process-list__symbol">3</div>
+                        </div>
+                        <div class="process-list__body">
+                          <p class="process-list__label">Mail your completed form with payment</p>
+                          <div class="process-list__desc">
+                            <p>Include a check or money order payable to
+                              <strong>Boston Animal Care and Control</strong>. Mail to:</p>
+                            <address>
+                              Boston Animal Care and Control<br>
+                              1010 Massachusetts Avenue<br>
+                              Boston, MA 02118
+                            </address>
+                          </div>
+                        </div>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+
+                <!-- Apply in person -->
+                <div class="accordion-item" id="apply-in-person">
+                  <h3 class="accordion-heading">
+                    <button
+                      type="button"
+                      class="accordion-trigger"
+                      aria-expanded="false"
+                      aria-controls="panel-apply-in-person"
+                      id="btn-apply-in-person"
+                    >
+                      <span class="accordion-trigger__label">Apply in person</span>
+                      <svg class="accordion-trigger__icon" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none"
+                        aria-hidden="true" focusable="false">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                  </h3>
+                  <div
+                    id="panel-apply-in-person"
+                    class="accordion-panel"
+                    role="region"
+                    aria-labelledby="btn-apply-in-person"
+                    hidden
+                  >
+                    <p>You can apply at the administrative office or the animal shelter.
+                      Hours differ between the two locations — see
+                      <a href="#get-help" class="cob-link">Get help</a> for addresses and hours.
+                      Contact the office to confirm current visit requirements before traveling.</p>
+                    <ol class="process-list" aria-label="Steps to apply in person">
+                      <li class="process-list__item">
+                        <div class="process-list__track" aria-hidden="true">
+                          <div class="process-list__symbol">1</div>
+                          <div class="process-list__trail"></div>
+                        </div>
+                        <div class="process-list__body">
+                          <p class="process-list__label">Gather your documents</p>
+                          <div class="process-list__desc">
+                            <p>Bring your dog's current rabies certificate and, if your dog is
+                              altered, proof of spay or neuter. If renewing, bring the existing
+                              license number.</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="process-list__item">
+                        <div class="process-list__track" aria-hidden="true">
+                          <div class="process-list__symbol">2</div>
+                          <div class="process-list__trail"></div>
+                        </div>
+                        <div class="process-list__body">
+                          <p class="process-list__label">Visit the administrative office or animal shelter</p>
+                          <div class="process-list__desc">
+                            <p><strong>Administrative office:</strong> 1010 Massachusetts Ave., 4th Floor —
+                              Monday–Friday, 8&nbsp;am–4&nbsp;pm</p>
+                            <p><strong>Animal shelter:</strong> 26 Mahler Road, Roslindale —
+                              Monday–Friday, 9&nbsp;am–4&nbsp;pm; Saturday, 9&nbsp;am–12&nbsp;pm
+                              and 1–3&nbsp;pm</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="process-list__item">
+                        <div class="process-list__track" aria-hidden="true">
+                          <div class="process-list__symbol">3</div>
+                        </div>
+                        <div class="process-list__body">
+                          <p class="process-list__label">Pay and complete your application at the counter</p>
+                          <div class="process-list__desc">
+                            <p>Pay the applicable fee. Staff will process your application.</p>
+                          </div>
+                        </div>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+
+              </div><!-- end .accordion-group -->
+
+              <noscript>
+                <style>
+                  .accordion-panel[hidden] { display: block !important; }
+                  .accordion-controls { display: none; }
+                </style>
+              </noscript>
+
+            </section>
+
+            <hr class="section-divider" aria-hidden="true">
+
+            <!-- ─── Section 4: After you apply ─── -->
+            <section aria-labelledby="after-you-apply">
+              <h2 id="after-you-apply">After you apply</h2>
+              <p>For online and mail applications, your license will be mailed after your
+                application is processed. For questions about your application status,
+                contact Animal Care and Control:</p>
+              <p>
+                <a href="tel:6176355348" class="cob-link">617-635-5348</a>
+                &nbsp;·&nbsp;
+                <a href="mailto:animalcontrol@boston.gov" class="cob-link">animalcontrol@boston.gov</a>
+              </p>
+            </section>
+
+            <hr class="section-divider" aria-hidden="true">
+
+            <!-- ─── Section 5: Get help ─── -->
+            <section aria-labelledby="get-help">
+              <h2 id="get-help">Get help</h2>
+              <div class="contact-block">
+                <h3>Animal Care and Control</h3>
+                <dl class="contact-dl">
+                  <div class="contact-dl__row">
+                    <dt>Phone</dt>
+                    <dd><a href="tel:6176355348" class="cob-link">617-635-5348</a></dd>
+                  </div>
+                  <div class="contact-dl__row">
+                    <dt>Email</dt>
+                    <dd><a href="mailto:animalcontrol@boston.gov"
+                      class="cob-link">animalcontrol@boston.gov</a></dd>
+                  </div>
+                  <div class="contact-dl__row">
+                    <dt>Administrative office</dt>
+                    <dd>
+                      1010 Massachusetts Ave., 4th Floor<br>
+                      Boston, MA 02118<br>
+                      Monday–Friday, 8&nbsp;am–4&nbsp;pm
+                    </dd>
+                  </div>
+                  <div class="contact-dl__row">
+                    <dt>Animal shelter<br>(licensing hours)</dt>
+                    <dd>
+                      26 Mahler Road, Roslindale, MA 02131<br>
+                      Monday–Friday, 9&nbsp;am–4&nbsp;pm<br>
+                      Saturday, 9&nbsp;am–12&nbsp;pm and 1–3&nbsp;pm<br>
+                      <em>Shelter adoption hours differ from these licensing hours.</em>
+                    </dd>
+                  </div>
+                  <div class="contact-dl__row">
+                    <dt>After hours</dt>
+                    <dd>Call 3-1-1 or
+                      <a href="tel:6176354500" class="cob-link">617-635-4500</a>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+              <p class="contact-note">To update your address, report a lost tag, or make other changes to a license, contact Animal Care and Control directly. Staff can advise on required steps and any applicable fees.</p>
+            </section>
+
+          </div><!-- end .content-body -->
+        </div><!-- end .content-layout -->
+      </div><!-- end .content-container -->
+    </div><!-- end .content-zone -->
+
+    <!-- ===== RELATED RESOURCES (dark navy) ===== -->
+    <section class="related-resources" aria-labelledby="h-related">
+      <div class="related-container">
+        <h2 id="h-related">Related resources</h2>
+        <div class="related-list">
+          <div class="related-item">
+            <div class="related-item__title">
+              <a href="https://www.boston.gov/departments/parks-and-recreation/dogs-boston-parks">Dogs and Boston Parks</a>
+            </div>
+            <div class="related-item__body">
+              <p class="related-item__desc">Information about dog recreation spaces, off-leash areas, and rules for dogs in City of Boston parks.</p>
+              <p class="related-item__dept">Parks and Recreation</p>
+            </div>
+          </div>
+          <div class="related-item">
+            <div class="related-item__title">
+              <a href="https://www.boston.gov/node/856">Rules and Regulations for Owning a Pet</a>
+            </div>
+            <div class="related-item__body">
+              <p class="related-item__desc">A summary of the rules for owning a pet in the City of Boston, including leash laws and animal welfare standards.</p>
+              <p class="related-item__dept">Animal Care and Control</p>
+            </div>
+          </div>
+          <div class="related-item">
+            <div class="related-item__title">
+              <a href="https://www.boston.gov/departments/animal-care-and-control">Animal Care and Control</a>
+            </div>
+            <div class="related-item__body">
+              <p class="related-item__desc">Learn about the services and work of Boston Animal Care and Control, including animal licensing, adoption, and care resources.</p>
+              <p class="related-item__dept">Animal Care and Control</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <div class="footer-logo" aria-label="City of Boston">
+          <span class="footer-logo__b" aria-hidden="true">B</span>
+          <span class="footer-logo__bar" aria-hidden="true"></span>
+        </div>
+        <nav class="footer-links" aria-label="City of Boston global links">
+          <a href="https://www.boston.gov/privacy-policy">Privacy Policy</a>
+          <a href="https://www.boston.gov/report-security-problem">Report a Security Problem</a>
+          <a href="https://www.boston.gov/public-records">Public Records</a>
+          <a href="https://www.boston.gov/accessibility">Accessibility</a>
+          <a href="https://www.boston.gov/contact">Contact Us</a>
+        </nav>
+      </div>
+      <a href="https://311.boston.gov" class="footer-311">Contact 311</a>
+    </div>
+  </footer>
+
+  <script>
+    // Trustbar
+    (function () {
+      var btn = document.getElementById('trustbar-btn');
+      var panel = document.getElementById('trustbar-panel');
+      if (!btn || !panel) return;
+      btn.addEventListener('click', function () {
+        var open = panel.hidden === false;
+        panel.hidden = open;
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+    }());
+
+    // Accordion
+    (function () {
+      var triggers = document.querySelectorAll('.accordion-trigger');
+      var expandBtn = document.getElementById('expand-all-btn');
+      var collapseBtn = document.getElementById('collapse-all-btn');
+
+      function setPanel(btn, open) {
+        var panelId = btn.getAttribute('aria-controls');
+        var panel = document.getElementById(panelId);
+        if (!panel) return;
+        panel.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+      }
+
+      triggers.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var expanded = this.getAttribute('aria-expanded') === 'true';
+          setPanel(this, !expanded);
+        });
+      });
+
+      if (expandBtn) {
+        expandBtn.addEventListener('click', function () {
+          triggers.forEach(function (btn) { setPanel(btn, true); });
+        });
+      }
+
+      if (collapseBtn) {
+        collapseBtn.addEventListener('click', function () {
+          triggers.forEach(function (btn) { setPanel(btn, false); });
+        });
+      }
+
+      function openFromHash() {
+        var hash = window.location.hash.slice(1);
+        if (!hash) return;
+        var item = document.getElementById(hash);
+        if (!item || !item.classList.contains('accordion-item')) return;
+        var btn = item.querySelector('.accordion-trigger');
+        if (btn) { setPanel(btn, true); btn.focus(); }
+      }
+
+      openFromHash();
+      window.addEventListener('hashchange', openFromHash);
+    }());
+
+    // TOC: highlight active section as user scrolls
+    (function () {
+      if (!window.IntersectionObserver) return;
+      var headings = document.querySelectorAll('.content-body h2[id]');
+      var links = document.querySelectorAll('.toc__link');
+      if (!headings.length || !links.length) return;
+
+      function setActive(id) {
+        links.forEach(function (link) {
+          var item = link.closest('.toc__item');
+          var circle = item && item.querySelector('.toc__circle');
+          if (!circle) return;
+          var isActive = link.getAttribute('href') === '#' + id;
+          circle.classList.toggle('toc__circle--active', isActive);
+        });
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      }, { rootMargin: '-5% 0px -70% 0px' });
+
+      headings.forEach(function (h) { observer.observe(h); });
+    }());
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dog License Application | Boston.gov</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* ── Layout shell ── */
+    .app-outer { background:var(--cob-off-white); min-height:60vh; }
+    .app-container { max-width:1060px; margin:0 auto; padding:0 var(--hero-pad,40px) 80px; }
+    @media(max-width:1023px){.app-container{padding:0 var(--sp-400,24px) 60px;}}
+    @media(max-width:767px) {.app-container{padding:0 16px 48px;}}
+
+    .app-breadcrumb { padding:16px 0 20px; }
+    .app-breadcrumb ol { display:flex;flex-wrap:wrap;align-items:center;list-style:none;font-family:var(--font-ui);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em; }
+    .app-breadcrumb li+li::before { content:"›";padding:0 6px;color:#797c7f;font-weight:400; }
+    .app-breadcrumb a { color:var(--cob-theme);text-decoration:none; }
+    .app-breadcrumb a:hover { text-decoration:underline; }
+    .app-breadcrumb [aria-current="page"] { color:var(--cob-freedom-red); }
+
+    .app-page-title { font-family:var(--font-ui);font-weight:800;font-size:clamp(22px,3.2vw,34px);text-transform:uppercase;color:var(--cob-navy);letter-spacing:.01em;margin-bottom:28px; }
+
+    /* ── Form layout ── */
+    .app-layout { display:grid;grid-template-columns:210px 1fr;gap:48px;align-items:start; }
+    @media(max-width:767px){.app-layout{grid-template-columns:1fr;gap:20px;}}
+    .app-layout.full-width-mode { grid-template-columns:1fr; }
+    .app-layout.full-width-mode .step-nav { display:none; }
+
+    /* ── Step nav ── */
+    .step-nav { position:sticky;top:24px; }
+    @media(max-width:767px){.step-nav{position:static;}}
+    .step-nav ol { list-style:none;padding:0;margin:0; }
+    .step-nav li { display:flex;align-items:flex-start;gap:12px;min-height:56px; }
+    .step-nav__track { display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:32px; }
+    .step-nav__circle { width:32px;height:32px;border-radius:50%;border:2px solid #d2d2d2;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;color:#797c7f;flex-shrink:0;transition:all .2s; }
+    .step-nav li.step--active .step-nav__circle { background:var(--cob-theme);border-color:var(--cob-theme);color:white; }
+    .step-nav li.step--done  .step-nav__circle { background:var(--cob-navy);border-color:var(--cob-navy);color:white; }
+    .step-nav__connector { width:2px;flex:1;min-height:14px;background:#d2d2d2;margin-top:4px; }
+    .step-nav li.step--done .step-nav__connector { background:var(--cob-navy); }
+    .step-nav li:last-child .step-nav__connector { display:none; }
+    .step-nav__label { font-family:var(--font-ui);font-size:13px;font-weight:600;line-height:1.4;color:#797c7f;padding-top:6px; }
+    .step-nav li.step--active .step-nav__label,
+    .step-nav li.step--done  .step-nav__label { color:var(--cob-navy);font-weight:700; }
+    @media(max-width:767px){
+      .step-nav ol{display:flex;flex-wrap:wrap;gap:6px;}
+      .step-nav li{flex-direction:column;align-items:center;gap:4px;min-height:auto;padding:6px 10px;background:white;border-radius:4px;border:1px solid #d2d2d2;flex:1;min-width:72px;}
+      .step-nav li.step--active{border-color:var(--cob-theme);}
+      .step-nav__track{width:auto;}
+      .step-nav__connector{display:none!important;}
+      .step-nav__label{padding-top:0;text-align:center;font-size:11px;}
+    }
+
+    /* ── Views ── */
+    .app-view { display:none; }
+    .app-view.is-active { display:block; }
+    .view-heading { font-family:var(--font-ui);font-weight:700;font-size:20px;color:var(--cob-navy);margin-bottom:4px; }
+    .view-subhead { font-family:var(--font-body);font-size:15px;line-height:1.65;color:#58585b;margin-bottom:24px; }
+
+    /* ── Landing page ── */
+    .landing-intro { font-family:var(--font-body);font-size:16px;line-height:1.7;color:#58585b;margin-bottom:28px; }
+    .landing-section { background:white;border:1px solid #e2e2e2;border-radius:4px;padding:20px 24px;margin-bottom:14px; }
+    .landing-section__heading { font-family:var(--font-ui);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.07em;color:var(--cob-navy);margin-bottom:12px; }
+    .landing-section ul { list-style:disc;padding-left:20px; }
+    .landing-section li { font-family:var(--font-ui);font-size:14px;line-height:1.7;color:#58585b; }
+    .landing-section li+li { margin-top:4px; }
+    .landing-what-item { display:flex;flex-direction:column;gap:2px;margin-bottom:12px; }
+    .landing-what-item:last-child { margin-bottom:0; }
+    .landing-what-item__label { font-family:var(--font-ui);font-weight:700;font-size:14px;color:var(--cob-navy); }
+    .landing-what-item__desc { font-family:var(--font-ui);font-size:13px;color:#58585b;line-height:1.55; }
+    .fee-table { width:100%;border-collapse:collapse;font-family:var(--font-ui); }
+    .fee-table th { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#58585b;text-align:left;padding:8px 10px;border-bottom:2px solid #d2d2d2; }
+    .fee-table td { font-size:14px;padding:10px 10px;border-bottom:1px solid #e2e2e2;color:var(--cob-navy); }
+    .fee-table td:last-child { font-weight:700;text-align:right; }
+    .fee-table tr:last-child td { border-bottom:none; }
+    .fee-note { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-top:10px;line-height:1.55; }
+    .landing-cta-group { display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:28px 0 12px; }
+    .landing-or { font-family:var(--font-ui);font-size:14px;color:#797c7f;margin-bottom:12px; }
+    .landing-footer-links { font-family:var(--font-ui);font-size:13px;color:#58585b;line-height:1.8; }
+    .landing-footer-links a { color:var(--cob-theme);text-decoration:underline; }
+
+    /* ── Preconditions ── */
+    .preconditions { background:#f8f8f8;border:1px solid #e2e2e2;border-left:4px solid var(--cob-navy);border-radius:0 4px 4px 0;padding:16px 20px;margin-bottom:28px; }
+    .preconditions__heading { font-family:var(--font-ui);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--cob-navy);margin-bottom:8px; }
+    .preconditions__intro { font-family:var(--font-ui);font-size:13px;color:#58585b;margin-bottom:8px; }
+    .preconditions ul { list-style:disc;padding-left:20px; }
+    .preconditions li { font-family:var(--font-ui);font-size:13px;line-height:1.6;color:#58585b; }
+
+    /* ── Validation ── */
+    .validation-summary { background:#fef2f2;border:1px solid #fca5a5;border-left:4px solid var(--cob-freedom-red);border-radius:0 4px 4px 0;padding:12px 16px;margin-bottom:20px;display:none; }
+    .validation-summary.is-visible { display:block; }
+    .validation-summary p { font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--cob-freedom-red); }
+
+    /* ── Fields ── */
+    .field-group { margin-bottom:28px; }
+    .field-group__heading { font-family:var(--font-ui);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--cob-navy);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #d2d2d2; }
+    .field-group__note { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-bottom:14px; }
+    .field-row { display:grid;gap:14px;margin-bottom:14px; }
+    .field-row--1 { grid-template-columns:1fr; }
+    .field-row--2 { grid-template-columns:1fr 1fr; }
+    @media(max-width:560px){.field-row--2{grid-template-columns:1fr;}}
+    .field { display:flex;flex-direction:column;gap:5px; }
+    .field label { font-family:var(--font-ui);font-weight:700;font-size:13px;line-height:1.4;color:var(--cob-navy);letter-spacing:.03em; }
+    .field .req { color:var(--cob-freedom-red);margin-left:2px; }
+    .field input,.field select,.field textarea { font-family:var(--font-ui);font-size:15px;color:var(--cob-navy);background:white;border:1px solid #d2d2d2;border-radius:4px;padding:10px 12px;width:100%;transition:border-color .15s,box-shadow .15s;appearance:none; }
+    .field input:focus,.field select:focus,.field textarea:focus { outline:none;border-color:var(--cob-theme);box-shadow:0 0 0 3px rgba(24,113,189,.15); }
+    .field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23797c7f' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px; }
+    .field textarea { min-height:80px;resize:vertical; }
+    .field input[aria-invalid="true"],.field select[aria-invalid="true"] { border-color:var(--cob-freedom-red); }
+    .field-error { font-family:var(--font-ui);font-size:12px;color:var(--cob-freedom-red);font-weight:600;display:none; }
+    .field-error.is-visible { display:block; }
+
+    /* ── Radio options ── */
+    .radio-group { display:flex;flex-direction:column;gap:8px; }
+    .radio-option { display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid #d2d2d2;border-radius:4px;cursor:pointer;background:white;transition:border-color .15s,background .15s; }
+    .radio-option:has(input:checked) { border-color:var(--cob-theme);background:#f0f7ff; }
+    .radio-option input[type="radio"] { width:18px;height:18px;flex-shrink:0;accent-color:var(--cob-theme);cursor:pointer; }
+    .radio-option__label { font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--cob-navy);flex:1; }
+    .radio-option__fee { font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--cob-theme); }
+    .radio-option__desc { font-family:var(--font-ui);font-size:13px;color:#58585b;margin-top:3px;font-weight:400; }
+
+    /* ── File upload ── */
+    .file-upload { border:2px dashed #d2d2d2;border-radius:4px;padding:14px 16px;background:#f8f8f8; }
+    .file-upload+.file-upload { margin-top:12px; }
+    .file-upload__label { font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--cob-navy);letter-spacing:.03em;display:block;margin-bottom:4px; }
+    .file-upload__req { color:var(--cob-freedom-red); }
+    .file-upload__desc { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-bottom:10px;line-height:1.5; }
+    .file-upload__input { font-family:var(--font-ui);font-size:13px;color:var(--cob-navy);width:100%;display:block; }
+    .file-upload__chosen { margin-top:6px;font-family:var(--font-ui);font-size:12px;color:var(--cob-theme);font-weight:600;display:none; }
+    .file-upload__chosen.is-visible { display:block; }
+
+    /* ── Dogs panel ── */
+    .dogs-panel { margin-bottom:24px; }
+    .dogs-panel__heading { font-family:var(--font-ui);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--cob-navy);margin-bottom:6px; }
+    .dogs-panel__desc { font-family:var(--font-ui);font-size:13px;color:#58585b;margin-bottom:12px;line-height:1.5; }
+    .dog-counter { font-family:var(--font-ui);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#797c7f;display:block;margin-top:8px; }
+
+    /* ── Dog card (wireframe layout) ── */
+    .dog-card { background:white;border:1px solid #e2e2e2;border-radius:4px;padding:14px 16px;margin-bottom:8px; }
+    .dog-card--active { border-color:var(--cob-theme);background:white;padding:0; }
+    .dog-card--active .dog-form { border:none;border-radius:0;margin:0; }
+    .dog-card__main { display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:start; }
+    @media(max-width:600px){.dog-card__main{grid-template-columns:1fr;gap:10px;}}
+    .dog-card__name { font-family:var(--font-ui);font-weight:700;font-size:15px;color:var(--cob-navy); }
+    .dog-card__method-heading { font-family:var(--font-ui);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#797c7f;margin-bottom:6px; }
+    .dog-card__method-radios { display:flex;flex-direction:column;gap:5px; }
+    .dog-card__method-label { display:flex;align-items:center;gap:7px;cursor:pointer; }
+    .dog-card__method-label input[type="radio"] { width:14px;height:14px;accent-color:var(--cob-theme);flex-shrink:0; }
+    .dog-card__method-label span { font-family:var(--font-ui);font-size:13px;color:var(--cob-navy); }
+    .dog-card__status-wrap { display:flex;align-items:flex-start;padding-top:2px;min-width:100px;justify-content:flex-end; }
+    @media(max-width:600px){.dog-card__status-wrap{justify-content:flex-start;}}
+    .dog-card__status { font-family:var(--font-ui);font-size:12px;font-weight:700;white-space:nowrap; }
+    .dog-card__status--needed { color:#797c7f; }
+    .dog-card__status--done { color:#2e7d32; }
+    .dog-card__actions { display:flex;gap:10px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid #e2e2e2; }
+
+    /* Buttons */
+    .btn-link { font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--cob-theme);text-decoration:underline;background:none;border:none;cursor:pointer;padding:2px 4px; }
+    .btn-link:hover { color:var(--cob-navy); }
+    .btn-link--danger { color:var(--cob-freedom-red); }
+    .btn-link--danger:hover { color:#8b1f1b; }
+
+    /* ── Dog form (expanded) ── */
+    .dog-form { background:white;border:1px solid #e2e2e2;border-radius:4px;padding:0 22px 22px;margin-bottom:16px; }
+    .dog-form__header { display:flex;align-items:center;justify-content:space-between;margin:0 -22px 18px;padding:16px 22px 12px;border-bottom:1px solid #d2d2d2;border-radius:4px 4px 0 0;position:sticky;top:0;background:white;z-index:10; }
+    .dog-form__title { font-family:var(--font-ui);font-weight:700;font-size:15px;color:var(--cob-navy); }
+    .dog-form__section-head { font-family:var(--font-ui);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--cob-navy);margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid #e2e2e2; }
+    .dog-form__section-note { font-family:var(--font-ui);font-size:12px;color:#58585b;margin-bottom:10px;line-height:1.5; }
+    .dog-form-actions { display:flex;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid #d2d2d2;flex-wrap:wrap; }
+
+    .btn-done-dog { background:var(--cob-navy);color:white;border:2px solid var(--cob-navy);border-radius:12px;padding:9px 18px;font-family:var(--font-ui);font-weight:600;font-size:14px;cursor:pointer;transition:background .15s; }
+    .btn-done-dog:hover { background:#06131e; }
+    .btn-add-dog { background:transparent;color:var(--cob-theme);border:2px solid var(--cob-theme);border-radius:12px;padding:9px 18px;font-family:var(--font-ui);font-weight:600;font-size:14px;cursor:pointer;transition:background .15s,color .15s;display:inline-flex;align-items:center;gap:6px; }
+    .btn-add-dog:hover { background:var(--cob-theme);color:white; }
+    .btn-add-dog:disabled { opacity:.4;cursor:not-allowed; }
+
+    .step-buttons { display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:24px;border-top:1px solid #d2d2d2;gap:12px; }
+    .btn-back { display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--cob-navy);border:2px solid #d2d2d2;border-radius:12px;padding:11px 20px;font-family:var(--font-ui);font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;transition:border-color .15s,background .15s; }
+    .btn-back:hover { border-color:var(--cob-navy);background:#f8f8f8; }
+
+    /* ── Review ── */
+    .review-block { background:white;border:1px solid #e2e2e2;border-radius:4px;padding:18px 22px;margin-bottom:14px; }
+    .review-block__header { display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #e2e2e2; }
+    .review-block__title { font-family:var(--font-ui);font-weight:700;font-size:14px;color:var(--cob-navy);text-transform:uppercase;letter-spacing:.06em; }
+    .review-dl { display:flex;flex-direction:column;gap:8px; }
+    .review-dl__row { display:grid;grid-template-columns:150px 1fr;gap:8px; }
+    @media(max-width:480px){.review-dl__row{grid-template-columns:1fr;gap:2px;}}
+    .review-dl__row dt { font-family:var(--font-ui);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#797c7f;padding-top:1px; }
+    .review-dl__row dd { font-family:var(--font-body);font-size:15px;line-height:1.55;color:var(--cob-navy); }
+    .review-fee-table { width:100%;border-collapse:collapse;font-family:var(--font-ui); }
+    .review-fee-table td { padding:8px 10px;font-size:14px;border-top:1px solid #e2e2e2; }
+    .review-fee-table td:last-child { text-align:right;color:var(--cob-navy);font-weight:600; }
+    .review-fee-table td:first-child { color:#58585b; }
+    .review-fee-table .total-row td { font-weight:700;font-size:15px;color:var(--cob-navy);border-top:2px solid var(--cob-navy); }
+    .review-fee-note { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-top:10px;line-height:1.5; }
+    .review-payment-note { font-family:var(--font-ui);font-size:13px;font-style:italic;color:#58585b;margin-top:14px; }
+
+    /* ── Invoice Cloud placeholder ── */
+    .ic-proto-banner { display:flex;align-items:center;gap:10px;background:var(--cob-amber);color:var(--cob-navy);padding:10px 16px;border-radius:4px;margin-bottom:20px;font-family:var(--font-ui);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em; }
+    .ic-placeholder { border:2px dashed #d2d2d2;border-radius:4px;background:white;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center;gap:14px; }
+    .ic-placeholder__icon { font-size:44px;opacity:.2; }
+    .ic-placeholder__name { font-family:var(--font-ui);font-weight:700;font-size:20px;color:#797c7f; }
+    .ic-placeholder__body { font-family:var(--font-body);font-size:15px;line-height:1.65;color:#797c7f;max-width:400px; }
+    .ic-placeholder__fee { font-family:var(--font-ui);font-weight:700;font-size:15px;color:var(--cob-navy); }
+    .open-question { margin-top:20px;background:#fff8e6;border:1px solid var(--cob-amber);border-radius:4px;padding:14px 18px; }
+    .open-question__head { font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#7a5000;margin-bottom:6px; }
+    .open-question p { font-family:var(--font-ui);font-size:13px;line-height:1.6;color:#5a3c00; }
+
+    /* ── Modals ── */
+    .modal-overlay { position:fixed;inset:0;background:rgba(9,31,47,.55);display:flex;align-items:center;justify-content:center;z-index:200;padding:16px; }
+    .modal-overlay[hidden] { display:none; }
+    .modal { background:white;border-radius:8px;padding:32px;max-width:420px;width:100%;box-shadow:0 20px 40px rgba(9,31,47,.3); }
+    .modal__title { font-family:var(--font-ui);font-weight:800;font-size:19px;color:var(--cob-navy);margin-bottom:12px;line-height:1.3; }
+    .modal__body { font-family:var(--font-body);font-size:15px;line-height:1.65;color:#58585b;margin-bottom:24px; }
+    .modal__actions { display:flex;flex-direction:column;gap:10px; }
+    .btn-modal-primary { display:block;width:100%;background:var(--cob-theme);color:white;border:2px solid var(--cob-theme);border-radius:12px;padding:12px 20px;font-family:var(--font-ui);font-weight:600;font-size:15px;cursor:pointer;text-align:center;transition:background .15s; }
+    .btn-modal-primary:hover { background:#135fa3;border-color:#135fa3; }
+    .btn-modal-danger { display:block;width:100%;background:transparent;color:var(--cob-freedom-red);border:2px solid var(--cob-freedom-red);border-radius:12px;padding:12px 20px;font-family:var(--font-ui);font-weight:600;font-size:15px;cursor:pointer;text-align:center;transition:background .15s,color .15s; }
+    .btn-modal-danger:hover { background:var(--cob-freedom-red);color:white; }
+    .btn-modal-secondary { display:block;width:100%;background:transparent;color:var(--cob-navy);border:2px solid #d2d2d2;border-radius:12px;padding:12px 20px;font-family:var(--font-ui);font-weight:600;font-size:15px;cursor:pointer;text-align:center;transition:border-color .15s,background .15s; }
+    .btn-modal-secondary:hover { border-color:var(--cob-navy);background:#f8f8f8; }
+
+    /* ── Lookup ── */
+    .lookup-method-card { background:white;border:1px solid #e2e2e2;border-radius:4px;padding:20px 22px;margin-bottom:20px; }
+    .lookup-form-card { background:white;border:1px solid #e2e2e2;border-radius:4px;padding:24px;margin-bottom:20px; }
+    .lookup-form-card__heading { font-family:var(--font-ui);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--cob-navy);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #d2d2d2; }
+    .btn-search { background:var(--cob-theme);color:white;border:2px solid var(--cob-theme);border-radius:12px;padding:11px 28px;font-family:var(--font-ui);font-weight:600;font-size:15px;cursor:pointer;transition:background .15s; }
+    .btn-search:hover { background:#135fa3; }
+    .lookup-help { background:#f8f8f8;border:1px solid #e2e2e2;border-radius:4px;padding:18px 22px; }
+    .lookup-help__heading { font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--cob-navy);margin-bottom:8px; }
+    .lookup-help p { font-family:var(--font-ui);font-size:13px;color:#58585b;line-height:1.6; }
+    .lookup-help a { color:var(--cob-theme);text-decoration:underline; }
+    .proto-data-note { background:#f0f7ff;border:1px solid #bee3f8;border-radius:4px;padding:10px 14px;margin-bottom:20px;font-family:var(--font-ui);font-size:12px;color:#0a4d8c; }
+
+    /* ── Result cards ── */
+    .results-summary { font-family:var(--font-ui);font-size:14px;color:#58585b;margin-bottom:16px; }
+    .result-card { background:white;border:1px solid #e2e2e2;border-radius:4px;margin-bottom:10px;overflow:hidden;transition:border-color .15s; }
+    .result-card--selected { border-color:var(--cob-theme); }
+    .result-card__top { display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer; }
+    .result-card__top:hover { background:#f8f8f8; }
+    .result-card--selected .result-card__top { background:#f0f7ff; }
+    .result-card__check { width:22px;height:22px;border-radius:50%;border:2px solid #d2d2d2;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s; }
+    .result-card--selected .result-card__check { background:var(--cob-theme);border-color:var(--cob-theme);color:white; }
+    .result-card__info { flex:1;min-width:0; }
+    .result-card__name { font-family:var(--font-ui);font-weight:700;font-size:15px;color:var(--cob-navy); }
+    .result-card__sub { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-top:2px; }
+    .result-card__badges { display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex-shrink:0; }
+    .badge { display:inline-block;padding:3px 8px;border-radius:12px;font-family:var(--font-ui);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap; }
+    .badge--expired { background:#fee2e2;color:#991b1b; }
+    .badge--current { background:#dcfce7;color:#166534; }
+    .badge--warning { background:#fef3c7;color:#92400e; }
+    .badge--active  { background:#dbeafe;color:#1e40af; }
+    .result-card__toggle { font-family:var(--font-ui);font-size:12px;font-weight:600;color:var(--cob-theme);white-space:nowrap;background:none;border:none;cursor:pointer;text-decoration:underline;flex-shrink:0;padding:0 0 0 8px; }
+    .result-card__detail { border-top:1px solid #e2e2e2;padding:16px 20px;background:#f8f8f8;display:none; }
+    .result-card__detail.is-open { display:block; }
+    .rabies-alert { display:flex;gap:10px;background:#fff8e6;border:1px solid var(--cob-amber);border-radius:4px;padding:12px 14px;margin-bottom:14px; }
+    .rabies-alert__icon { font-size:18px;flex-shrink:0; }
+    .rabies-alert__text { font-family:var(--font-ui);font-size:13px;color:#5a3c00;line-height:1.55; }
+    .rabies-alert__text strong { color:#7a5000; }
+    .detail-dl { display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px 16px; }
+    .detail-dl__row dt { font-family:var(--font-ui);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#797c7f;margin-bottom:2px; }
+    .detail-dl__row dd { font-family:var(--font-body);font-size:14px;color:var(--cob-navy);line-height:1.4; }
+    .select-bar { background:white;border:1px solid #e2e2e2;border-top:2px solid var(--cob-theme);border-radius:4px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px; }
+    .select-bar__info { font-family:var(--font-ui);font-size:13px;color:#58585b; }
+    .select-bar__info strong { color:var(--cob-navy); }
+    .btn-renew { background:var(--cob-theme);color:white;border:2px solid var(--cob-theme);border-radius:12px;padding:11px 24px;font-family:var(--font-ui);font-weight:600;font-size:15px;cursor:pointer;transition:background .15s; }
+    .btn-renew:hover { background:#135fa3; }
+    .btn-renew:disabled { opacity:.4;cursor:not-allowed; }
+    .results-help { background:#f8f8f8;border:1px solid #e2e2e2;border-radius:4px;padding:16px 20px;margin-top:20px; }
+    .results-help__heading { font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--cob-navy);margin-bottom:6px; }
+    .results-help p { font-family:var(--font-ui);font-size:13px;color:#58585b;line-height:1.6; }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="prototype-banner" role="note">Prototype simulation — not a live application. For design review only.</div>
+
+  <header>
+    <div class="trustbar">
+      <div class="trustbar__bar">
+        <div class="trustbar__seal" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="white" stroke-width="1.2"/><circle cx="10" cy="10" r="5.5" stroke="white" stroke-width="0.8"/><text x="10" y="13.5" text-anchor="middle" fill="white" font-size="6" font-family="sans-serif" font-weight="700">B</text></svg>
+        </div>
+        <p class="trustbar__text">An official website of the City of Boston.</p>
+        <button class="trustbar__toggle" id="trustbar-btn" aria-expanded="false" aria-controls="trustbar-panel">
+          Here's how you know
+          <svg class="trustbar__chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="trustbar__panel" id="trustbar-panel" hidden>
+        <div class="trustbar__panel-inner">
+          <div class="trustbar__fact"><div class="trustbar__fact-icon" aria-hidden="true">🏛️</div><div><p class="trustbar__fact-heading">Official websites use .boston.gov</p><p class="trustbar__fact-body">A <strong>.boston.gov</strong> website belongs to an official City of Boston organization.</p></div></div>
+          <div class="trustbar__fact"><div class="trustbar__fact-icon" aria-hidden="true">🔒</div><div><p class="trustbar__fact-heading">Secure .gov websites use HTTPS</p><p class="trustbar__fact-body">A lock icon or <strong>https://</strong> means you've safely connected.</p></div></div>
+        </div>
+      </div>
+    </div>
+    <nav class="main-nav" aria-label="Site navigation">
+      <div class="main-nav__inner">
+        <a href="../index.html" class="cob-logo" aria-label="City of Boston — return to license information page">
+          <img src="../assets/header-nav.png" alt="City of Boston, Mayor Michelle Wu" class="cob-logo__img">
+        </a>
+        <div class="main-nav__links">
+          <a class="nav-link nav-link--text" href="https://www.boston.gov/departments/animal-care-and-control">Animal Care &amp; Control</a>
+          <a class="nav-link nav-link--text" href="https://www.boston.gov">boston.gov</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <div class="app-outer">
+      <div class="app-container">
+
+        <nav class="app-breadcrumb" id="app-breadcrumb" aria-label="Breadcrumb">
+          <ol id="breadcrumb-list"></ol>
+        </nav>
+
+        <h1 class="app-page-title" id="app-title"></h1>
+
+        <div class="app-layout full-width-mode" id="app-layout">
+
+          <nav class="step-nav" id="step-nav" aria-label="Application steps">
+            <ol>
+              <li id="step-ind-0" style="display:none"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">1</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Find your renewal info</div></li>
+              <li id="step-ind-1"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">2</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Owner information</div></li>
+              <li id="step-ind-2"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">3</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Dog information</div></li>
+              <li id="step-ind-3"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">4</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Review</div></li>
+              <li id="step-ind-4"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">5</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Payment</div></li>
+            </ol>
+          </nav>
+
+          <div id="views-wrap">
+
+            <!-- ══ LANDING ══ -->
+            <section id="view-landing" class="app-view">
+              <p class="landing-intro">Boston requires all dog owners to license their dogs each year. A license helps Animal Control support rabies prevention, protect public health, and identify your pet.</p>
+
+              <div class="landing-section">
+                <p class="landing-section__heading">Before you start</p>
+                <ul>
+                  <li>Your dog must have proof of rabies vaccination.</li>
+                  <li>Puppies must be licensed when they reach six months of age.</li>
+                  <li>You must live in Boston to license your dog through the City of Boston.</li>
+                  <li>You may be subject to a fine if your dog is not licensed.</li>
+                </ul>
+              </div>
+
+              <div class="landing-section">
+                <p class="landing-section__heading">What you'll need</p>
+                <div class="landing-what-item">
+                  <span class="landing-what-item__label">Rabies vaccination certificate</span>
+                  <span class="landing-what-item__desc">A photo or PDF of your dog's current rabies vaccination certificate from your veterinarian.</span>
+                </div>
+                <div class="landing-what-item">
+                  <span class="landing-what-item__label">Credit or debit card</span>
+                  <span class="landing-what-item__desc">Visa, Mastercard, American Express, or Discover. A 2.75% service charge applies, with a $1 minimum.</span>
+                </div>
+              </div>
+
+              <div class="landing-section">
+                <p class="landing-section__heading">License period</p>
+                <p style="font-family:var(--font-ui);font-size:14px;color:#58585b;">Dog licenses are valid from April 1 through March 31 each year.</p>
+              </div>
+
+              <div class="landing-section">
+                <p class="landing-section__heading">License fees</p>
+                <table class="fee-table">
+                  <thead><tr><th>Dog type</th><th>Sex</th><th>Annual license fee</th></tr></thead>
+                  <tbody>
+                    <tr><td>Spayed or neutered dog</td><td>Female or male</td><td>$15</td></tr>
+                    <tr><td>Unspayed or unneutered dog</td><td>Female or male</td><td>$30</td></tr>
+                  </tbody>
+                </table>
+                <p class="fee-note">Online payments have a 2.75% service charge, with a $1 minimum. Accepted cards: American Express, Discover, Mastercard, and Visa.</p>
+              </div>
+
+              <div class="landing-cta-group">
+                <button type="button" class="btn-primary" id="btn-start-new">Start your application online</button>
+                <button type="button" class="btn-link" id="btn-find-license" style="font-size:15px;padding:0;">Find your license number</button>
+              </div>
+              <p class="landing-or">Or <a href="../index.html" style="color:var(--cob-theme);">apply in person or by mail</a></p>
+              <p class="landing-footer-links">Questions? Email Animal Care and Control at <a href="mailto:animalcontrol@boston.gov">animalcontrol@boston.gov</a>.</p>
+            </section>
+
+            <!-- ══ CHOOSE PATH ══ -->
+            <section id="view-choose-path" class="app-view" aria-labelledby="h-choose-path">
+              <h2 class="view-heading" id="h-choose-path">New license or renewal?</h2>
+              <p style="font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--cob-navy);margin-bottom:10px;">Select an option that applies to you <span style="color:var(--cob-freedom-red)">*</span></p>
+              <div class="radio-group" style="flex-direction:row;flex-wrap:wrap;gap:12px;margin-bottom:28px;">
+                <label class="radio-option" style="flex:1;min-width:220px;align-items:flex-start;gap:12px;padding:14px 16px;">
+                  <input type="radio" name="app-path" value="new" id="path-new">
+                  <div>
+                    <span class="radio-option__label" style="display:block;">Apply for a new license</span>
+                    <span class="radio-option__desc">Enter your information and the dog's details</span>
+                  </div>
+                </label>
+                <label class="radio-option" style="flex:1;min-width:220px;align-items:flex-start;gap:12px;padding:14px 16px;">
+                  <input type="radio" name="app-path" value="renewal" id="path-renewal">
+                  <div>
+                    <span class="radio-option__label" style="display:block;">Renew an existing license</span>
+                    <span class="radio-option__desc">Find and confirm your dog's record</span>
+                  </div>
+                </label>
+              </div>
+
+              <div id="renewal-lookup-wrap" hidden>
+                <h3 class="view-heading" style="font-size:20px;margin-bottom:8px;">Find your existing license</h3>
+                <p class="view-subhead" style="margin-bottom:20px;">If you've licensed your dog in Boston before, enter your information to find your existing license and continue your application.</p>
+
+                <div class="lookup-method-card">
+                  <p style="font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--cob-navy);margin-bottom:12px;">How would you like to find your license? <span style="color:var(--cob-freedom-red)">*</span></p>
+                  <div class="radio-group" style="flex-direction:row;flex-wrap:wrap;gap:12px;">
+                    <label class="radio-option" style="flex:1;min-width:200px;">
+                      <input type="radio" name="lookup-method" value="number" id="lm-number" checked>
+                      <span class="radio-option__label">I know my license number</span>
+                    </label>
+                    <label class="radio-option" style="flex:1;min-width:200px;">
+                      <input type="radio" name="lookup-method" value="name" id="lm-name">
+                      <span class="radio-option__label">I want to search by owner name</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div id="lookup-form-number" class="lookup-form-card">
+                  <p class="lookup-form-card__heading">Search by license number</p>
+                  <p class="field-group__note" style="margin-bottom:14px;">Fields marked with * are required.</p>
+                  <div class="field-row field-row--2">
+                    <div class="field">
+                      <label for="ls-num">License tag number <span class="req" aria-hidden="true">*</span></label>
+                      <input type="text" id="ls-num" placeholder="e.g. A-00450">
+                      <span style="font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-top:2px;">You can find your license number on your dog's tag or previous license records.</span>
+                    </div>
+                    <div class="field">
+                      <label for="ls-year-n">License year <span class="req" aria-hidden="true">*</span></label>
+                      <input type="text" id="ls-year-n" placeholder="e.g. 2024" maxlength="4" inputmode="numeric">
+                    </div>
+                  </div>
+                  <div class="field-row field-row--2">
+                    <div class="field">
+                      <label for="ls-dog-n">Dog's name <span class="req" aria-hidden="true">*</span></label>
+                      <input type="text" id="ls-dog-n">
+                    </div>
+                    <div></div>
+                  </div>
+                  <button type="button" class="btn-search" id="btn-search-number">Search</button>
+                </div>
+
+                <div id="lookup-form-name" class="lookup-form-card" hidden>
+                  <p class="lookup-form-card__heading">Search by owner name</p>
+                  <p class="field-group__note" style="margin-bottom:14px;">Fields marked with * are required.</p>
+                  <div class="field-row field-row--2">
+                    <div class="field"><label for="ls-fname">Owner's first name <span class="req" aria-hidden="true">*</span></label><input type="text" id="ls-fname"></div>
+                    <div class="field"><label for="ls-lname">Owner's last name <span class="req" aria-hidden="true">*</span></label><input type="text" id="ls-lname"></div>
+                  </div>
+                  <div class="field-row field-row--2">
+                    <div class="field"><label for="ls-year-name">License year <span class="req" aria-hidden="true">*</span></label><input type="text" id="ls-year-name" placeholder="e.g. 2024" maxlength="4" inputmode="numeric"></div>
+                    <div class="field"><label for="ls-dog-name">Dog's name <span class="req" aria-hidden="true">*</span></label><input type="text" id="ls-dog-name"></div>
+                  </div>
+                  <button type="button" class="btn-search" id="btn-search-name">Search</button>
+                </div>
+
+                <div class="lookup-help">
+                  <p class="lookup-help__heading">Need help finding your license?</p>
+                  <p>If you don't remember your license number or can't provide the details needed to search, call Animal Care and Control for help.</p>
+                  <p style="margin-top:8px;"><a href="tel:6176355348">617-635-5348</a> · Monday–Friday, 8 a.m.–4 p.m.<br><a href="mailto:animalcontrol@boston.gov">animalcontrol@boston.gov</a></p>
+                </div>
+              </div>
+
+              <div id="choosepath-val-summary" class="validation-summary"><p id="choosepath-val-msg">Please select an option to continue.</p></div>
+
+              <div class="step-buttons">
+                <button type="button" class="btn-back" id="btn-choosepath-back">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Back to license information
+                </button>
+                <button type="button" class="btn-primary" id="btn-choosepath-continue">Continue</button>
+              </div>
+            </section>
+
+            <!-- ══ LOOKUP: Results ══ -->
+            <section id="view-lookup-results" class="app-view" aria-labelledby="h-lookup-results">
+              <h2 class="view-heading" id="h-lookup-results">Review your dog information</h2>
+              <p class="view-subhead">We found an existing license. Review the information below to make sure it matches your dog before continuing.</p>
+              <div class="proto-data-note"><strong>Prototype:</strong> Showing sample record. Enter a dog name in the search to match a specific record.</div>
+              <div id="result-rabies-alert" class="rabies-alert" hidden>
+                <span class="rabies-alert__icon">&#9888;&#65039;</span>
+                <div class="rabies-alert__text"><strong>Check your rabies vaccination</strong> — The rabies expiration date shown in this record has passed. You may need an updated vaccination certificate in the next steps.</div>
+              </div>
+              <div class="review-block" id="result-detail-card"></div>
+              <div class="step-buttons" style="justify-content:space-between;">
+                <button type="button" class="btn-back" id="btn-find-another">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Search another dog
+                </button>
+                <button type="button" class="btn-primary" id="btn-renew">Renew your license</button>
+              </div>
+              <div class="results-help">
+                <p class="results-help__heading">Something look wrong?</p>
+                <p>If a dog's breed, age, vaccination dates, or license status doesn't match what you expect, contact Animal Care and Control before you renew.</p>
+                <p style="margin-top:8px;"><a href="tel:6176355348" style="color:var(--cob-theme);">617-635-5348</a> · Monday–Friday, 8 a.m.–4 p.m.<br><a href="mailto:animalcontrol@boston.gov" style="color:var(--cob-theme);">animalcontrol@boston.gov</a></p>
+              </div>
+            </section>
+
+            <!-- ══ STEP 1: Owner ══ -->
+            <section id="view-owner" class="app-view" aria-labelledby="h-owner">
+              <h2 class="view-heading" id="h-owner">Owner information</h2>
+              <p class="view-subhead">Review your contact information and make any necessary updates.</p>
+              <div class="preconditions" role="note">
+                <p class="preconditions__heading">Before you continue</p>
+                <p class="preconditions__intro">To complete your application:</p>
+                <ul>
+                  <li>You must be at least 18 years old.</li>
+                  <li>You must provide proof of your dog's current rabies vaccination.</li>
+                  <li>You must provide proof that your dog has been spayed or neutered, if applicable.</li>
+                  <li>You must pay any outstanding violations before your application can be completed.</li>
+                  <li>If the required certificates are not already on file, you must provide them during the application process. Missing documentation may delay or prevent approval.</li>
+                </ul>
+              </div>
+              <div id="owner-val-summary" class="validation-summary" role="alert"><p>Please complete all required fields before continuing.</p></div>
+              <form id="form-owner" novalidate>
+                <div class="field-group">
+                  <p class="field-group__heading">Your contact information</p>
+                  <p class="field-group__note">Fields marked with * are required.</p>
+                  <div class="field-row field-row--1"><div class="field">
+                    <label for="o-name">Owner's full name <span class="req" aria-hidden="true">*</span></label>
+                    <input type="text" id="o-name" autocomplete="name" required aria-required="true">
+                    <span class="field-error" id="err-o-name">Full name is required.</span>
+                  </div></div>
+                  <div class="field-row field-row--2">
+                    <div class="field"><label for="o-phone">Phone number</label><input type="tel" id="o-phone" autocomplete="tel" placeholder="(   ) ___-____"></div>
+                    <div class="field">
+                      <label for="o-email">Email address <span class="req" aria-hidden="true">*</span></label>
+                      <input type="email" id="o-email" autocomplete="email" required aria-required="true">
+                      <span class="field-error" id="err-o-email">Email address is required.</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="field-group">
+                  <p class="field-group__heading">Your Boston address</p>
+                  <p class="field-group__note">Fields marked with * are required.</p>
+                  <div class="field-row field-row--1"><div class="field">
+                    <label for="o-street">Street address <span class="req" aria-hidden="true">*</span></label>
+                    <input type="text" id="o-street" autocomplete="street-address" required aria-required="true">
+                    <span class="field-error" id="err-o-street">Street address is required.</span>
+                  </div></div>
+                  <div class="field-row field-row--2">
+                    <div class="field"><label for="o-apt">Apartment or unit number</label><input type="text" id="o-apt" autocomplete="address-line2"></div>
+                    <div class="field">
+                      <label for="o-neighborhood">Neighborhood <span class="req" aria-hidden="true">*</span></label>
+                      <select id="o-neighborhood" required aria-required="true">
+                        <option value="">Select</option>
+                        <option>Allston</option><option>Back Bay</option><option>Bay Village</option><option>Beacon Hill</option><option>Brighton</option><option>Charlestown</option><option>Chinatown / Leather District</option><option>Dorchester</option><option>Downtown / Financial District</option><option>East Boston</option><option>Fenway / Kenmore</option><option>Hyde Park</option><option>Jamaica Plain</option><option>Mattapan</option><option>Mission Hill</option><option>North End</option><option>Roslindale</option><option>Roxbury</option><option>South Boston</option><option>South End</option><option>West End</option><option>West Roxbury</option><option>Wharf District</option>
+                      </select>
+                      <span class="field-error" id="err-o-neighborhood">Please select a neighborhood.</span>
+                    </div>
+                  </div>
+                  <div class="field-row field-row--2">
+                    <div class="field">
+                      <label for="o-zip">ZIP code <span class="req" aria-hidden="true">*</span></label>
+                      <input type="text" id="o-zip" autocomplete="postal-code" maxlength="10" inputmode="numeric" required aria-required="true">
+                      <span class="field-error" id="err-o-zip">ZIP code is required.</span>
+                    </div>
+                    <div></div>
+                  </div>
+                </div>
+              </form>
+              <div class="step-buttons">
+                <button type="button" class="btn-back" id="btn-owner-back">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Back
+                </button>
+                <button type="button" class="btn-primary" id="btn-owner-continue">Continue</button>
+              </div>
+            </section>
+
+            <!-- ══ STEP 2: Dogs ══ -->
+            <section id="view-dogs" class="app-view" aria-labelledby="h-dogs">
+              <h2 class="view-heading" id="h-dogs">Dog information</h2>
+              <p class="view-subhead">Complete details and documents for each dog. You can include new licenses and renewals in the same application.</p>
+              <div id="dogs-val-summary" class="validation-summary" role="alert"><p id="dogs-val-msg">Please complete all required fields before continuing.</p></div>
+              <div class="dogs-panel">
+                <p class="dogs-panel__heading">Dogs in this application</p>
+                <p class="dogs-panel__desc">Complete details for each dog. New licenses and renewals can be included together.</p>
+                <div id="dog-cards"></div>
+                <span class="dog-counter" id="dog-counter"></span>
+              </div>
+              <div id="dog-form-wrap"></div>
+              <div style="margin-bottom:8px;">
+                <button type="button" class="btn-add-dog" id="btn-add-dog">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M6.5 1v11M1 6.5h11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  Add another dog
+                </button>
+              </div>
+              <div class="step-buttons">
+                <button type="button" class="btn-back" id="btn-dogs-back">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Back
+                </button>
+                <button type="button" class="btn-primary" id="btn-dogs-continue">Continue</button>
+              </div>
+            </section>
+
+            <!-- ══ STEP 3: Review ══ -->
+            <section id="view-review" class="app-view" aria-labelledby="h-review">
+              <h2 class="view-heading" id="h-review">Review your application</h2>
+              <p class="view-subhead">Review your information and uploaded documents before continuing to payment. You can edit any section if something needs to change.</p>
+              <div class="review-block">
+                <div class="review-block__header"><p class="review-block__title">Owner information</p><button type="button" class="btn-link" id="btn-edit-owner">Edit</button></div>
+                <dl class="review-dl" id="review-owner"></dl>
+              </div>
+              <div id="review-dogs"></div>
+              <div class="review-block">
+                <div class="review-block__header"><p class="review-block__title">License fees</p></div>
+                <table class="review-fee-table" id="review-fees"></table>
+                <p class="review-fee-note">An online service charge of 2.75% (minimum $1.00) applies. Invoice Cloud will show the amount due before payment.</p>
+              </div>
+              <p class="review-payment-note">You'll continue to Invoice Cloud to pay for your dog licenses.</p>
+              <div class="step-buttons">
+                <button type="button" class="btn-back" id="btn-review-back">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Back
+                </button>
+                <button type="button" class="btn-primary" id="btn-review-continue">Continue to payment</button>
+              </div>
+            </section>
+
+            <!-- ══ STEP 4: Payment ══ -->
+            <section id="view-payment" class="app-view" aria-labelledby="h-payment">
+              <h2 class="view-heading" id="h-payment">Payment</h2>
+              <div class="ic-proto-banner" role="note">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3.5M8 10.5v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                Prototype simulation — this is where Invoice Cloud would appear
+              </div>
+              <div class="ic-placeholder">
+                <div class="ic-placeholder__icon" aria-hidden="true">🔒</div>
+                <p class="ic-placeholder__name">Invoice Cloud</p>
+                <p class="ic-placeholder__body">In the live application, users are handed off to Invoice Cloud here to complete payment by credit or debit card (Visa, Mastercard, American Express, or Discover).</p>
+                <p class="ic-placeholder__body">This prototype does not connect to Invoice Cloud and does not collect or process payment information.</p>
+                <p class="ic-placeholder__fee" id="ic-fee-display"></p>
+              </div>
+              <div class="open-question">
+                <p class="open-question__head">Open question — post-payment behavior not yet designed</p>
+                <p>What happens after Invoice Cloud processes payment? The return URL, confirmation screen, license issuance timing, failed-payment handling, and partial-payment behavior are not confirmed. Do not assume completing payment means the license has been issued.</p>
+              </div>
+              <div class="step-buttons" style="justify-content:flex-start;">
+                <button type="button" class="btn-back" id="btn-payment-back">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Back to application review
+                </button>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal: Leave -->
+  <div id="modal-leave" class="modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="modal-leave-title">
+    <div class="modal">
+      <h2 class="modal__title" id="modal-leave-title">Leave the dog license application?</h2>
+      <p class="modal__body">You haven't submitted your application. Leaving now may cause you to lose the information you've entered.</p>
+      <div class="modal__actions">
+        <button type="button" class="btn-modal-primary"  id="modal-leave-stay">Stay in application</button>
+        <button type="button" class="btn-modal-danger"   id="modal-leave-go">Leave application</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Payment -->
+  <div id="modal-payment" class="modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="modal-payment-title">
+    <div class="modal">
+      <h2 class="modal__title" id="modal-payment-title">Continue to payment?</h2>
+      <p class="modal__body">You'll leave this application and go to Invoice Cloud to pay for your dog licenses. Review the total, including the service charge, before paying.</p>
+      <div class="modal__actions">
+        <button type="button" class="btn-modal-primary"   id="modal-payment-go">Continue to Invoice Cloud</button>
+        <button type="button" class="btn-modal-secondary" id="modal-payment-stay">Back to review</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <div class="footer-logo" aria-label="City of Boston"><span class="footer-logo__b" aria-hidden="true">B</span><span class="footer-logo__bar" aria-hidden="true"></span></div>
+        <nav class="footer-links" aria-label="City of Boston global links">
+          <a href="https://www.boston.gov/privacy-policy">Privacy Policy</a>
+          <a href="https://www.boston.gov/report-security-problem">Report a Security Problem</a>
+          <a href="https://www.boston.gov/public-records">Public Records</a>
+          <a href="https://www.boston.gov/accessibility">Accessibility</a>
+          <a href="https://www.boston.gov/contact">Contact Us</a>
+        </nav>
+      </div>
+      <a href="https://311.boston.gov" class="footer-311">Contact 311</a>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    'use strict';
+
+    var MAX_DOGS = 3;
+    var COLORS = ['Black','Brown','White','Gray / Silver','Tan / Beige','Golden / Yellow','Red / Rust','Brindle','Merle','Spotted / Patched','Other'];
+    var BREEDS = ['American Bulldog','American Pit Bull Terrier','Beagle','Border Collie','Boston Terrier','Boxer','Bulldog','Chihuahua','Cocker Spaniel','Dachshund','German Shepherd','Golden Retriever','Great Dane','Husky','Labrador Retriever','Maltese','Mixed breed','Poodle','Pug','Rottweiler','Shih Tzu','Yorkshire Terrier','Other'];
+    var SEX_MAP = { 'intact-male':'Intact male', neutered:'Neutered male', 'intact-female':'Intact female', spayed:'Spayed female' };
+
+    var DUMMY_OWNER = { name:'Jane Smith', phone:'617-555-0147', email:'jane.smith@email.com', street:'45 Commonwealth Ave', apt:'Apt 3B', neighborhood:'South End', zip:'02118' };
+    var LOOKUP_RECORDS = [
+      { dogName:'Buddy', licenseNum:'A-00450', breed:'Labrador Retriever', sex:'intact-male',    ageY:'4', ageM:'0', color1:'Black',          color2:'',      licensed:'January 10, 2022', licenseExpiry:'March 31, 2023', licenseExpired:true,  vaccDate:'2021-08-16', vaccExpiry:'2024-08-12', rabiesExpired:true  },
+      { dogName:'Luna',  licenseNum:'A-00461', breed:'Golden Retriever',   sex:'spayed',  ageY:'3', ageM:'0', color1:'Golden / Yellow', color2:'',      licensed:'March 5, 2022',    licenseExpiry:'March 31, 2025', licenseExpired:true,  vaccDate:'2024-11-20', vaccExpiry:'2026-12-15', rabiesExpired:false },
+      { dogName:'Milo',  licenseNum:'A-00892', breed:'Beagle',             sex:'neutered',ageY:'2', ageM:'0', color1:'Brown',           color2:'White', licensed:'April 12, 2023',   licenseExpiry:'March 31, 2027', licenseExpired:false, vaccDate:'2025-04-05', vaccExpiry:'2027-05-20', rabiesExpired:false }
+    ];
+
+    var state = { step:1, path:'', owner:{name:'',phone:'',email:'',street:'',apt:'',neighborhood:'',zip:''}, dogs:[], activeDog:-1, totalFee:0, leaveDest:null };
+    var lookupSelected = [];
+    var currentResult = null;
+    var detailsOpen = {};
+
+    function $(id){ return document.getElementById(id); }
+    function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function opts(list,sel){ return list.map(function(v){ return '<option'+(v===sel?' selected':'')+'>'+esc(v)+'</option>'; }).join(''); }
+    function fee(dog){ return (dog.sex==='neutered'||dog.sex==='spayed')?15:30; }
+
+    /* ── Layout mode ── */
+    function setMode(mode){
+      var layout=$('app-layout');
+      var bc=$('breadcrumb-list');
+      var title=$('app-title');
+      if(mode==='form'){
+        layout.classList.remove('full-width-mode');
+        document.title='Dog License Application | Boston.gov';
+        title.textContent='Request a Dog License';
+        bc.innerHTML=crumb([{label:'Home',href:'https://www.boston.gov'},{label:'Animal Care and Control',href:'https://www.boston.gov/departments/animal-care-and-control'},{label:'License Your Dog',href:'../index.html'},{label:'Dog License Application',current:true}]);
+      } else if(mode==='lookup'){
+        layout.classList.add('full-width-mode');
+        document.title="Find Your Dog's License | Boston.gov";
+        title.textContent="Find Your Dog's License";
+        bc.innerHTML=crumb([{label:'Home',href:'https://www.boston.gov'},{label:'Animal Care and Control',href:'https://www.boston.gov/departments/animal-care-and-control'},{label:'License Your Dog',href:'../index.html'},{label:"Find Your Dog's License",current:true}]);
+      } else {
+        layout.classList.add('full-width-mode');
+        document.title='Dog License Application | Boston.gov';
+        title.textContent='Dog License Application';
+        bc.innerHTML=crumb([{label:'Home',href:'https://www.boston.gov'},{label:'Animal Care and Control',href:'https://www.boston.gov/departments/animal-care-and-control'},{label:'License Your Dog',href:'../index.html'},{label:'Dog License Application',current:true}]);
+      }
+    }
+    function crumb(items){
+      return items.map(function(i){ return '<li>'+(i.current?'<span aria-current="page">'+esc(i.label)+'</span>':'<a href="'+esc(i.href)+'">'+esc(i.label)+'</a>')+'</li>'; }).join('');
+    }
+
+    /* ── Show views ── */
+    function showView(id){
+      document.querySelectorAll('.app-view').forEach(function(v){ v.classList.remove('is-active'); });
+      $(id).classList.add('is-active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    function showLanding(){ setMode('landing'); showView('view-landing'); }
+
+    function setPath(p){
+      state.path=p;
+      var s0=$('step-ind-0');
+      if(!s0) return;
+      if(p==='renewal'){
+        s0.style.display='';
+        s0.querySelector('.step-nav__circle').textContent='1';
+        $('step-ind-1').querySelector('.step-nav__circle').textContent='2';
+        $('step-ind-2').querySelector('.step-nav__circle').textContent='3';
+        $('step-ind-3').querySelector('.step-nav__circle').textContent='4';
+        $('step-ind-4').querySelector('.step-nav__circle').textContent='5';
+      } else {
+        s0.style.display='none';
+        $('step-ind-1').querySelector('.step-nav__circle').textContent='1';
+        $('step-ind-2').querySelector('.step-nav__circle').textContent='2';
+        $('step-ind-3').querySelector('.step-nav__circle').textContent='3';
+        $('step-ind-4').querySelector('.step-nav__circle').textContent='4';
+      }
+    }
+
+    function showStep0(){
+      setMode('form');
+      var s0=$('step-ind-0'); if(s0){ s0.classList.remove('step--done'); s0.classList.add('step--active'); }
+      for(var i=1;i<=4;i++){ var li=$('step-ind-'+i); li.classList.remove('step--active','step--done'); }
+      state.step=0;
+    }
+    function showStep(n){
+      setMode('form');
+      var s0=$('step-ind-0');
+      if(s0){ s0.classList.remove('step--active'); if(state.path==='renewal') s0.classList.add('step--done'); else s0.classList.remove('step--done'); }
+      var names=['owner','dogs','review','payment'];
+      showView('view-'+names[n-1]);
+      for(var i=1;i<=4;i++){
+        var li=$('step-ind-'+i);
+        li.classList.remove('step--active','step--done');
+        if(i<n) li.classList.add('step--done');
+        else if(i===n) li.classList.add('step--active');
+      }
+      state.step=n;
+    }
+
+    /* ── Owner ── */
+    function saveOwner(){ state.owner={name:$('o-name').value.trim(),phone:$('o-phone').value.trim(),email:$('o-email').value.trim(),street:$('o-street').value.trim(),apt:$('o-apt').value.trim(),neighborhood:$('o-neighborhood').value,zip:$('o-zip').value.trim()}; }
+    function restoreOwner(){ $('o-name').value=state.owner.name; $('o-phone').value=state.owner.phone; $('o-email').value=state.owner.email; $('o-street').value=state.owner.street; $('o-apt').value=state.owner.apt; $('o-neighborhood').value=state.owner.neighborhood; $('o-zip').value=state.owner.zip; }
+    function validateOwner(){
+      var checks=[['o-name','err-o-name'],['o-email','err-o-email'],['o-street','err-o-street'],['o-neighborhood','err-o-neighborhood'],['o-zip','err-o-zip']];
+      var ok=true;
+      checks.forEach(function(c){ var inp=$(c[0]); var v=inp.value.trim().length>0; inp.setAttribute('aria-invalid',v?'false':'true'); var e=$(c[1]); if(e) e.classList.toggle('is-visible',!v); if(!v) ok=false; });
+      $('owner-val-summary').classList.toggle('is-visible',!ok);
+      return ok;
+    }
+
+    /* ── Dog model ── */
+    function newDog(){ return {name:'',ageY:'',ageM:'',color1:'',color2:'',breed1:'',breed2:'',sex:'',vaccDate:'',expDate:'',rabiesFile:'',spayFile:'',comments:'',method:'',fromLookup:false,done:false}; }
+
+    /* ── Dog card HTML ── */
+    function dogCardHTML(i){
+      var d=state.dogs[i];
+      var isActive=state.activeDog===i;
+      var name=d.name||((['First','Second','Third'][i]||'Dog '+(i+1))+' dog');
+      var methodTag=d.method?'<span style="font-size:11px;font-weight:600;color:#797c7f;letter-spacing:.04em;margin-left:8px;">('+(d.method==='renewal'?'Renewal':'New license')+')</span>':'';
+      var statusHTML=d.done
+        ? '<span class="dog-card__status dog-card__status--done">&#10003; Complete</span>'
+        : '<span class="dog-card__status dog-card__status--needed">Details needed</span>';
+      var removeBtn=i>0?'<button type="button" class="btn-link btn-link--danger" id="btn-rmcard-'+i+'">Remove</button>':'';
+      var actionLabel=d.done?'Edit details':'Complete Details';
+
+      if(isActive){
+        return '<div class="dog-card dog-card--active" id="dc-'+i+'">'+dogFormHTML(i)+'</div>';
+      }
+      return '<div class="dog-card" id="dc-'+i+'">'+
+        '<div class="dog-card__main" style="grid-template-columns:1fr auto;">'+
+          '<div class="dog-card__name-col"><p class="dog-card__name">'+esc(name)+methodTag+'</p></div>'+
+          '<div class="dog-card__status-wrap">'+statusHTML+'</div>'+
+        '</div>'+
+        '<div class="dog-card__actions">'+
+          '<button type="button" class="btn-link" id="btn-edit-'+i+'">'+actionLabel+'</button>'+
+          removeBtn+
+        '</div>'+
+      '</div>';
+    }
+
+    /* ── Dog form HTML ── */
+    function dogFormHTML(i){
+      var d=state.dogs[i];
+      var title=d.name||((['First','Second','Third'][i]||'Dog '+(i+1))+' dog');
+      var methodSection;
+      if(d.fromLookup){
+        methodSection='<div style="background:#f0f7ff;border:1px solid #bee3f8;border-radius:4px;padding:12px 14px;margin-bottom:18px;">'+
+          '<p style="font-family:var(--font-ui);font-size:13px;color:#0a4d8c;"><strong>Application type: Renewal</strong> — carried forward from license lookup.</p>'+
+          '<p style="font-family:var(--font-ui);font-size:11px;color:#797c7f;margin-top:4px;">Prototype note: actual lookup and prefill has not been confirmed with the development team.</p>'+
+        '</div>';
+      } else {
+        methodSection=[
+          '<p class="dog-form__section-head">What are you applying for? <span style="color:var(--cob-freedom-red)">*</span></p>',
+          '<div class="radio-group" style="flex-direction:row;flex-wrap:wrap;gap:10px;margin-bottom:18px;">',
+            '<label class="radio-option" style="flex:1;min-width:160px;"><input type="radio" name="dmethod-'+i+'" value="new"'+(d.method==='new'?' checked':'')+' data-mt="'+i+'"><span class="radio-option__label">New license</span></label>',
+            '<label class="radio-option" style="flex:1;min-width:160px;"><input type="radio" name="dmethod-'+i+'" value="renewal"'+(d.method==='renewal'?' checked':'')+' data-mt="'+i+'"><span class="radio-option__label">Renewal</span></label>',
+          '</div>',
+        ].join('');
+      }
+      var statusBadge=d.done
+        ?'<span class="dog-card__status dog-card__status--done" style="margin-left:10px;">&#10003; Complete</span>'
+        :'<span class="dog-card__status dog-card__status--needed" style="margin-left:10px;">Details needed</span>';
+      return [
+        '<div class="dog-form">',
+          '<div class="dog-form__header">',
+            '<div style="display:flex;align-items:center;">',
+              '<p class="dog-form__title">',esc(title),'</p>',
+              statusBadge,
+            '</div>',
+            i>0?'<button type="button" class="btn-link btn-link--danger" id="btn-rm-'+i+'">Remove</button>':'',
+          '</div>',
+          '<div style="padding:4px 0 14px;">'+
+            '<button type="button" class="btn-link" id="btn-collapse-'+i+'" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:2px 0;">'+
+              '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
+              'Complete Details'+
+            '</button>'+
+          '</div>',
+          '<p class="field-group__note">Fields marked with * are required.</p>',
+          methodSection,
+          '<div class="field-row field-row--1"><div class="field"><label for="d-name-'+i+'">Dog\'s name <span class="req" aria-hidden="true">*</span></label><input type="text" id="d-name-'+i+'" value="'+esc(d.name)+'" data-f="name" data-i="'+i+'"></div></div>',
+          '<div class="field-row field-row--2">',
+            '<div class="field"><label for="d-ay-'+i+'">Age (years) <span class="req" aria-hidden="true">*</span></label><input type="number" id="d-ay-'+i+'" min="0" max="30" value="'+esc(d.ageY)+'" data-f="ageY" data-i="'+i+'"></div>',
+            '<div class="field"><label for="d-am-'+i+'">Age (months)</label><input type="number" id="d-am-'+i+'" min="0" max="11" value="'+esc(d.ageM)+'" data-f="ageM" data-i="'+i+'"></div>',
+          '</div>',
+          '<div class="field-row field-row--2">',
+            '<div class="field"><label for="d-c1-'+i+'">Primary color <span class="req" aria-hidden="true">*</span></label><select id="d-c1-'+i+'" data-f="color1" data-i="'+i+'"><option value="">Select</option>'+opts(COLORS,d.color1)+'</select></div>',
+            '<div class="field"><label for="d-c2-'+i+'">Secondary color</label><select id="d-c2-'+i+'" data-f="color2" data-i="'+i+'"><option value="">None / same</option>'+opts(COLORS,d.color2)+'</select></div>',
+          '</div>',
+          '<div class="field-row field-row--2">',
+            '<div class="field"><label for="d-b1-'+i+'">Primary breed <span class="req" aria-hidden="true">*</span></label><select id="d-b1-'+i+'" data-f="breed1" data-i="'+i+'"><option value="">Select</option>'+opts(BREEDS,d.breed1)+'</select></div>',
+            '<div class="field"><label for="d-b2-'+i+'">Secondary breed</label><select id="d-b2-'+i+'" data-f="breed2" data-i="'+i+'"><option value="">None / not applicable</option>'+opts(BREEDS,d.breed2)+'</select></div>',
+          '</div>',
+          '<p class="dog-form__section-head">Sex and spay/neuter status <span style="color:var(--cob-freedom-red)">*</span></p>',
+          '<div class="radio-group">',
+            sexOpt(i,'intact-male',   'Intact male',   '$30',d.sex),
+            sexOpt(i,'neutered',      'Neutered male', '$15',d.sex),
+            sexOpt(i,'intact-female', 'Intact female', '$30',d.sex),
+            sexOpt(i,'spayed',        'Spayed female', '$15',d.sex),
+          '</div>',
+          '<p class="dog-form__section-head">Rabies vaccination</p>',
+          '<p class="dog-form__section-note">Your dog must have current rabies vaccination documentation. Enter the dates shown on the certificate.</p>',
+          '<div class="field-row field-row--2">',
+            '<div class="field"><label for="d-vd-'+i+'">Vaccination date <span class="req" aria-hidden="true">*</span></label><input type="date" id="d-vd-'+i+'" value="'+esc(d.vaccDate)+'" data-f="vaccDate" data-i="'+i+'"></div>',
+            '<div class="field"><label for="d-ed-'+i+'">Expiration date <span class="req" aria-hidden="true">*</span></label><input type="date" id="d-ed-'+i+'" value="'+esc(d.expDate)+'" data-f="expDate" data-i="'+i+'"></div>',
+          '</div>',
+          '<div class="file-upload">',
+            '<span class="file-upload__label">Rabies vaccination certificate <span class="file-upload__req" aria-hidden="true">*</span></span>',
+            '<p class="file-upload__desc">Required for new applications. For renewals, upload a new or updated certificate if needed. Accepted: PDF, JPG, PNG. Max 5 MB.</p>',
+            '<input type="file" class="file-upload__input" id="d-rf-'+i+'" accept=".pdf,.jpg,.jpeg,.png" data-fi="rabiesFile" data-i="'+i+'">',
+            d.rabiesFile?'<p class="file-upload__chosen is-visible" id="d-rfc-'+i+'">Selected: '+esc(d.rabiesFile)+'</p>':'<p class="file-upload__chosen" id="d-rfc-'+i+'"></p>',
+          '</div>',
+          '<div class="file-upload">',
+            '<span class="file-upload__label">Spay/neuter certificate <span style="font-weight:400;color:#797c7f">(Optional)</span></span>',
+            '<p class="file-upload__desc">Upload proof if required and not already on file. Max 5 MB.</p>',
+            '<input type="file" class="file-upload__input" id="d-sf-'+i+'" accept=".pdf,.jpg,.jpeg,.png" data-fi="spayFile" data-i="'+i+'">',
+            d.spayFile?'<p class="file-upload__chosen is-visible" id="d-sfc-'+i+'">Selected: '+esc(d.spayFile)+'</p>':'<p class="file-upload__chosen" id="d-sfc-'+i+'"></p>',
+          '</div>',
+          '<div class="field-row field-row--1" style="margin-top:12px;"><div class="field"><label for="d-cm-'+i+'">Additional comments (Optional)</label><textarea id="d-cm-'+i+'" data-f="comments" data-i="'+i+'">'+esc(d.comments)+'</textarea></div></div>',
+          '<div class="dog-form-actions"><button type="button" class="btn-done-dog" id="btn-done-'+i+'">Done with this dog</button></div>',
+        '</div>'
+      ].join('');
+    }
+
+    function sexOpt(i,val,lbl,feeLabel,sel){
+      return '<label class="radio-option"><input type="radio" name="dsex-'+i+'" value="'+val+'"'+(sel===val?' checked':'')+' data-sx="'+i+'">'+'<span class="radio-option__label">'+lbl+'</span><span class="radio-option__fee">'+feeLabel+'</span></label>';
+    }
+
+    /* ── Render dogs ── */
+    function renderDogs(){
+      var html='';
+      for(var i=0;i<state.dogs.length;i++) html+=dogCardHTML(i);
+      $('dog-cards').innerHTML=html;
+      var cnt=state.dogs.length;
+      $('dog-counter').textContent=cnt+' dog'+(cnt!==1?'s':'')+' added (max '+MAX_DOGS+')';
+
+      $('dog-form-wrap').innerHTML='';
+      if(state.activeDog>=0&&state.activeDog<state.dogs.length){
+        bindDogForm(state.activeDog);
+      }
+
+      $('btn-add-dog').disabled=(cnt>=MAX_DOGS||state.activeDog>=0);
+
+      for(var j=0;j<state.dogs.length;j++){
+        (function(idx){
+          var e=$('btn-edit-'+idx); if(e) e.onclick=function(){ saveDogFields(); state.activeDog=idx; renderDogs(); };
+          var r=$('btn-rmcard-'+idx); if(r) r.onclick=function(){ removeDog(idx); };
+        })(j);
+      }
+    }
+
+    function bindDogForm(i){
+      document.querySelectorAll('[data-f][data-i="'+i+'"]').forEach(function(el){
+        el.addEventListener('input', function(){ state.dogs[i][this.getAttribute('data-f')]=this.value; });
+        el.addEventListener('change',function(){ state.dogs[i][this.getAttribute('data-f')]=this.value; });
+      });
+      document.querySelectorAll('[data-sx="'+i+'"]').forEach(function(r){ r.addEventListener('change',function(){ state.dogs[i].sex=this.value; }); });
+      document.querySelectorAll('[data-mt="'+i+'"]').forEach(function(r){ r.addEventListener('change',function(){ state.dogs[i].method=this.value; }); });
+      document.querySelectorAll('[data-fi][data-i="'+i+'"]').forEach(function(inp){
+        inp.addEventListener('change',function(){
+          var field=this.getAttribute('data-fi');
+          var fname=this.files&&this.files[0]?this.files[0].name:'';
+          state.dogs[i][field]=fname;
+          var cid=field==='rabiesFile'?'d-rfc-'+i:'d-sfc-'+i;
+          var cel=$(cid); if(cel){ cel.textContent=fname?'Selected: '+fname:''; cel.classList.toggle('is-visible',!!fname); }
+        });
+      });
+      var done=$('btn-done-'+i);
+      if(done) done.onclick=function(){
+        saveDogFields();
+        var missing=[];
+        if(!state.dogs[i].name) missing.push('name');
+        if(!state.dogs[i].method) missing.push('application type (New license or Renewal)');
+        if(!state.dogs[i].sex) missing.push('sex and spay/neuter status');
+        if(missing.length){ $('dogs-val-summary').classList.add('is-visible'); $('dogs-val-msg').textContent='Please enter the dog’s '+missing.join(', ')+' before marking done.'; return; }
+        $('dogs-val-summary').classList.remove('is-visible');
+        state.dogs[i].done=true; state.activeDog=-1; renderDogs();
+      };
+      var rm=$('btn-rm-'+i); if(rm) rm.onclick=function(){ removeDog(i); };
+      var collapse=$('btn-collapse-'+i); if(collapse) collapse.onclick=function(){ saveDogFields(); state.activeDog=-1; renderDogs(); };
+    }
+
+    function saveDogFields(){
+      var i=state.activeDog; if(i<0||i>=state.dogs.length) return;
+      document.querySelectorAll('[data-f][data-i="'+i+'"]').forEach(function(el){ state.dogs[i][el.getAttribute('data-f')]=el.value; });
+      var sx=document.querySelector('[data-sx="'+i+'"]:checked'); if(sx) state.dogs[i].sex=sx.value;
+      var mt=document.querySelector('[data-mt="'+i+'"]:checked'); if(mt) state.dogs[i].method=mt.value;
+    }
+
+    function removeDog(idx){
+      state.dogs.splice(idx,1);
+      if(state.activeDog===idx) state.activeDog=-1;
+      else if(state.activeDog>idx) state.activeDog--;
+      renderDogs();
+    }
+
+    /* ── Review ── */
+    function buildReview(){
+      var o=state.owner;
+      var addr=[o.street,o.apt,o.neighborhood+' (Boston)','MA',o.zip].filter(Boolean).join(', ');
+      $('review-owner').innerHTML=
+        '<div class="review-dl__row"><dt>Name</dt><dd>'+esc(o.name||'—')+'</dd></div>'+
+        '<div class="review-dl__row"><dt>Email</dt><dd>'+esc(o.email||'—')+'</dd></div>'+
+        '<div class="review-dl__row"><dt>Phone</dt><dd>'+esc(o.phone||'—')+'</dd></div>'+
+        '<div class="review-dl__row"><dt>Address</dt><dd>'+esc(addr)+'</dd></div>';
+      var dh=''; var fr=''; var total=0;
+      state.dogs.forEach(function(d,i){
+        var f=fee(d); total+=f;
+        var breed=[d.breed1,d.breed2].filter(Boolean).join(' / ')||'—';
+        var color=[d.color1,d.color2].filter(Boolean).join(' and ')||'—';
+        var sexLbl=SEX_MAP[d.sex]||d.sex||'—';
+        var appType=d.method==='renewal'?'Renewal':'New license';
+        var lookupNote=d.fromLookup?'<span style="font-family:var(--font-ui);font-size:11px;color:#797c7f;display:block;margin-top:2px;">Prefilled from license lookup (simulated).</span>':'';
+        var age=d.ageY?(d.ageY+' yr'+(d.ageM?' '+d.ageM+' mo':'')):'—';
+        var docRows='<div class="review-dl__row"><dt>Rabies cert</dt><dd>'+(d.rabiesFile?esc(d.rabiesFile):'Not uploaded')+'</dd></div>';
+        if(d.spayFile) docRows+='<div class="review-dl__row"><dt>Spay/neuter cert</dt><dd>'+esc(d.spayFile)+'</dd></div>';
+        dh+='<div class="review-block">'+
+          '<div class="review-block__header"><p class="review-block__title">'+esc(d.name||'Dog '+(i+1))+'</p><button type="button" class="btn-link" id="reditdog-'+i+'">Edit</button></div>'+
+          '<dl class="review-dl">'+
+            '<div class="review-dl__row"><dt>Application type</dt><dd>'+appType+lookupNote+'</dd></div>'+
+            '<div class="review-dl__row"><dt>Breed</dt><dd>'+esc(breed)+'</dd></div>'+
+            '<div class="review-dl__row"><dt>Color</dt><dd>'+esc(color)+'</dd></div>'+
+            '<div class="review-dl__row"><dt>Sex / status</dt><dd>'+esc(sexLbl)+'</dd></div>'+
+            '<div class="review-dl__row"><dt>Age</dt><dd>'+age+'</dd></div>'+
+            '<div class="review-dl__row"><dt>Rabies expires</dt><dd>'+esc(d.expDate||'—')+'</dd></div>'+
+            docRows+
+          '</dl>'+
+        '</div>';
+        fr+='<tr><td>'+esc(d.name||'Dog '+(i+1))+' — '+esc(sexLbl)+'</td><td>$'+f+'.00</td></tr>';
+      });
+      $('review-dogs').innerHTML=dh;
+      $('review-fees').innerHTML=fr+'<tr class="total-row"><td>Total</td><td>$'+total+'.00</td></tr>';
+      state.totalFee=total;
+      state.dogs.forEach(function(_,i){ var b=$('reditdog-'+i); if(b) b.onclick=function(){ state.activeDog=i; renderDogs(); showStep(2); }; });
+    }
+
+    function buildPaymentView(){
+      var t=state.totalFee; var s=Math.max(1,Math.round(t*0.0275*100)/100);
+      $('ic-fee-display').textContent='License total: $'+t+'.00 + service charge ≈ $'+s.toFixed(2)+' = approx. $'+(t+s).toFixed(2)+' due';
+    }
+
+    /* ── Lookup search mode toggle ── */
+    $('lm-number').addEventListener('change',function(){ $('lookup-form-number').hidden=false; $('lookup-form-name').hidden=true; });
+    $('lm-name').addEventListener('change',function(){ $('lookup-form-number').hidden=true; $('lookup-form-name').hidden=false; });
+    function doSearch(){
+      var nameVal=(($('ls-dog-n')||{value:''}).value.trim()||($('ls-dog-name')||{value:''}).value.trim()).toLowerCase();
+      var r=LOOKUP_RECORDS.filter(function(rec){ return !nameVal||rec.dogName.toLowerCase().indexOf(nameVal)>=0; })[0]||LOOKUP_RECORDS[0];
+      currentResult=r;
+      renderSingleResult(r);
+      setMode('landing'); showView('view-lookup-results');
+    }
+    $('btn-search-number').addEventListener('click',doSearch);
+    $('btn-search-name').addEventListener('click',doSearch);
+
+    /* ── Lookup results ── */
+    function dlRow(label,value){
+      return '<div class="detail-dl__row"><dt>'+esc(label)+'</dt><dd>'+esc(value)+'</dd></div>';
+    }
+
+    function renderSingleResult(r){
+      $('result-rabies-alert').hidden=!r.rabiesExpired;
+      var sexLbl=SEX_MAP[r.sex]||r.sex;
+      var spayLbl=(r.sex==='neutered'||r.sex==='spayed')?'Yes':'No';
+      var color=[r.color1,r.color2].filter(Boolean).join(' and ');
+      var licBadge=r.licenseExpired?'<span class="badge badge--expired">License expired '+esc(r.licenseExpiry)+'</span>':'<span class="badge badge--active">License current</span>';
+      var rabBadge=r.rabiesExpired?'<span class="badge badge--warning">Rabies cert expired</span>':'<span class="badge badge--current">Rabies cert current</span>';
+      $('result-detail-card').innerHTML=
+        '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #e2e2e2;">'+
+          '<div>'+
+            '<p style="font-family:var(--font-ui);font-weight:700;font-size:18px;color:var(--cob-navy);">'+esc(r.dogName)+'</p>'+
+            '<p style="font-family:var(--font-ui);font-size:13px;color:#797c7f;margin-top:3px;">License number: '+esc(r.licenseNum)+'</p>'+
+          '</div>'+
+          '<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">'+licBadge+rabBadge+'</div>'+
+        '</div>'+
+        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#797c7f;margin-bottom:10px;">Dog details</p>'+
+        '<div class="detail-dl">'+
+          dlRow('Breed',r.breed)+
+          dlRow('Sex',sexLbl)+
+          dlRow('Age',r.ageY+' year'+(r.ageY!=='1'?'s':''))+
+          dlRow('Spayed or neutered',spayLbl)+
+          dlRow('Coat color',color)+
+        '</div>'+
+        '<hr style="border:none;border-top:1px solid #e2e2e2;margin:14px 0;">'+
+        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#797c7f;margin-bottom:10px;">License details</p>'+
+        '<div class="detail-dl">'+
+          dlRow('Date licensed',r.licensed)+
+          dlRow('License expiration',r.licenseExpiry)+
+        '</div>'+
+        '<hr style="border:none;border-top:1px solid #e2e2e2;margin:14px 0;">'+
+        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#797c7f;margin-bottom:10px;">Rabies vaccination</p>'+
+        '<div class="detail-dl">'+
+          dlRow('Vaccination date',r.vaccDate)+
+          dlRow('Expiration date',r.vaccExpiry)+
+        '</div>';
+    }
+
+    $('btn-renew').addEventListener('click',function(){
+      if(!currentResult) return;
+      var idx=LOOKUP_RECORDS.indexOf(currentResult);
+      lookupSelected=idx>=0?[idx]:[0];
+      setPath('renewal');
+      startRenewal();
+    });
+    $('btn-find-another').addEventListener('click',function(){ lookupSelected=[]; currentResult=null; setMode('landing'); showView('view-choose-path'); var pr=$('path-renewal'); if(pr) pr.checked=true; $('renewal-lookup-wrap').hidden=false; $('btn-choosepath-continue').style.display='none'; });
+
+    function startRenewal(){
+      state.owner=Object.assign({},DUMMY_OWNER);
+      state.dogs=lookupSelected.map(function(idx){
+        var r=LOOKUP_RECORDS[idx];
+        return Object.assign(newDog(),{name:r.dogName,breed1:r.breed,color1:r.color1,color2:r.color2||'',sex:r.sex,ageY:r.ageY,ageM:r.ageM,vaccDate:r.vaccDate,expDate:r.vaccExpiry,method:'renewal',fromLookup:true,done:false});
+      });
+      state.activeDog=0;
+      restoreOwner();
+      showStep(1);
+    }
+
+    /* ── Events ── */
+    function showLeaveModal(dest){ state.leaveDest=dest; $('modal-leave').hidden=false; $('modal-leave-stay').focus(); }
+
+    $('trustbar-btn').addEventListener('click',function(){ var open=!$('trustbar-panel').hidden; $('trustbar-panel').hidden=open; this.setAttribute('aria-expanded',String(!open)); });
+
+    $('btn-start-new').addEventListener('click',function(){
+      setMode('landing'); showView('view-choose-path');
+      var pn=$('path-new'); if(pn){ pn.checked=false; } var pr=$('path-renewal'); if(pr){ pr.checked=false; }
+      $('renewal-lookup-wrap').hidden=true;
+      $('btn-choosepath-continue').style.display='';
+      $('choosepath-val-summary').classList.remove('is-visible');
+    });
+    $('btn-find-license').addEventListener('click',function(){
+      setMode('landing'); showView('view-choose-path');
+      var pr=$('path-renewal'); if(pr) pr.checked=true;
+      $('renewal-lookup-wrap').hidden=false;
+      $('btn-choosepath-continue').style.display='none';
+      $('choosepath-val-summary').classList.remove('is-visible');
+    });
+
+    $('btn-owner-back').addEventListener('click',function(){
+      saveOwner();
+      var hasData=state.owner.name||state.owner.email||state.owner.street;
+      if(hasData) showLeaveModal('../index.html'); else showLanding();
+    });
+    $('btn-owner-continue').addEventListener('click',function(){
+      saveOwner(); if(!validateOwner()) return;
+      showStep(2); renderDogs();
+    });
+    $('btn-dogs-back').addEventListener('click',function(){ saveDogFields(); restoreOwner(); showStep(1); });
+    $('btn-add-dog').addEventListener('click',function(){
+      if(state.dogs.length>=MAX_DOGS) return;
+      saveDogFields(); state.dogs.push(newDog()); state.activeDog=state.dogs.length-1; renderDogs();
+    });
+    $('btn-dogs-continue').addEventListener('click',function(){
+      saveDogFields();
+      if(state.activeDog>=0){
+        var d=state.dogs[state.activeDog];
+        if(!d.name||!d.method||!d.sex){ $('dogs-val-summary').classList.add('is-visible'); $('dogs-val-msg').textContent='Please complete the open dog entry before continuing.'; return; }
+        state.dogs[state.activeDog].done=true; state.activeDog=-1;
+      }
+      if(!state.dogs.length){ $('dogs-val-summary').classList.add('is-visible'); $('dogs-val-msg').textContent='Please add at least one dog.'; return; }
+      var incomplete=state.dogs.filter(function(d){ return !d.done; });
+      if(incomplete.length){ $('dogs-val-summary').classList.add('is-visible'); $('dogs-val-msg').textContent='Please complete details for all dogs before continuing.'; return; }
+      $('dogs-val-summary').classList.remove('is-visible');
+      buildReview(); showStep(3);
+    });
+    $('btn-review-back').addEventListener('click',function(){ state.activeDog=-1; renderDogs(); showStep(2); });
+    $('btn-review-continue').addEventListener('click',function(){ $('modal-payment').hidden=false; $('modal-payment-go').focus(); });
+    $('btn-payment-back').addEventListener('click',function(){ buildReview(); showStep(3); });
+    $('btn-edit-owner').addEventListener('click',function(){ restoreOwner(); showStep(1); });
+
+    $('modal-leave-stay').addEventListener('click',function(){ $('modal-leave').hidden=true; });
+    $('modal-leave-go').addEventListener('click',function(){ if(state.leaveDest) window.location.href=state.leaveDest; });
+    $('modal-payment-go').addEventListener('click',function(){ $('modal-payment').hidden=true; buildPaymentView(); showStep(4); });
+    $('modal-payment-stay').addEventListener('click',function(){ $('modal-payment').hidden=true; });
+    ['modal-leave','modal-payment'].forEach(function(id){ $(id).addEventListener('click',function(e){ if(e.target===this) this.hidden=true; }); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ $('modal-leave').hidden=true; $('modal-payment').hidden=true; } });
+
+    /* ── Choose-path ── */
+    $('path-new').addEventListener('change',function(){ $('renewal-lookup-wrap').hidden=true; $('btn-choosepath-continue').style.display=''; $('choosepath-val-summary').classList.remove('is-visible'); });
+    $('path-renewal').addEventListener('change',function(){ $('renewal-lookup-wrap').hidden=false; $('btn-choosepath-continue').style.display='none'; $('choosepath-val-summary').classList.remove('is-visible'); });
+    $('btn-choosepath-back').addEventListener('click',function(){ showLanding(); });
+    $('btn-choosepath-continue').addEventListener('click',function(){
+      var sel=document.querySelector('input[name="app-path"]:checked');
+      if(!sel){ $('choosepath-val-summary').classList.add('is-visible'); return; }
+      $('choosepath-val-summary').classList.remove('is-visible');
+      setPath('new');
+      state.dogs=[newDog()]; state.activeDog=0;
+      state.owner={name:'',phone:'',email:'',street:'',apt:'',neighborhood:'',zip:''};
+      restoreOwner(); showStep(1); renderDogs();
+    });
+
+    /* ── Initial routing ── */
+    if(window.location.hash==='#lookup'){ setMode('landing'); showView('view-choose-path'); var pr=$('path-renewal'); if(pr) pr.checked=true; $('renewal-lookup-wrap').hidden=false; $('btn-choosepath-continue').style.display='none'; }
+    else showLanding();
+
+  }());
+  </script>
+</body>
+</html>
