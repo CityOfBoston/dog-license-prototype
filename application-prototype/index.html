@@ -100,8 +100,8 @@
     .field-group__note { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-bottom:14px; }
     .field-row { display:grid;gap:14px;margin-bottom:14px; }
     .field-row--1 { grid-template-columns:1fr; }
-    .field-row--2 { grid-template-columns:1fr 1fr; }
-    @media(max-width:560px){.field-row--2{grid-template-columns:1fr;}}
+    .field-row--2 { grid-template-columns:1fr; }
+    .field-row--2col { grid-template-columns:1fr 1fr; }
     .field { display:flex;flex-direction:column;gap:5px; }
     .field label { font-family:var(--font-ui);font-weight:700;font-size:13px;line-height:1.4;color:var(--cob-navy);letter-spacing:.03em; }
     .field .req { color:var(--cob-freedom-red);margin-left:2px; }
@@ -117,6 +117,7 @@
     .radio-group { display:flex;flex-direction:column;gap:8px; }
     .radio-option { display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid #d2d2d2;border-radius:4px;cursor:pointer;background:white;transition:border-color .15s,background .15s; }
     .radio-option:has(input:checked) { border-color:var(--cob-theme);background:#f0f7ff; }
+    .radio-group--error .radio-option { border-color:var(--cob-freedom-red); }
     .radio-option input[type="radio"] { width:18px;height:18px;flex-shrink:0;accent-color:var(--cob-theme);cursor:pointer; }
     .radio-option__label { font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--cob-navy);flex:1; }
     .radio-option__fee { font-family:var(--font-ui);font-size:13px;font-weight:700;color:var(--cob-theme); }
@@ -390,15 +391,15 @@
             <section id="view-choose-path" class="app-view" aria-labelledby="h-choose-path">
               <h2 class="view-heading" id="h-choose-path">New license or renewal?</h2>
               <p style="font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--cob-navy);margin-bottom:10px;">Select an option that applies to you <span style="color:var(--cob-freedom-red)">*</span></p>
-              <div class="radio-group" style="flex-direction:row;flex-wrap:wrap;gap:12px;margin-bottom:28px;">
-                <label class="radio-option" style="flex:1;min-width:220px;align-items:flex-start;gap:12px;padding:14px 16px;">
+              <div class="radio-group" style="margin-bottom:28px;">
+                <label class="radio-option" style="align-items:flex-start;gap:12px;padding:14px 16px;">
                   <input type="radio" name="app-path" value="new" id="path-new">
                   <div>
                     <span class="radio-option__label" style="display:block;">Apply for a new license</span>
                     <span class="radio-option__desc">Enter your information and the dog's details</span>
                   </div>
                 </label>
-                <label class="radio-option" style="flex:1;min-width:220px;align-items:flex-start;gap:12px;padding:14px 16px;">
+                <label class="radio-option" style="align-items:flex-start;gap:12px;padding:14px 16px;">
                   <input type="radio" name="app-path" value="renewal" id="path-renewal">
                   <div>
                     <span class="radio-option__label" style="display:block;">Renew an existing license</span>
@@ -413,12 +414,12 @@
 
                 <div class="lookup-method-card">
                   <p style="font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--cob-navy);margin-bottom:12px;">How would you like to find your license? <span style="color:var(--cob-freedom-red)">*</span></p>
-                  <div class="radio-group" style="flex-direction:row;flex-wrap:wrap;gap:12px;">
-                    <label class="radio-option" style="flex:1;min-width:200px;">
+                  <div class="radio-group">
+                    <label class="radio-option">
                       <input type="radio" name="lookup-method" value="number" id="lm-number" checked>
                       <span class="radio-option__label">I know my license number</span>
                     </label>
-                    <label class="radio-option" style="flex:1;min-width:200px;">
+                    <label class="radio-option">
                       <input type="radio" name="lookup-method" value="name" id="lm-name">
                       <span class="radio-option__label">I want to search by owner name</span>
                     </label>
@@ -446,6 +447,7 @@
                     </div>
                     <div></div>
                   </div>
+                  <div class="validation-summary" id="search-number-val"><p>Please fill in all required fields before searching.</p></div>
                   <button type="button" class="btn-search" id="btn-search-number">Search</button>
                 </div>
 
@@ -460,6 +462,7 @@
                     <div class="field"><label for="ls-year-name">License year <span class="req" aria-hidden="true">*</span></label><input type="text" id="ls-year-name" placeholder="e.g. 2024" maxlength="4" inputmode="numeric"></div>
                     <div class="field"><label for="ls-dog-name">Dog's name <span class="req" aria-hidden="true">*</span></label><input type="text" id="ls-dog-name"></div>
                   </div>
+                  <div class="validation-summary" id="search-name-val"><p>Please fill in all required fields before searching.</p></div>
                   <button type="button" class="btn-search" id="btn-search-name">Search</button>
                 </div>
 
@@ -491,7 +494,7 @@
                 <div class="rabies-alert__text"><strong>Check your rabies vaccination</strong> — The rabies expiration date shown in this record has passed. You may need an updated vaccination certificate in the next steps.</div>
               </div>
               <div class="review-block" id="result-detail-card"></div>
-              <div class="step-buttons" style="justify-content:space-between;">
+              <div class="step-buttons">
                 <button type="button" class="btn-back" id="btn-find-another">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   Search another dog
@@ -616,9 +619,8 @@
               <div class="review-block">
                 <div class="review-block__header"><p class="review-block__title">License fees</p></div>
                 <table class="review-fee-table" id="review-fees"></table>
-                <p class="review-fee-note">An online service charge of 2.75% (minimum $1.00) applies. Invoice Cloud will show the amount due before payment.</p>
+                <p class="review-fee-note">An online service charge of 2.75% (minimum $1.00) applies. You'll continue to Invoice Cloud to complete payment.</p>
               </div>
-              <p class="review-payment-note">You'll continue to Invoice Cloud to pay for your dog licenses.</p>
               <div class="step-buttons">
                 <button type="button" class="btn-back" id="btn-review-back">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -809,7 +811,25 @@
       var ok=true;
       checks.forEach(function(c){ var inp=$(c[0]); var v=inp.value.trim().length>0; inp.setAttribute('aria-invalid',v?'false':'true'); var e=$(c[1]); if(e) e.classList.toggle('is-visible',!v); if(!v) ok=false; });
       $('owner-val-summary').classList.toggle('is-visible',!ok);
+      if(!ok){ var first=document.querySelector('#form-owner [aria-invalid="true"]'); if(first) first.scrollIntoView({behavior:'smooth',block:'center'}); }
       return ok;
+    }
+
+    function validateDog(i){
+      var ok=true; var firstErr=null;
+      var d=state.dogs[i]||{};
+      function chk(id,val,errId){ var el=$(id); if(!el) return; var v=!!(val&&String(val).trim().length>0); el.setAttribute('aria-invalid',v?'false':'true'); var e=$(errId); if(e) e.classList.toggle('is-visible',!v); if(!v&&!firstErr) firstErr=el; if(!v) ok=false; }
+      chk('d-name-'+i, d.name,      'err-d-name-'+i);
+      chk('d-ay-'+i,   d.ageY,      'err-d-ay-'+i);
+      chk('d-c1-'+i,   d.color1,    'err-d-c1-'+i);
+      chk('d-b1-'+i,   d.breed1,    'err-d-b1-'+i);
+      chk('d-vd-'+i,   d.vaccDate,  'err-d-vd-'+i);
+      chk('d-ed-'+i,   d.expDate,   'err-d-ed-'+i);
+      var showMethod=!d.fromLookup&&!(state.path==='new'&&i===0);
+      if(showMethod){ var me=$('err-d-method-'+i),mg=$('rg-method-'+i); if(me){ var mv=!!d.method; me.classList.toggle('is-visible',!mv); if(mg) mg.classList.toggle('radio-group--error',!mv); if(!mv&&!firstErr) firstErr=mg||me; if(!mv) ok=false; } }
+      var se=$('err-d-sex-'+i),sg=$('rg-sex-'+i); if(se){ var sv=!!d.sex; se.classList.toggle('is-visible',!sv); if(sg) sg.classList.toggle('radio-group--error',!sv); if(!sv&&!firstErr) firstErr=sg||se; if(!sv) ok=false; }
+      var rfe=$('err-d-rf-'+i); if(rfe){ var rv=!!d.rabiesFile; rfe.classList.toggle('is-visible',!rv); if(!rv&&!firstErr) firstErr=rfe; if(!rv) ok=false; }
+      return {ok:ok,firstErr:firstErr};
     }
 
     /* ── Dog model ── */
@@ -852,13 +872,16 @@
           '<p style="font-family:var(--font-ui);font-size:13px;color:#0a4d8c;"><strong>Application type: Renewal</strong> — carried forward from license lookup.</p>'+
           '<p style="font-family:var(--font-ui);font-size:11px;color:#797c7f;margin-top:4px;">Prototype note: actual lookup and prefill has not been confirmed with the development team.</p>'+
         '</div>';
+      } else if(state.path === 'new' && i === 0){
+        methodSection='';
       } else {
         methodSection=[
           '<p class="dog-form__section-head">What are you applying for? <span style="color:var(--cob-freedom-red)">*</span></p>',
-          '<div class="radio-group" style="flex-direction:row;flex-wrap:wrap;gap:10px;margin-bottom:18px;">',
-            '<label class="radio-option" style="flex:1;min-width:160px;"><input type="radio" name="dmethod-'+i+'" value="new"'+(d.method==='new'?' checked':'')+' data-mt="'+i+'"><span class="radio-option__label">New license</span></label>',
-            '<label class="radio-option" style="flex:1;min-width:160px;"><input type="radio" name="dmethod-'+i+'" value="renewal"'+(d.method==='renewal'?' checked':'')+' data-mt="'+i+'"><span class="radio-option__label">Renewal</span></label>',
+          '<div class="radio-group" id="rg-method-'+i+'" style="margin-bottom:18px;">',
+            '<label class="radio-option"><input type="radio" name="dmethod-'+i+'" value="new"'+(d.method==='new'?' checked':'')+' data-mt="'+i+'"><span class="radio-option__label">New license</span></label>',
+            '<label class="radio-option"><input type="radio" name="dmethod-'+i+'" value="renewal"'+(d.method==='renewal'?' checked':'')+' data-mt="'+i+'"><span class="radio-option__label">Renewal</span></label>',
           '</div>',
+          '<span class="field-error" id="err-d-method-'+i+'">Please select an application type.</span>',
         ].join('');
       }
       var statusBadge=d.done
@@ -881,37 +904,39 @@
           '</div>',
           '<p class="field-group__note">Fields marked with * are required.</p>',
           methodSection,
-          '<div class="field-row field-row--1"><div class="field"><label for="d-name-'+i+'">Dog\'s name <span class="req" aria-hidden="true">*</span></label><input type="text" id="d-name-'+i+'" value="'+esc(d.name)+'" data-f="name" data-i="'+i+'"></div></div>',
-          '<div class="field-row field-row--2">',
-            '<div class="field"><label for="d-ay-'+i+'">Age (years) <span class="req" aria-hidden="true">*</span></label><input type="number" id="d-ay-'+i+'" min="0" max="30" value="'+esc(d.ageY)+'" data-f="ageY" data-i="'+i+'"></div>',
+          '<div class="field-row field-row--1"><div class="field"><label for="d-name-'+i+'">Dog\'s name <span class="req" aria-hidden="true">*</span></label><input type="text" id="d-name-'+i+'" value="'+esc(d.name)+'" data-f="name" data-i="'+i+'" aria-invalid="false"><span class="field-error" id="err-d-name-'+i+'">Dog\'s name is required.</span></div></div>',
+          '<div class="field-row field-row--2col">',
+            '<div class="field"><label for="d-ay-'+i+'">Age (years) <span class="req" aria-hidden="true">*</span></label><input type="number" id="d-ay-'+i+'" min="0" max="30" value="'+esc(d.ageY)+'" data-f="ageY" data-i="'+i+'" aria-invalid="false"><span class="field-error" id="err-d-ay-'+i+'">Age (years) is required.</span></div>',
             '<div class="field"><label for="d-am-'+i+'">Age (months)</label><input type="number" id="d-am-'+i+'" min="0" max="11" value="'+esc(d.ageM)+'" data-f="ageM" data-i="'+i+'"></div>',
           '</div>',
           '<div class="field-row field-row--2">',
-            '<div class="field"><label for="d-c1-'+i+'">Primary color <span class="req" aria-hidden="true">*</span></label><select id="d-c1-'+i+'" data-f="color1" data-i="'+i+'"><option value="">Select</option>'+opts(COLORS,d.color1)+'</select></div>',
+            '<div class="field"><label for="d-c1-'+i+'">Primary color <span class="req" aria-hidden="true">*</span></label><select id="d-c1-'+i+'" data-f="color1" data-i="'+i+'" aria-invalid="false"><option value="">Select</option>'+opts(COLORS,d.color1)+'</select><span class="field-error" id="err-d-c1-'+i+'">Please select a primary color.</span></div>',
             '<div class="field"><label for="d-c2-'+i+'">Secondary color</label><select id="d-c2-'+i+'" data-f="color2" data-i="'+i+'"><option value="">None / same</option>'+opts(COLORS,d.color2)+'</select></div>',
           '</div>',
           '<div class="field-row field-row--2">',
-            '<div class="field"><label for="d-b1-'+i+'">Primary breed <span class="req" aria-hidden="true">*</span></label><select id="d-b1-'+i+'" data-f="breed1" data-i="'+i+'"><option value="">Select</option>'+opts(BREEDS,d.breed1)+'</select></div>',
+            '<div class="field"><label for="d-b1-'+i+'">Primary breed <span class="req" aria-hidden="true">*</span></label><select id="d-b1-'+i+'" data-f="breed1" data-i="'+i+'" aria-invalid="false"><option value="">Select</option>'+opts(BREEDS,d.breed1)+'</select><span class="field-error" id="err-d-b1-'+i+'">Please select a primary breed.</span></div>',
             '<div class="field"><label for="d-b2-'+i+'">Secondary breed</label><select id="d-b2-'+i+'" data-f="breed2" data-i="'+i+'"><option value="">None / not applicable</option>'+opts(BREEDS,d.breed2)+'</select></div>',
           '</div>',
           '<p class="dog-form__section-head">Sex and spay/neuter status <span style="color:var(--cob-freedom-red)">*</span></p>',
-          '<div class="radio-group">',
+          '<div class="radio-group" id="rg-sex-'+i+'">',
             sexOpt(i,'intact-male',   'Intact male',   '$30',d.sex),
             sexOpt(i,'neutered',      'Neutered male', '$15',d.sex),
             sexOpt(i,'intact-female', 'Intact female', '$30',d.sex),
             sexOpt(i,'spayed',        'Spayed female', '$15',d.sex),
           '</div>',
+          '<span class="field-error" id="err-d-sex-'+i+'">Please select a sex and spay/neuter status.</span>',
           '<p class="dog-form__section-head">Rabies vaccination</p>',
           '<p class="dog-form__section-note">Your dog must have current rabies vaccination documentation. Enter the dates shown on the certificate.</p>',
-          '<div class="field-row field-row--2">',
-            '<div class="field"><label for="d-vd-'+i+'">Vaccination date <span class="req" aria-hidden="true">*</span></label><input type="date" id="d-vd-'+i+'" value="'+esc(d.vaccDate)+'" data-f="vaccDate" data-i="'+i+'"></div>',
-            '<div class="field"><label for="d-ed-'+i+'">Expiration date <span class="req" aria-hidden="true">*</span></label><input type="date" id="d-ed-'+i+'" value="'+esc(d.expDate)+'" data-f="expDate" data-i="'+i+'"></div>',
+          '<div class="field-row field-row--2col">',
+            '<div class="field"><label for="d-vd-'+i+'">Vaccination date <span class="req" aria-hidden="true">*</span></label><input type="date" id="d-vd-'+i+'" value="'+esc(d.vaccDate)+'" data-f="vaccDate" data-i="'+i+'" aria-invalid="false"><span class="field-error" id="err-d-vd-'+i+'">Vaccination date is required.</span></div>',
+            '<div class="field"><label for="d-ed-'+i+'">Expiration date <span class="req" aria-hidden="true">*</span></label><input type="date" id="d-ed-'+i+'" value="'+esc(d.expDate)+'" data-f="expDate" data-i="'+i+'" aria-invalid="false"><span class="field-error" id="err-d-ed-'+i+'">Expiration date is required.</span></div>',
           '</div>',
           '<div class="file-upload">',
             '<span class="file-upload__label">Rabies vaccination certificate <span class="file-upload__req" aria-hidden="true">*</span></span>',
             '<p class="file-upload__desc">Required for new applications. For renewals, upload a new or updated certificate if needed. Accepted: PDF, JPG, PNG. Max 5 MB.</p>',
             '<input type="file" class="file-upload__input" id="d-rf-'+i+'" accept=".pdf,.jpg,.jpeg,.png" data-fi="rabiesFile" data-i="'+i+'">',
             d.rabiesFile?'<p class="file-upload__chosen is-visible" id="d-rfc-'+i+'">Selected: '+esc(d.rabiesFile)+'</p>':'<p class="file-upload__chosen" id="d-rfc-'+i+'"></p>',
+            '<span class="field-error" id="err-d-rf-'+i+'">Please upload a rabies vaccination certificate.</span>',
           '</div>',
           '<div class="file-upload">',
             '<span class="file-upload__label">Spay/neuter certificate <span style="font-weight:400;color:#797c7f">(Optional)</span></span>',
@@ -957,8 +982,8 @@
         el.addEventListener('input', function(){ state.dogs[i][this.getAttribute('data-f')]=this.value; });
         el.addEventListener('change',function(){ state.dogs[i][this.getAttribute('data-f')]=this.value; });
       });
-      document.querySelectorAll('[data-sx="'+i+'"]').forEach(function(r){ r.addEventListener('change',function(){ state.dogs[i].sex=this.value; }); });
-      document.querySelectorAll('[data-mt="'+i+'"]').forEach(function(r){ r.addEventListener('change',function(){ state.dogs[i].method=this.value; }); });
+      document.querySelectorAll('[data-sx="'+i+'"]').forEach(function(r){ r.addEventListener('change',function(){ state.dogs[i].sex=this.value; var sg=$('rg-sex-'+i); if(sg) sg.classList.remove('radio-group--error'); var se=$('err-d-sex-'+i); if(se) se.classList.remove('is-visible'); }); });
+      document.querySelectorAll('[data-mt="'+i+'"]').forEach(function(r){ r.addEventListener('change',function(){ state.dogs[i].method=this.value; var mg=$('rg-method-'+i); if(mg) mg.classList.remove('radio-group--error'); var me=$('err-d-method-'+i); if(me) me.classList.remove('is-visible'); }); });
       document.querySelectorAll('[data-fi][data-i="'+i+'"]').forEach(function(inp){
         inp.addEventListener('change',function(){
           var field=this.getAttribute('data-fi');
@@ -971,11 +996,8 @@
       var done=$('btn-done-'+i);
       if(done) done.onclick=function(){
         saveDogFields();
-        var missing=[];
-        if(!state.dogs[i].name) missing.push('name');
-        if(!state.dogs[i].method) missing.push('application type (New license or Renewal)');
-        if(!state.dogs[i].sex) missing.push('sex and spay/neuter status');
-        if(missing.length){ $('dogs-val-summary').classList.add('is-visible'); $('dogs-val-msg').textContent='Please enter the dog’s '+missing.join(', ')+' before marking done.'; return; }
+        var vr=validateDog(i);
+        if(!vr.ok){ $('dogs-val-summary').classList.add('is-visible'); $('dogs-val-msg').textContent='Please complete all required fields before marking done.'; if(vr.firstErr) vr.firstErr.scrollIntoView({behavior:'smooth',block:'center'}); return; }
         $('dogs-val-summary').classList.remove('is-visible');
         state.dogs[i].done=true; state.activeDog=-1; renderDogs();
       };
@@ -1046,6 +1068,17 @@
     $('lm-number').addEventListener('change',function(){ $('lookup-form-number').hidden=false; $('lookup-form-name').hidden=true; });
     $('lm-name').addEventListener('change',function(){ $('lookup-form-number').hidden=true; $('lookup-form-name').hidden=false; });
     function doSearch(){
+      var usingNumber=$('lm-number')&&$('lm-number').checked;
+      var ok=true;
+      if(usingNumber){
+        [['ls-num'],['ls-year-n'],['ls-dog-n']].forEach(function(f){ var el=$(f[0]); if(!el) return; var v=el.value.trim().length>0; el.setAttribute('aria-invalid',v?'false':'true'); if(!v) ok=false; });
+        if($('search-number-val')) $('search-number-val').classList.toggle('is-visible',!ok);
+        if(!ok) return;
+      } else {
+        [['ls-fname'],['ls-lname'],['ls-year-name'],['ls-dog-name']].forEach(function(f){ var el=$(f[0]); if(!el) return; var v=el.value.trim().length>0; el.setAttribute('aria-invalid',v?'false':'true'); if(!v) ok=false; });
+        if($('search-name-val')) $('search-name-val').classList.toggle('is-visible',!ok);
+        if(!ok) return;
+      }
       var nameVal=(($('ls-dog-n')||{value:''}).value.trim()||($('ls-dog-name')||{value:''}).value.trim()).toLowerCase();
       var r=LOOKUP_RECORDS.filter(function(rec){ return !nameVal||rec.dogName.toLowerCase().indexOf(nameVal)>=0; })[0]||LOOKUP_RECORDS[0];
       currentResult=r;
@@ -1054,6 +1087,8 @@
     }
     $('btn-search-number').addEventListener('click',doSearch);
     $('btn-search-name').addEventListener('click',doSearch);
+    ['ls-num','ls-year-n','ls-dog-n'].forEach(function(id){ var el=$(id); if(el) el.addEventListener('input',function(){ if(this.value.trim()){ this.setAttribute('aria-invalid','false'); } if($('search-number-val')) $('search-number-val').classList.remove('is-visible'); }); });
+    ['ls-fname','ls-lname','ls-year-name','ls-dog-name'].forEach(function(id){ var el=$(id); if(el) el.addEventListener('input',function(){ if(this.value.trim()){ this.setAttribute('aria-invalid','false'); } if($('search-name-val')) $('search-name-val').classList.remove('is-visible'); }); });
 
     /* ── Lookup results ── */
     function dlRow(label,value){
@@ -1154,8 +1189,9 @@
     $('btn-dogs-continue').addEventListener('click',function(){
       saveDogFields();
       if(state.activeDog>=0){
-        var d=state.dogs[state.activeDog];
-        if(!d.name||!d.method||!d.sex){ $('dogs-val-summary').classList.add('is-visible'); $('dogs-val-msg').textContent='Please complete the open dog entry before continuing.'; return; }
+        var vr=validateDog(state.activeDog);
+        if(!vr.ok){ $('dogs-val-summary').classList.add('is-visible'); $('dogs-val-msg').textContent='Please complete all required fields before continuing.'; if(vr.firstErr) vr.firstErr.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+        $('dogs-val-summary').classList.remove('is-visible');
         state.dogs[state.activeDog].done=true; state.activeDog=-1;
       }
       if(!state.dogs.length){ $('dogs-val-summary').classList.add('is-visible'); $('dogs-val-msg').textContent='Please add at least one dog.'; return; }
@@ -1185,7 +1221,7 @@
       if(!sel){ $('choosepath-val-summary').classList.add('is-visible'); return; }
       $('choosepath-val-summary').classList.remove('is-visible');
       setPath('new');
-      state.dogs=[newDog()]; state.activeDog=0;
+      var d0=newDog(); d0.method='new'; state.dogs=[d0]; state.activeDog=0;
       state.owner={name:'',phone:'',email:'',street:'',apt:'',neighborhood:'',zip:''};
       restoreOwner(); showStep(1); renderDogs();
     });
