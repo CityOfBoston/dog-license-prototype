@@ -770,7 +770,7 @@ body {
   line-height: 28px;
   color: var(--cob-theme);
   flex-shrink: 0;
-  letter-spacing: 0.028em;
+  letter-spacing: 0.0278px; /* cob/font-letterspacing/ui/lg */
 }
 
 .process-list__trail {
@@ -794,7 +794,7 @@ body {
   font-size: 18px;
   line-height: 28px;
   color: var(--cob-navy);
-  letter-spacing: 0.028em;
+  letter-spacing: 0.0278px; /* cob/font-letterspacing/ui/lg */
   margin: 0;
 }
 

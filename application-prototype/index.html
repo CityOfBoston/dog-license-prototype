@@ -32,32 +32,31 @@
 
     /* ── Step nav ── */
     .step-nav { position:sticky;top:24px; }
-    @media(max-width:767px){.step-nav{position:static;}}
+    .step-nav__compact { display:none; }
     .step-nav ol { list-style:none;padding:0;margin:0; }
-    .step-nav li { display:flex;align-items:flex-start;gap:12px;min-height:56px; }
-    .step-nav__track { display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:32px; }
-    .step-nav__circle { width:32px;height:32px;border-radius:50%;border:2px solid #d2d2d2;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;color:#797c7f;flex-shrink:0;transition:all .2s; }
-    .step-nav li.step--active .step-nav__circle { background:var(--cob-theme);border-color:var(--cob-theme);color:white; }
-    .step-nav li.step--done  .step-nav__circle { background:var(--cob-navy);border-color:var(--cob-navy);color:white; }
-    .step-nav__connector { width:2px;flex:1;min-height:14px;background:#d2d2d2;margin-top:4px; }
-    .step-nav li.step--done .step-nav__connector { background:var(--cob-navy); }
+    .step-nav li { display:flex;align-items:flex-start;gap:12px;min-height:44px; }
+    .step-nav__track { display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:24px; }
+    .step-nav__circle { width:24px;height:24px;border-radius:50%;border:1px solid #909395;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:400;font-size:12px;color:#1b1b1b;flex-shrink:0;transition:background .2s,border .2s,color .2s; }
+    .step-nav li.step--active .step-nav__circle { background:var(--cob-theme);border:4px solid #c7e1f8;color:white;font-weight:700; }
+    .step-nav li.step--done  .step-nav__circle { background:rgba(255,255,255,0.9);border:1px solid #909395;color:#1b1b1b;font-weight:400; }
+    .step-nav__connector { width:1px;flex:1;min-height:8px;background:rgba(27,27,27,0.2);margin-top:2px; }
+    .step-nav li.step--done .step-nav__connector { background:rgba(27,27,27,0.2); }
     .step-nav li:last-child .step-nav__connector { display:none; }
-    .step-nav__label { font-family:var(--font-ui);font-size:13px;font-weight:600;line-height:1.4;color:#58585b;padding-top:6px; }
-    .step-nav li.step--active .step-nav__label,
-    .step-nav li.step--done  .step-nav__label { color:var(--cob-navy);font-weight:700; }
+    .step-nav__label { font-family:var(--font-ui);font-size:16px;font-weight:400;line-height:24px;color:#1b1b1b;padding-top:0; }
+    .step-nav li.step--active .step-nav__label { font-weight:700; }
+    .step-nav li.step--done  .step-nav__label { font-weight:400; }
     @media(max-width:767px){
-      .step-nav{background:white;border:1px solid #d2d2d2;border-radius:4px;padding:12px 16px 8px;}
-      .step-nav ol{display:flex;align-items:center;gap:0;}
-      .step-nav li{flex-direction:row;align-items:center;min-height:auto;padding:0;background:transparent;border:none;border-radius:0;flex:1;}
-      .step-nav li:last-child{flex:0 0 auto;}
-      .step-nav__track{flex-direction:row;width:100%;align-items:center;}
-      .step-nav__circle{width:28px;height:28px;font-size:11px;flex-shrink:0;}
-      .step-nav__connector{display:block!important;width:100%;height:2px;min-height:0;margin:0;flex:1;}
-      .step-nav li:last-child .step-nav__connector{display:none!important;}
-      .step-nav__label{display:none;}
+      .step-nav { position:static;margin:0 -16px; }
+      .step-nav__compact { display:block;background:#f6f6f6; }
+      .step-nav__compact-inner { padding:8px 20px 6px; }
+      .step-nav__compact-name { font-family:var(--font-ui);font-size:16px;font-weight:700;line-height:24px;color:#1b1b1b;margin:0; }
+      .step-nav__compact-link { font-family:var(--font-ui);font-size:16px;font-weight:400;line-height:24px;color:var(--cob-navy);background:none;border:none;padding:0;cursor:default;text-decoration:underline;display:inline; }
+      .step-nav__bar { display:flex;gap:2px; }
+      .step-nav__bar-seg { flex:1;height:8px;background:#bec0c1; }
+      .step-nav__bar-seg--active { background:#1871bd; }
+      .step-nav ol { display:none; }
     }
-    .step-nav__mobile-label{display:none;font-family:var(--font-ui);font-size:12px;font-weight:700;color:var(--cob-navy);margin-top:8px;text-align:center;}
-    @media(max-width:767px){.step-nav__mobile-label{display:block;}}
+    .step-nav__mobile-label { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
 
     /* ── Views ── */
     .app-view { display:none; }
@@ -189,20 +188,33 @@
     .btn-back:hover { border-color:var(--cob-navy);background:#f8f8f8; }
 
     /* ── Review ── */
-    .review-block { background:white;border:1px solid #e2e2e2;border-radius:4px;padding:18px 22px;margin-bottom:14px; }
-    .review-block__header { display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #e2e2e2; }
-    .review-block__title { font-family:var(--font-ui);font-weight:700;font-size:14px;color:var(--cob-navy);text-transform:uppercase;letter-spacing:.06em; }
-    .review-dl { display:flex;flex-direction:column;gap:8px; }
-    .review-dl__row { display:grid;grid-template-columns:1fr;gap:2px; }
-    .review-dl__row dt { font-family:var(--font-ui);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#58585b;padding-top:1px; }
-    .review-dl__row dd { font-family:var(--font-body);font-size:15px;line-height:1.55;color:var(--cob-navy); }
-    .review-fee-table { width:100%;border-collapse:collapse;font-family:var(--font-ui); }
-    .review-fee-table td { padding:8px 10px;font-size:14px;border-top:1px solid #e2e2e2; }
-    .review-fee-table td:last-child { text-align:right;color:var(--cob-navy);font-weight:600; }
-    .review-fee-table td:first-child { color:#58585b; }
-    .review-fee-table .total-row td { font-weight:700;font-size:15px;color:var(--cob-navy);border-top:2px solid var(--cob-navy); }
-    .review-fee-note { font-family:var(--font-ui);font-size:12px;color:#58585b;margin-top:10px;line-height:1.5; }
-    .review-payment-note { font-family:var(--font-ui);font-size:13px;font-style:italic;color:#58585b;margin-top:14px; }
+    .review-section { display:flex;flex-direction:column;gap:24px; }
+    #review-dogs { display:flex;flex-direction:column;gap:24px; }
+    .review-divider { height:1px;background:#1b1b1b;flex-shrink:0; }
+    .review-section-block { display:flex;flex-direction:column;gap:12px; }
+    .review-section-header { display:flex;align-items:flex-start;justify-content:space-between;gap:16px; }
+    .review-section-title { font-family:var(--font-ui);font-weight:600;font-size:18px;color:#1b1b1b;letter-spacing:0.0278px;line-height:28px;margin:0; }
+    .review-section-subtitle { font-family:var(--font-ui);font-weight:400;font-size:16px;color:#1b1b1b;letter-spacing:0.0443px;line-height:24px;margin:0; }
+    .review-field-list { display:flex;flex-direction:column; }
+    .review-field { font-family:var(--font-body);font-size:16px;line-height:24px;color:#1b1b1b;letter-spacing:0.0443px;margin:0; }
+    .review-field strong { font-weight:700;font-family:var(--font-body); }
+    .review-docs-box { background:white;border:1px solid #62666a;border-radius:2px;padding:12px;display:flex;flex-direction:column;gap:16px; }
+    .review-docs-title { font-family:var(--font-ui);font-weight:600;font-size:18px;color:#1b1b1b;letter-spacing:0.0278px;line-height:28px;margin:0; }
+    .review-doc-row { display:flex;align-items:center;justify-content:space-between;padding:8px; }
+    .review-doc-info { display:flex;flex-direction:column;gap:6px; }
+    .review-doc-name { font-family:var(--font-body);font-weight:700;font-size:16px;color:#1b1b1b;line-height:24px;margin:0; }
+    .review-doc-status { font-family:var(--font-body);font-weight:700;font-size:14px;color:#1b1b1b;line-height:24px;margin:0; }
+    .review-doc-divider { height:1px;background:#d0d0ce; }
+    .review-doc-icon { flex-shrink:0;display:block; }
+    .review-fees-content { display:flex;flex-direction:column;gap:16px; }
+    .review-fee-item { display:flex;flex-direction:column;gap:4px; }
+    .review-fee-row { display:flex;justify-content:space-between;font-family:var(--font-ui);font-weight:400;font-size:16px;color:#1b1b1b;letter-spacing:0.0443px;line-height:24px; }
+    .review-fee-sublabel { font-family:var(--font-ui);font-weight:300;font-size:14px;color:#1b1b1b;letter-spacing:0.0443px;line-height:24px;margin:0; }
+    .review-fee-total { display:flex;justify-content:space-between;font-family:var(--font-ui);font-weight:700;font-size:28px;color:#1b1b1b;letter-spacing:0.0133px;line-height:36px; }
+    .review-fee-note { font-family:var(--font-body);font-size:16px;color:#1b1b1b;line-height:24px;letter-spacing:0.0443px;margin:0; }
+    .review-fee-note strong { font-weight:700;font-family:var(--font-body); }
+    .review-payment-note { font-family:var(--font-ui);font-size:16px;color:#1b1b1b;text-align:center;line-height:24px;letter-spacing:0.0443px;margin-top:8px; }
+    #view-review .step-buttons { border-top:none;padding-top:0;gap:24px; }
 
     /* ── Invoice Cloud placeholder ── */
     .ic-proto-banner { display:flex;align-items:center;gap:10px;background:var(--cob-amber);color:var(--cob-navy);padding:10px 16px;border-radius:4px;margin-bottom:20px;font-family:var(--font-ui);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em; }
@@ -330,6 +342,13 @@
         <div class="app-layout full-width-mode" id="app-layout">
 
           <nav class="step-nav" id="step-nav" aria-label="Application steps">
+            <div class="step-nav__compact" id="step-nav-compact">
+              <div class="step-nav__compact-inner">
+                <p class="step-nav__compact-name" id="step-nav-compact-name"></p>
+                <button type="button" class="step-nav__compact-link" id="step-nav-compact-link" tabindex="-1" aria-hidden="true"></button>
+              </div>
+              <div class="step-nav__bar" id="step-nav-bar"></div>
+            </div>
             <ol>
               <li id="step-ind-0" style="display:none"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">1</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Find your renewal info</div></li>
               <li id="step-ind-1"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">2</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Owner information</div></li>
@@ -617,15 +636,24 @@
             <section id="view-review" class="app-view" aria-labelledby="h-review">
               <h2 class="view-heading" id="h-review">Review your application</h2>
               <p class="view-subhead">Review your information and uploaded documents before continuing to payment. You can edit any section if something needs to change.</p>
-              <div class="review-block">
-                <div class="review-block__header"><p class="review-block__title">Owner information</p><button type="button" class="btn-link" id="btn-edit-owner">Edit</button></div>
-                <dl class="review-dl" id="review-owner"></dl>
-              </div>
-              <div id="review-dogs"></div>
-              <div class="review-block">
-                <div class="review-block__header"><p class="review-block__title">License fees</p></div>
-                <table class="review-fee-table" id="review-fees"></table>
-                <p class="review-fee-note">An online service charge of 2.75% (minimum $1.00) applies. You'll continue to Invoice Cloud to complete payment.</p>
+              <div class="review-section">
+                <div class="review-divider"></div>
+                <div class="review-section-block">
+                  <div class="review-section-header">
+                    <p class="review-section-title">Owner information</p>
+                    <button type="button" class="btn-link" id="btn-edit-owner">Edit</button>
+                  </div>
+                  <div id="review-owner" class="review-field-list"></div>
+                </div>
+                <div id="review-dogs"></div>
+                <div class="review-divider"></div>
+                <div class="review-section-block">
+                  <p class="review-section-title">License fees</p>
+                  <div class="review-fees-content" id="review-fees-list"></div>
+                  <div class="review-divider"></div>
+                  <div class="review-fee-total"><span>Total</span><span id="review-fee-total-val"></span></div>
+                  <p class="review-fee-note"><strong>Note:</strong> An online service charge of 2.75% (minimum $1.00) applies. Invoice Cloud will show the amount due before payment.</p>
+                </div>
               </div>
               <div class="step-buttons">
                 <button type="button" class="btn-back" id="btn-review-back">
@@ -634,6 +662,7 @@
                 </button>
                 <button type="button" class="btn-primary" id="btn-review-continue">Continue to payment</button>
               </div>
+              <p class="review-payment-note">You'll continue to Invoice Cloud to pay for your dog licenses.</p>
             </section>
 
             <!-- ══ STEP 4: Payment ══ -->
@@ -769,16 +798,27 @@
     function showLanding(){ setMode('landing'); showView('view-landing'); }
 
     function updateMobileStepLabel(){
-      var el=$('step-nav-mobile-label'); if(!el) return;
       var active=document.querySelector('.step-nav li.step--active');
-      if(!active){ el.textContent=''; return; }
+      var s0=$('step-ind-0');
+      var total=(s0&&s0.style.display!=='none')?5:4;
+      var liveEl=$('step-nav-mobile-label');
+      if(!active){ if(liveEl) liveEl.textContent=''; return; }
       var circle=active.querySelector('.step-nav__circle');
       var nameEl=active.querySelector('.step-nav__label');
       var num=circle?circle.textContent.trim():'';
+      var numInt=parseInt(num,10)||1;
       var stepName=nameEl?nameEl.textContent.trim():'';
-      var s0=$('step-ind-0');
-      var total=(s0&&s0.style.display!=='none')?5:4;
-      el.textContent='Step '+num+' of '+total+(stepName?' — '+stepName:'');
+      if(liveEl) liveEl.textContent='Step '+num+' of '+total+(stepName?' — '+stepName:'');
+      var cName=$('step-nav-compact-name'); if(cName) cName.textContent=stepName;
+      var cLink=$('step-nav-compact-link'); if(cLink) cLink.textContent='Step '+num+' of '+total;
+      var bar=$('step-nav-bar');
+      if(bar){
+        var segs='';
+        for(var b=1;b<=total;b++){
+          segs+='<div class="step-nav__bar-seg'+(b<=numInt?' step-nav__bar-seg--active':'')+'"></div>';
+        }
+        bar.innerHTML=segs;
+      }
     }
 
     function setPath(p){
@@ -1045,37 +1085,68 @@
       var o=state.owner;
       var addr=[o.street,o.apt,o.neighborhood+' (Boston)','MA',o.zip].filter(Boolean).join(', ');
       $('review-owner').innerHTML=
-        '<div class="review-dl__row"><dt>Name</dt><dd>'+esc(o.name||'—')+'</dd></div>'+
-        '<div class="review-dl__row"><dt>Email</dt><dd>'+esc(o.email||'—')+'</dd></div>'+
-        '<div class="review-dl__row"><dt>Phone</dt><dd>'+esc(o.phone||'—')+'</dd></div>'+
-        '<div class="review-dl__row"><dt>Address</dt><dd>'+esc(addr)+'</dd></div>';
-      var dh=''; var fr=''; var total=0;
+        '<p class="review-field"><strong>Owner Name: </strong>'+esc(o.name||'—')+'</p>'+
+        '<p class="review-field"><strong>Email: </strong>'+esc(o.email||'—')+'</p>'+
+        '<p class="review-field"><strong>Phone number: </strong>'+esc(o.phone||'—')+'</p>'+
+        '<p class="review-field"><strong>Address: </strong>'+esc(addr)+'</p>';
+      var dh=''; var fi=''; var total=0;
       state.dogs.forEach(function(d,i){
         var f=fee(d); total+=f;
         var breed=[d.breed1,d.breed2].filter(Boolean).join(' / ')||'—';
         var color=[d.color1,d.color2].filter(Boolean).join(' and ')||'—';
         var sexLbl=SEX_MAP[d.sex]||d.sex||'—';
         var appType=d.method==='renewal'?'Renewal':'New license';
-        var lookupNote=d.fromLookup?'<span style="font-family:var(--font-ui);font-size:11px;color:#797c7f;display:block;margin-top:2px;">Prefilled from license lookup (simulated).</span>':'';
+        var lookupNote=d.fromLookup?' <span style="font-size:12px;color:#797c7f;">(prefilled from lookup)</span>':'';
         var age=d.ageY?(d.ageY+' yr'+(d.ageM?' '+d.ageM+' mo':'')):'—';
-        var docRows='<div class="review-dl__row"><dt>Rabies cert</dt><dd>'+(d.rabiesFile?esc(d.rabiesFile):'Not uploaded')+'</dd></div>';
-        if(d.spayFile) docRows+='<div class="review-dl__row"><dt>Spay/neuter cert</dt><dd>'+esc(d.spayFile)+'</dd></div>';
-        dh+='<div class="review-block">'+
-          '<div class="review-block__header"><p class="review-block__title">'+esc(d.name||'Dog '+(i+1))+'</p><button type="button" class="btn-link" id="reditdog-'+i+'">Edit</button></div>'+
-          '<dl class="review-dl">'+
-            '<div class="review-dl__row"><dt>Application type</dt><dd>'+appType+lookupNote+'</dd></div>'+
-            '<div class="review-dl__row"><dt>Breed</dt><dd>'+esc(breed)+'</dd></div>'+
-            '<div class="review-dl__row"><dt>Color</dt><dd>'+esc(color)+'</dd></div>'+
-            '<div class="review-dl__row"><dt>Sex / status</dt><dd>'+esc(sexLbl)+'</dd></div>'+
-            '<div class="review-dl__row"><dt>Age</dt><dd>'+age+'</dd></div>'+
-            '<div class="review-dl__row"><dt>Rabies expires</dt><dd>'+esc(d.expDate||'—')+'</dd></div>'+
-            docRows+
-          '</dl>'+
-        '</div>';
-        fr+='<tr><td>'+esc(d.name||'Dog '+(i+1))+' — '+esc(sexLbl)+'</td><td>$'+f+'.00</td></tr>';
+        var CHECK_SVG='<svg class="review-doc-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none"><circle cx="12" cy="12" r="12" fill="#2e7d32"/><path d="M6.5 12.5l3.5 3.5 7.5-8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        var docRows=
+          '<div class="review-doc-row">'+
+            '<div class="review-doc-info">'+
+              '<p class="review-doc-name">Rabies vaccination certificate</p>'+
+              '<p class="review-doc-status">'+(d.rabiesFile?esc(d.rabiesFile):'Not uploaded')+'</p>'+
+            '</div>'+
+            (d.rabiesFile?CHECK_SVG:'')+
+          '</div>';
+        if(d.spayFile) docRows+=
+          '<div class="review-doc-divider"></div>'+
+          '<div class="review-doc-row">'+
+            '<div class="review-doc-info">'+
+              '<p class="review-doc-name">Spay/neuter certificate (Optional)</p>'+
+              '<p class="review-doc-status">'+esc(d.spayFile)+'</p>'+
+            '</div>'+
+            CHECK_SVG+
+          '</div>';
+        dh+=
+          '<div class="review-divider"></div>'+
+          '<div class="review-section-block">'+
+            '<div class="review-section-header">'+
+              '<div>'+
+                '<p class="review-section-title">'+esc(d.name||'Dog '+(i+1))+'</p>'+
+                '<p class="review-section-subtitle">Application type: '+appType+lookupNote+'</p>'+
+              '</div>'+
+              '<button type="button" class="btn-link" id="reditdog-'+i+'">Edit</button>'+
+            '</div>'+
+            '<div class="review-field-list">'+
+              '<p class="review-field"><strong>Breed: </strong>'+esc(breed)+'</p>'+
+              '<p class="review-field"><strong>Sex: </strong>'+esc(sexLbl)+'</p>'+
+              '<p class="review-field"><strong>Age: </strong>'+age+'</p>'+
+              '<p class="review-field"><strong>Coat Color: </strong>'+esc(color)+'</p>'+
+              '<p class="review-field"><strong>Rabies expires: </strong>'+esc(d.expDate||'—')+'</p>'+
+            '</div>'+
+            '<div class="review-docs-box">'+
+              '<p class="review-docs-title">Uploaded documents</p>'+
+              docRows+
+            '</div>'+
+          '</div>';
+        fi+=
+          '<div class="review-fee-item">'+
+            '<div class="review-fee-row"><span>'+esc(d.name||'Dog '+(i+1))+'</span><span>$'+f+'.00</span></div>'+
+            '<p class="review-fee-sublabel">'+esc(sexLbl)+'</p>'+
+          '</div>';
       });
       $('review-dogs').innerHTML=dh;
-      $('review-fees').innerHTML=fr+'<tr class="total-row"><td>Total</td><td>$'+total+'.00</td></tr>';
+      $('review-fees-list').innerHTML=fi;
+      $('review-fee-total-val').textContent='$'+total+'.00';
       state.totalFee=total;
       state.dogs.forEach(function(_,i){ var b=$('reditdog-'+i); if(b) b.onclick=function(){ state.activeDog=i; renderDogs(); showStep(2); }; });
     }
