@@ -508,20 +508,29 @@
             <!-- ══ LOOKUP: Results ══ -->
             <section id="view-lookup-results" class="app-view" aria-labelledby="h-lookup-results">
               <h2 class="view-heading" id="h-lookup-results">License lookup results</h2>
-              <p class="view-subhead">We found a matching record. Review the information below before continuing.</p>
-              <div class="proto-data-note"><strong>Prototype:</strong> Enter a dog name to match a specific record. All three sample dogs share the same owner account.</div>
+              <p class="view-subhead" id="result-subhead">We found a matching record. Review the information below before continuing.</p>
+              <div class="proto-data-note"><strong>Prototype:</strong> Search by license number returns the matched dog. Search by owner name returns all dogs on the account.</div>
 
-              <p class="results-section-label">Matching record</p>
-              <div id="result-rabies-alert" class="rabies-alert" hidden>
-                <span class="rabies-alert__icon">&#9888;&#65039;</span>
-                <div class="rabies-alert__text"><strong>Check your rabies vaccination</strong> — The rabies expiration date shown in this record has passed. You may need an updated vaccination certificate in the next steps.</div>
+              <!-- License number search: single matched dog -->
+              <div id="single-result-layout">
+                <p class="results-section-label">Matching record</p>
+                <div id="result-rabies-alert" class="rabies-alert" hidden>
+                  <span class="rabies-alert__icon">&#9888;&#65039;</span>
+                  <div class="rabies-alert__text"><strong>Check your rabies vaccination</strong> — The rabies expiration date shown in this record has passed. You may need an updated vaccination certificate in the next steps.</div>
+                </div>
+                <div class="review-block" id="result-detail-card"></div>
               </div>
-              <div class="review-block" id="result-detail-card"></div>
 
               <div id="related-dogs-section" hidden>
                 <p class="results-section-label" style="margin-top:28px;">Other dogs on this account</p>
                 <p class="view-subhead" style="margin-bottom:12px;">These dogs are registered to the same owner. You can add them to your renewal now, or renew them separately later.</p>
                 <div id="related-dogs-list"></div>
+              </div>
+
+              <!-- Owner name search: all dogs on account (unused) -->
+              <div id="multi-result-layout" hidden>
+                <p class="results-section-label" id="name-results-label">Dogs found</p>
+                <div id="name-results-list"></div>
               </div>
 
               <div class="step-buttons">
@@ -753,6 +762,8 @@
     var currentResult = null;
     var selectedRelated = new Set();
     var selectedMatchedDog = false;
+    var searchMode = '';
+    var currentOwnerName = '';
     var detailsOpen = {};
 
     function $(id){ return document.getElementById(id); }
@@ -1111,14 +1122,30 @@
         if($('search-name-val')) $('search-name-val').classList.toggle('is-visible',!ok);
         if(!ok) return;
       }
-      var nameVal=(($('ls-dog-n')||{value:''}).value.trim()||($('ls-dog-name')||{value:''}).value.trim()).toLowerCase();
-      var r=LOOKUP_RECORDS.filter(function(rec){ return !nameVal||rec.dogName.toLowerCase().indexOf(nameVal)>=0; })[0]||LOOKUP_RECORDS[0];
-      currentResult=r;
       selectedRelated=new Set();
       selectedMatchedDog=false;
       setMode('landing'); showView('view-lookup-results');
-      renderSingleResult(r);
-      renderRelatedDogs(r);
+      if(usingNumber){
+        searchMode='number';
+        var numVal=(($('ls-num')||{value:''}).value.trim()).toUpperCase();
+        var dogNameVal=(($('ls-dog-n')||{value:''}).value.trim()).toLowerCase();
+        var r=LOOKUP_RECORDS.filter(function(rec){ return (!numVal||rec.licenseNum.toUpperCase().indexOf(numVal)>=0)&&(!dogNameVal||rec.dogName.toLowerCase().indexOf(dogNameVal)>=0); })[0]||LOOKUP_RECORDS[0];
+        currentResult=r;
+        $('single-result-layout').removeAttribute('hidden');
+        $('multi-result-layout').setAttribute('hidden','');
+        $('result-subhead').textContent='We found a matching record. Review the information below before continuing.';
+        renderSingleResult(r);
+      } else {
+        searchMode='name';
+        var dogNameVal=(($('ls-dog-name')||{value:''}).value.trim()).toLowerCase();
+        var r=LOOKUP_RECORDS.filter(function(rec){ return !dogNameVal||rec.dogName.toLowerCase().indexOf(dogNameVal)>=0; })[0]||LOOKUP_RECORDS[0];
+        currentResult=r;
+        $('single-result-layout').removeAttribute('hidden');
+        $('multi-result-layout').setAttribute('hidden','');
+        $('result-subhead').textContent='We found a matching record. Review the information below before continuing.';
+        renderSingleResult(r);
+        renderRelatedDogs(r);
+      }
       updateRenewButton();
     }
     $('btn-search-number').addEventListener('click',doSearch);
@@ -1185,9 +1212,42 @@
       updateRenewButton();
     }
 
+    function renderNameSearchResults(){
+      var label=$('name-results-label');
+      if(label) label.textContent='Dogs registered to '+esc(currentOwnerName);
+      var html='';
+      LOOKUP_RECORDS.forEach(function(r,idx){
+        var isSel=selectedRelated.has(idx);
+        var licBadge=r.licenseExpired?'<span class="badge badge--expired">License expired</span>':'<span class="badge badge--active">License current</span>';
+        var rabBadge=r.rabiesExpired?'<span class="badge badge--warning">Rabies cert expired</span>':'<span class="badge badge--current">Rabies cert current</span>';
+        var sexLbl=SEX_MAP[r.sex]||r.sex;
+        html+='<div class="related-card'+(isSel?' related-card--selected':'')+'" id="nrcard-'+idx+'">'+
+          '<div class="related-card__info">'+
+            '<p class="related-card__name">'+esc(r.dogName)+'</p>'+
+            '<p class="related-card__sub">'+esc(r.breed)+' · '+esc(sexLbl)+' · License '+esc(r.licenseNum)+'</p>'+
+            '<div class="related-card__badges">'+licBadge+rabBadge+'</div>'+
+          '</div>'+
+          '<button type="button" class="btn-toggle-related'+(isSel?' btn-toggle-related--remove':'')+'" data-nridx="'+idx+'">'+
+            (isSel?'Remove':'Add to renewal')+
+          '</button>'+
+        '</div>';
+      });
+      $('name-results-list').innerHTML=html;
+      document.querySelectorAll('[data-nridx]').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          var idx=parseInt(this.getAttribute('data-nridx'),10);
+          if(selectedRelated.has(idx)) selectedRelated.delete(idx);
+          else selectedRelated.add(idx);
+          renderNameSearchResults();
+          updateRenewButton();
+        });
+      });
+    }
+
     function renderRelatedDogs(matched){
-      var related=LOOKUP_RECORDS.filter(function(r){ return r!==matched; });
       var section=$('related-dogs-section');
+      if(!section) return;
+      var related=LOOKUP_RECORDS.filter(function(r){ return r!==matched; });
       if(!related.length){ section.setAttribute('hidden',''); return; }
       section.removeAttribute('hidden');
       var html='';
@@ -1236,17 +1296,15 @@
     }
 
     $('btn-renew').addEventListener('click',function(){
-      if(!currentResult) return;
       if(!selectedMatchedDog && selectedRelated.size===0) return;
-      var matchIdx=LOOKUP_RECORDS.indexOf(currentResult);
       lookupSelected=[];
-      if(selectedMatchedDog) lookupSelected.push(matchIdx>=0?matchIdx:0);
+      if(selectedMatchedDog && currentResult){ var matchIdx=LOOKUP_RECORDS.indexOf(currentResult); lookupSelected.push(matchIdx>=0?matchIdx:0); }
       selectedRelated.forEach(function(ridx){ lookupSelected.push(ridx); });
       if(!lookupSelected.length) return;
       setPath('renewal');
       startRenewal();
     });
-    $('btn-find-another').addEventListener('click',function(){ lookupSelected=[]; currentResult=null; selectedRelated=new Set(); selectedMatchedDog=false; setMode('lookup'); showView('view-choose-path'); $('path-selector').hidden=true; var pr=$('path-renewal'); if(pr) pr.checked=true; $('renewal-lookup-wrap').hidden=false; $('btn-choosepath-continue').style.display='none'; });
+    $('btn-find-another').addEventListener('click',function(){ lookupSelected=[]; currentResult=null; selectedRelated=new Set(); selectedMatchedDog=false; searchMode=''; currentOwnerName=''; setMode('lookup'); showView('view-choose-path'); $('path-selector').hidden=true; var pr=$('path-renewal'); if(pr) pr.checked=true; $('renewal-lookup-wrap').hidden=false; $('btn-choosepath-continue').style.display='none'; });
 
     function startRenewal(){
       state.owner=Object.assign({},DUMMY_OWNER);
