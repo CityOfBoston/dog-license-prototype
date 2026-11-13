@@ -609,6 +609,16 @@
                     <div></div>
                   </div>
                 </div>
+                <div class="field-group" style="margin-top:20px;">
+                  <p class="field-group__heading">Senior discount</p>
+                  <label class="radio-option" style="align-items:flex-start;gap:12px;padding:14px 16px;" for="o-senior70">
+                    <input type="checkbox" id="o-senior70" style="width:18px;height:18px;flex-shrink:0;accent-color:var(--cob-theme);cursor:pointer;margin-top:2px;">
+                    <div>
+                      <span class="radio-option__label" style="display:block;">I am 70 years of age or older</span>
+                      <span class="radio-option__desc">Boston residents who are 70 or older qualify for a $0 dog license. You may be asked to provide proof of age at pick-up.</span>
+                    </div>
+                  </label>
+                </div>
               </form>
               <div class="step-buttons">
                 <button type="button" class="btn-back" id="btn-owner-back">
@@ -658,7 +668,7 @@
               <div class="review-block">
                 <div class="review-block__header"><p class="review-block__title">License fees</p></div>
                 <table class="review-fee-table" id="review-fees"></table>
-                <p class="review-fee-note">An online service charge of 2.75% (minimum $1.00) applies. You'll continue to Invoice Cloud to complete payment.</p>
+                <p class="review-fee-note" id="review-fee-note">An online service charge of 2.75% (minimum $1.00) applies. You'll continue to Invoice Cloud to complete payment.</p>
               </div>
               <div class="step-buttons">
                 <button type="button" class="btn-back" id="btn-review-back">
@@ -757,7 +767,7 @@
       { dogName:'Milo',  licenseNum:'A-00892', breed:'Beagle',             sex:'neutered',ageY:'2', ageM:'0', color1:'Brown',           color2:'White', licensed:'April 12, 2023',   licenseExpiry:'March 31, 2027', licenseExpired:false, vaccDate:'2025-04-05', vaccExpiry:'2027-05-20', rabiesExpired:false }
     ];
 
-    var state = { step:1, path:'', owner:{name:'',phone:'',email:'',street:'',apt:'',neighborhood:'',zip:''}, dogs:[], activeDog:-1, totalFee:0, leaveDest:null };
+    var state = { step:1, path:'', owner:{name:'',phone:'',email:'',street:'',apt:'',neighborhood:'',zip:''}, dogs:[], activeDog:-1, totalFee:0, leaveDest:null, seniorWaiver:false };
     var lookupSelected = [];
     var currentResult = null;
     var selectedRelated = new Set();
@@ -769,7 +779,7 @@
     function $(id){ return document.getElementById(id); }
     function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
     function opts(list,sel){ return list.map(function(v){ return '<option'+(v===sel?' selected':'')+'>'+esc(v)+'</option>'; }).join(''); }
-    function fee(dog){ return (dog.sex==='neutered'||dog.sex==='spayed')?15:30; }
+    function fee(dog){ if(state.seniorWaiver) return 0; return (dog.sex==='neutered'||dog.sex==='spayed')?15:30; }
 
     /* ── Layout mode ── */
     function setMode(mode){
@@ -847,8 +857,8 @@
     }
 
     /* ── Owner ── */
-    function saveOwner(){ state.owner={name:$('o-name').value.trim(),phone:$('o-phone').value.trim(),email:$('o-email').value.trim(),street:$('o-street').value.trim(),apt:$('o-apt').value.trim(),neighborhood:$('o-neighborhood').value,zip:$('o-zip').value.trim()}; }
-    function restoreOwner(){ $('o-name').value=state.owner.name; $('o-phone').value=state.owner.phone; $('o-email').value=state.owner.email; $('o-street').value=state.owner.street; $('o-apt').value=state.owner.apt; $('o-neighborhood').value=state.owner.neighborhood; $('o-zip').value=state.owner.zip; }
+    function saveOwner(){ state.owner={name:$('o-name').value.trim(),phone:$('o-phone').value.trim(),email:$('o-email').value.trim(),street:$('o-street').value.trim(),apt:$('o-apt').value.trim(),neighborhood:$('o-neighborhood').value,zip:$('o-zip').value.trim()}; var sc=$('o-senior70'); state.seniorWaiver=sc?sc.checked:false; }
+    function restoreOwner(){ $('o-name').value=state.owner.name; $('o-phone').value=state.owner.phone; $('o-email').value=state.owner.email; $('o-street').value=state.owner.street; $('o-apt').value=state.owner.apt; $('o-neighborhood').value=state.owner.neighborhood; $('o-zip').value=state.owner.zip; var sc=$('o-senior70'); if(sc) sc.checked=state.seniorWaiver; }
     function validateOwner(){
       var checks=[['o-name','err-o-name'],['o-email','err-o-email'],['o-street','err-o-street'],['o-neighborhood','err-o-neighborhood'],['o-zip','err-o-zip']];
       var ok=true;
@@ -1094,17 +1104,24 @@
             docRows+
           '</dl>'+
         '</div>';
-        fr+='<tr><td>'+esc(d.name||'Dog '+(i+1))+' — '+esc(sexLbl)+'</td><td>$'+f+'.00</td></tr>';
+        var feeCell=state.seniorWaiver?'$0.00 <span style="font-size:11px;color:#166534;font-weight:600;">Waived</span>':'$'+f+'.00';
+        fr+='<tr><td>'+esc(d.name||'Dog '+(i+1))+' — '+esc(sexLbl)+'</td><td>'+feeCell+'</td></tr>';
       });
       $('review-dogs').innerHTML=dh;
       $('review-fees').innerHTML=fr+'<tr class="total-row"><td>Total</td><td>$'+total+'.00</td></tr>';
       state.totalFee=total;
+      var feeNote=$('review-fee-note');
+      if(feeNote){
+        if(state.seniorWaiver){ feeNote.innerHTML='<strong style="color:#166534;">Senior waiver applied</strong> — 70+ discount. No payment required.'; feeNote.style.color='#166534'; }
+        else { feeNote.textContent='An online service charge of 2.75% (minimum $1.00) applies. You\'ll continue to Invoice Cloud to complete payment.'; feeNote.style.color=''; }
+      }
       state.dogs.forEach(function(_,i){ var b=$('reditdog-'+i); if(b) b.onclick=function(){ state.activeDog=i; renderDogs(); showStep(2); }; });
     }
 
     function buildPaymentView(){
-      var t=state.totalFee; var s=Math.max(1,Math.round(t*0.0275*100)/100);
-      $('ic-fee-display').textContent='License total: $'+t+'.00 + service charge ≈ $'+s.toFixed(2)+' = approx. $'+(t+s).toFixed(2)+' due';
+      var t=state.totalFee;
+      if(t===0){ $('ic-fee-display').textContent='Senior waiver applied — $0.00 due. No payment required.'; }
+      else { var s=Math.max(1,Math.round(t*0.0275*100)/100); $('ic-fee-display').textContent='License total: $'+t+'.00 + service charge ≈ $'+s.toFixed(2)+' = approx. $'+(t+s).toFixed(2)+' due'; }
     }
 
     /* ── Lookup search mode toggle ── */
@@ -1307,6 +1324,7 @@
     $('btn-find-another').addEventListener('click',function(){ lookupSelected=[]; currentResult=null; selectedRelated=new Set(); selectedMatchedDog=false; searchMode=''; currentOwnerName=''; setMode('lookup'); showView('view-choose-path'); $('path-selector').hidden=true; var pr=$('path-renewal'); if(pr) pr.checked=true; $('renewal-lookup-wrap').hidden=false; $('btn-choosepath-continue').style.display='none'; });
 
     function startRenewal(){
+      state.seniorWaiver=false;
       state.owner=Object.assign({},DUMMY_OWNER);
       state.dogs=lookupSelected.map(function(idx){
         var r=LOOKUP_RECORDS[idx];
@@ -1347,6 +1365,8 @@
       saveOwner(); if(!validateOwner()) return;
       showStep(2); renderDogs();
     });
+    var seniorChk=$('o-senior70');
+    if(seniorChk) seniorChk.addEventListener('change',function(){ state.seniorWaiver=this.checked; });
     $('btn-dogs-back').addEventListener('click',function(){ saveDogFields(); restoreOwner(); showStep(1); });
     $('btn-add-dog').addEventListener('click',function(){
       if(state.dogs.length>=MAX_DOGS) return;
@@ -1388,6 +1408,7 @@
       $('choosepath-val-summary').classList.remove('is-visible');
       setPath('new');
       var d0=newDog(); d0.method='new'; state.dogs=[d0]; state.activeDog=0;
+      state.seniorWaiver=false;
       state.owner={name:'',phone:'',email:'',street:'',apt:'',neighborhood:'',zip:''};
       restoreOwner(); showStep(1); renderDogs();
     });
