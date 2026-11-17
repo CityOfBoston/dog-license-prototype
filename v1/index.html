@@ -1264,16 +1264,11 @@
     }
 
     function updateRenewButton(){
-      var total=(selectedMatchedDog?1:0)+selectedRelated.size;
+      var hasSelection=(selectedMatchedDog)||(selectedRelated.size>0);
       var btn=$('btn-renew');
       if(!btn) return;
-      if(total===0){
-        btn.textContent='Renew your license';
-        btn.disabled=true;
-      } else {
-        btn.textContent=total===1?'Renew 1 dog':'Renew '+total+' dogs';
-        btn.disabled=false;
-      }
+      btn.textContent='Renew your license';
+      btn.disabled=!hasSelection;
     }
 
     $('btn-renew').addEventListener('click',function(){
