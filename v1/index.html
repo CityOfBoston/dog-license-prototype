@@ -1309,10 +1309,13 @@
 
     function startRenewal(){
       state.owner=Object.assign({},DUMMY_OWNER);
-      state.dogs=lookupSelected.map(function(idx){
-        var r=LOOKUP_RECORDS[idx];
-        return Object.assign(newDog(),{name:r.dogName,breed1:r.breed,color1:r.color1,color2:r.color2||'',sex:r.sex,ageY:r.ageY,ageM:r.ageM,vaccDate:r.vaccDate,expDate:r.vaccExpiry,method:'renewal',fromLookup:true,done:false});
-      });
+      state.dogs=lookupSelected
+        .filter(function(idx){ return Number.isInteger(idx) && !!LOOKUP_RECORDS[idx]; })
+        .map(function(idx){
+          var r=LOOKUP_RECORDS[idx];
+          return Object.assign(newDog(),{name:r.dogName,breed1:r.breed,color1:r.color1,color2:r.color2||'',sex:r.sex,ageY:r.ageY,ageM:r.ageM,vaccDate:r.vaccDate,expDate:r.vaccExpiry,method:'renewal',fromLookup:true,done:false});
+        });
+      if(!state.dogs.length) return;
       state.activeDog=0;
       restoreOwner();
       showStep(1);
