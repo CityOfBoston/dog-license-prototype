@@ -78,6 +78,9 @@ body {
   border-radius: 2px;
 }
 
+/* --- CoB web component display fix -------------------------- */
+cob-unavheader, cob-unavfooter { display: block; }
+
 /* --- Skip link ---------------------------------------------- */
 .skip-link {
   position: absolute;
@@ -219,29 +222,32 @@ body {
   .main-nav__inner { padding: 0 var(--gutters); }
 }
 
-/* Logo: header-nav.png (1291×113px) cropped to show just the main nav row.
-   margin-top: -40px hides the trustbar portion of the image.
-   Replace container width / img width when switching to a standalone SVG. */
 .cob-logo {
-  display: block;
-  overflow: hidden;
-  width: 370px;
-  height: 73px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
   flex-shrink: 0;
   text-decoration: none;
 }
 
-.cob-logo__img {
+.cob-logo__svg {
   display: block;
-  max-width: none;
-  width: 1291px;
-  height: 113px;
-  margin-top: -40px;
-  pointer-events: none;
+  height: 44px;
+  width: auto;
+}
+
+.cob-logo__mayor {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--cob-navy);
+  padding-left: 16px;
+  border-left: 1px solid var(--cob-mid-grey);
+  white-space: nowrap;
 }
 
 @media (max-width: 640px) {
-  .cob-logo { width: 220px; }
+  .cob-logo__mayor { display: none; }
 }
 
 .main-nav__links {
@@ -1108,7 +1114,7 @@ body {
 /* ============================================================
    FOOTER
    ============================================================ */
-.site-footer { background: var(--cob-navy); }
+cob-unavfooter { background: var(--cob-navy); }
 
 .site-footer__inner {
   max-width: var(--max-width);
