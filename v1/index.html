@@ -1132,6 +1132,10 @@
     }
     $('btn-search-number').addEventListener('click',doSearch);
     $('btn-search-name').addEventListener('click',doSearch);
+    $('related-dogs-list').addEventListener('click',function(e){
+      var btn=e.target.closest('[data-ridx]');
+      if(btn) toggleRelated(parseInt(btn.getAttribute('data-ridx'),10));
+    });
     ['ls-num','ls-year-n','ls-dog-n'].forEach(function(id){ var el=$(id); if(el) el.addEventListener('input',function(){ if(this.value.trim()){ this.setAttribute('aria-invalid','false'); } if($('search-number-val')) $('search-number-val').classList.remove('is-visible'); }); });
     ['ls-fname','ls-lname','ls-year-name','ls-dog-name'].forEach(function(id){ var el=$(id); if(el) el.addEventListener('input',function(){ if(this.value.trim()){ this.setAttribute('aria-invalid','false'); } if($('search-name-val')) $('search-name-val').classList.remove('is-visible'); }); });
 
@@ -1250,11 +1254,6 @@
         '</div>';
       });
       $('related-dogs-list').innerHTML=html;
-      $('related-dogs-list').querySelectorAll('.btn-toggle-related').forEach(function(btn){
-        btn.addEventListener('click',function(){
-          toggleRelated(parseInt(this.getAttribute('data-ridx'),10));
-        });
-      });
     }
 
     function toggleRelated(idx){
