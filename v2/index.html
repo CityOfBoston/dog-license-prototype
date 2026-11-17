@@ -17,7 +17,7 @@
 
     .app-breadcrumb { padding:16px 0 20px; }
     .app-breadcrumb ol { display:flex;flex-wrap:wrap;align-items:center;list-style:none;font-family:var(--font-ui);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em; }
-    .app-breadcrumb li+li::before { content:"›";padding:0 6px;color:#797c7f;font-weight:400; }
+    .app-breadcrumb li+li::before { content:"›";padding:0 6px;color:var(--cob-text-weak);font-weight:400; }
     .app-breadcrumb a { color:var(--cob-theme);text-decoration:none; }
     .app-breadcrumb a:hover { text-decoration:underline; }
     .app-breadcrumb [aria-current="page"] { color:var(--cob-freedom-red); }
@@ -36,13 +36,13 @@
     .step-nav ol { list-style:none;padding:0;margin:0; }
     .step-nav li { display:flex;align-items:flex-start;gap:12px;min-height:56px; }
     .step-nav__track { display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:32px; }
-    .step-nav__circle { width:32px;height:32px;border-radius:50%;border:2px solid #d2d2d2;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;color:#797c7f;flex-shrink:0;transition:all .2s; }
+    .step-nav__circle { width:32px;height:32px;border-radius:50%;border:2px solid #d2d2d2;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--cob-text-weak);flex-shrink:0;transition:all .2s; }
     .step-nav li.step--active .step-nav__circle { background:var(--cob-theme);border-color:var(--cob-theme);color:white; }
     .step-nav li.step--done  .step-nav__circle { background:var(--cob-navy);border-color:var(--cob-navy);color:white; }
     .step-nav__connector { width:2px;flex:1;min-height:14px;background:#d2d2d2;margin-top:4px; }
     .step-nav li.step--done .step-nav__connector { background:var(--cob-navy); }
     .step-nav li:last-child .step-nav__connector { display:none; }
-    .step-nav__label { font-family:var(--font-ui);font-size:13px;font-weight:600;line-height:1.4;color:#797c7f;padding-top:6px; }
+    .step-nav__label { font-family:var(--font-ui);font-size:13px;font-weight:600;line-height:1.4;color:var(--cob-text-weak);padding-top:6px; }
     .step-nav li.step--active .step-nav__label,
     .step-nav li.step--done  .step-nav__label { color:var(--cob-navy);font-weight:700; }
     @media(max-width:767px){
@@ -76,9 +76,9 @@
     .fee-table td { font-size:14px;padding:10px 10px;border-bottom:1px solid #e2e2e2;color:var(--cob-navy); }
     .fee-table td:last-child { font-weight:700;text-align:right; }
     .fee-table tr:last-child td { border-bottom:none; }
-    .fee-note { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-top:10px;line-height:1.55; }
+    .fee-note { font-family:var(--font-ui);font-size:12px;color:var(--cob-text-weak);margin-top:10px;line-height:1.55; }
     .landing-cta-group { display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:28px 0 12px; }
-    .landing-or { font-family:var(--font-ui);font-size:14px;color:#797c7f;margin-bottom:12px; }
+    .landing-or { font-family:var(--font-ui);font-size:14px;color:var(--cob-text-weak);margin-bottom:12px; }
     .landing-footer-links { font-family:var(--font-ui);font-size:13px;color:#58585b;line-height:1.8; }
     .landing-footer-links a { color:var(--cob-theme);text-decoration:underline; }
 
@@ -97,7 +97,7 @@
     /* ── Fields ── */
     .field-group { margin-bottom:28px; }
     .field-group__heading { font-family:var(--font-ui);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--cob-navy);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #d2d2d2; }
-    .field-group__note { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-bottom:14px; }
+    .field-group__note { font-family:var(--font-ui);font-size:12px;color:var(--cob-text-weak);margin-bottom:14px; }
     .field-row { display:grid;gap:14px;margin-bottom:14px; }
     .field-row--1 { grid-template-columns:1fr; }
     .field-row--2 { grid-template-columns:1fr; }
@@ -128,7 +128,7 @@
     .file-upload+.file-upload { margin-top:12px; }
     .file-upload__label { font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--cob-navy);letter-spacing:.03em;display:block;margin-bottom:4px; }
     .file-upload__req { color:var(--cob-freedom-red); }
-    .file-upload__desc { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-bottom:10px;line-height:1.5; }
+    .file-upload__desc { font-family:var(--font-ui);font-size:12px;color:var(--cob-text-weak);margin-bottom:10px;line-height:1.5; }
     .file-upload__input { font-family:var(--font-ui);font-size:13px;color:var(--cob-navy);width:100%;display:block; }
     .file-upload__chosen { margin-top:6px;font-family:var(--font-ui);font-size:12px;color:var(--cob-theme);font-weight:600;display:none; }
     .file-upload__chosen.is-visible { display:block; }
@@ -137,7 +137,7 @@
     .dogs-panel { margin-bottom:24px; }
     .dogs-panel__heading { font-family:var(--font-ui);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--cob-navy);margin-bottom:6px; }
     .dogs-panel__desc { font-family:var(--font-ui);font-size:13px;color:#58585b;margin-bottom:12px;line-height:1.5; }
-    .dog-counter { font-family:var(--font-ui);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#797c7f;display:block;margin-top:8px; }
+    .dog-counter { font-family:var(--font-ui);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--cob-text-weak);display:block;margin-top:8px; }
 
     /* ── Dog card (wireframe layout) ── */
     .dog-card { background:white;border:1px solid #e2e2e2;border-radius:4px;padding:14px 16px;margin-bottom:8px; }
@@ -146,7 +146,7 @@
     .dog-card__main { display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:start; }
     @media(max-width:600px){.dog-card__main{grid-template-columns:1fr;gap:10px;}}
     .dog-card__name { font-family:var(--font-ui);font-weight:700;font-size:15px;color:var(--cob-navy); }
-    .dog-card__method-heading { font-family:var(--font-ui);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#797c7f;margin-bottom:6px; }
+    .dog-card__method-heading { font-family:var(--font-ui);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--cob-text-weak);margin-bottom:6px; }
     .dog-card__method-radios { display:flex;flex-direction:column;gap:5px; }
     .dog-card__method-label { display:flex;align-items:center;gap:7px;cursor:pointer; }
     .dog-card__method-label input[type="radio"] { width:14px;height:14px;accent-color:var(--cob-theme);flex-shrink:0; }
@@ -154,7 +154,7 @@
     .dog-card__status-wrap { display:flex;align-items:flex-start;padding-top:2px;min-width:100px;justify-content:flex-end; }
     @media(max-width:600px){.dog-card__status-wrap{justify-content:flex-start;}}
     .dog-card__status { font-family:var(--font-ui);font-size:12px;font-weight:700;white-space:nowrap; }
-    .dog-card__status--needed { color:#797c7f; }
+    .dog-card__status--needed { color:var(--cob-text-weak); }
     .dog-card__status--done { color:#2e7d32; }
     .dog-card__actions { display:flex;gap:10px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid #e2e2e2; }
 
@@ -189,22 +189,22 @@
     .review-dl { display:flex;flex-direction:column;gap:8px; }
     .review-dl__row { display:grid;grid-template-columns:150px 1fr;gap:8px; }
     @media(max-width:480px){.review-dl__row{grid-template-columns:1fr;gap:2px;}}
-    .review-dl__row dt { font-family:var(--font-ui);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#797c7f;padding-top:1px; }
+    .review-dl__row dt { font-family:var(--font-ui);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--cob-text-weak);padding-top:1px; }
     .review-dl__row dd { font-family:var(--font-body);font-size:15px;line-height:1.55;color:var(--cob-navy); }
     .review-fee-table { width:100%;border-collapse:collapse;font-family:var(--font-ui); }
     .review-fee-table td { padding:8px 10px;font-size:14px;border-top:1px solid #e2e2e2; }
     .review-fee-table td:last-child { text-align:right;color:var(--cob-navy);font-weight:600; }
     .review-fee-table td:first-child { color:#58585b; }
     .review-fee-table .total-row td { font-weight:700;font-size:15px;color:var(--cob-navy);border-top:2px solid var(--cob-navy); }
-    .review-fee-note { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-top:10px;line-height:1.5; }
+    .review-fee-note { font-family:var(--font-ui);font-size:12px;color:var(--cob-text-weak);margin-top:10px;line-height:1.5; }
     .review-payment-note { font-family:var(--font-ui);font-size:13px;font-style:italic;color:#58585b;margin-top:14px; }
 
     /* ── Invoice Cloud placeholder ── */
     .ic-proto-banner { display:flex;align-items:center;gap:10px;background:var(--cob-amber);color:var(--cob-navy);padding:10px 16px;border-radius:4px;margin-bottom:20px;font-family:var(--font-ui);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em; }
     .ic-placeholder { border:2px dashed #d2d2d2;border-radius:4px;background:white;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center;gap:14px; }
     .ic-placeholder__icon { font-size:44px;opacity:.2; }
-    .ic-placeholder__name { font-family:var(--font-ui);font-weight:700;font-size:20px;color:#797c7f; }
-    .ic-placeholder__body { font-family:var(--font-body);font-size:15px;line-height:1.65;color:#797c7f;max-width:400px; }
+    .ic-placeholder__name { font-family:var(--font-ui);font-weight:700;font-size:20px;color:var(--cob-text-weak); }
+    .ic-placeholder__body { font-family:var(--font-body);font-size:15px;line-height:1.65;color:var(--cob-text-weak);max-width:400px; }
     .ic-placeholder__fee { font-family:var(--font-ui);font-weight:700;font-size:15px;color:var(--cob-navy); }
     .open-question { margin-top:20px;background:#fff8e6;border:1px solid var(--cob-amber);border-radius:4px;padding:14px 18px; }
     .open-question__head { font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#7a5000;margin-bottom:6px; }
@@ -247,7 +247,7 @@
     .result-card--selected .result-card__check { background:var(--cob-theme);border-color:var(--cob-theme);color:white; }
     .result-card__info { flex:1;min-width:0; }
     .result-card__name { font-family:var(--font-ui);font-weight:700;font-size:15px;color:var(--cob-navy); }
-    .result-card__sub { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-top:2px; }
+    .result-card__sub { font-family:var(--font-ui);font-size:12px;color:var(--cob-text-weak);margin-top:2px; }
     .result-card__badges { display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex-shrink:0; }
     .badge { display:inline-block;padding:3px 8px;border-radius:12px;font-family:var(--font-ui);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap; }
     .badge--expired { background:#fee2e2;color:#991b1b; }
@@ -262,7 +262,7 @@
     .rabies-alert__text { font-family:var(--font-ui);font-size:13px;color:#5a3c00;line-height:1.55; }
     .rabies-alert__text strong { color:#7a5000; }
     .detail-dl { display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px 16px; }
-    .detail-dl__row dt { font-family:var(--font-ui);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#797c7f;margin-bottom:2px; }
+    .detail-dl__row dt { font-family:var(--font-ui);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--cob-text-weak);margin-bottom:2px; }
     .detail-dl__row dd { font-family:var(--font-body);font-size:14px;color:var(--cob-navy);line-height:1.4; }
     .select-bar { background:white;border:1px solid #e2e2e2;border-top:2px solid var(--cob-theme);border-radius:4px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px; }
     .select-bar__info { font-family:var(--font-ui);font-size:13px;color:#58585b; }
@@ -282,11 +282,11 @@
     .related-card--selected { border-color:var(--cob-theme);background:#f0f7ff; }
     .related-card__info { flex:1;min-width:0; }
     .related-card__name { font-family:var(--font-ui);font-weight:700;font-size:15px;color:var(--cob-navy); }
-    .related-card__sub { font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-top:2px; }
+    .related-card__sub { font-family:var(--font-ui);font-size:12px;color:var(--cob-text-weak);margin-top:2px; }
     .related-card__badges { display:flex;gap:6px;flex-wrap:wrap;margin-top:6px; }
     .btn-toggle-related { font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--cob-theme);border:2px solid var(--cob-theme);border-radius:10px;padding:7px 14px;background:transparent;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s;flex-shrink:0; }
     .btn-toggle-related:hover { background:var(--cob-theme);color:white; }
-    .btn-toggle-related--remove { color:#797c7f;border-color:#d2d2d2; }
+    .btn-toggle-related--remove { color:var(--cob-text-weak);border-color:#d2d2d2; }
     .btn-toggle-related--remove:hover { background:#f8f8f8;color:var(--cob-navy); }
     @media(max-width:600px){ .related-card { flex-wrap:wrap; } .btn-toggle-related { width:100%; } }
     #result-detail-card.result-matched--selected { border-color:var(--cob-theme);background:#f0f7ff; }
@@ -455,7 +455,7 @@
                     <div class="field">
                       <label for="ls-num">License tag number <span class="req" aria-hidden="true">*</span></label>
                       <input type="text" id="ls-num" placeholder="e.g. A-00450">
-                      <span style="font-family:var(--font-ui);font-size:12px;color:#797c7f;margin-top:2px;">You can find your license number on your dog's tag or previous license records.</span>
+                      <span style="font-family:var(--font-ui);font-size:12px;color:var(--cob-text-weak);margin-top:2px;">You can find your license number on your dog's tag or previous license records.</span>
                     </div>
                     <div class="field">
                       <label for="ls-year-n">License year <span class="req" aria-hidden="true">*</span></label>
@@ -894,7 +894,7 @@
       var d=state.dogs[i];
       var isActive=state.activeDog===i;
       var name=d.name||((['First','Second','Third'][i]||'Dog '+(i+1))+' dog');
-      var methodTag=d.method?'<span style="font-size:11px;font-weight:600;color:#797c7f;letter-spacing:.04em;margin-left:8px;">('+(d.method==='renewal'?'Renewal':'New license')+')</span>':'';
+      var methodTag=d.method?'<span style="font-size:11px;font-weight:600;color:var(--cob-text-weak);letter-spacing:.04em;margin-left:8px;">('+(d.method==='renewal'?'Renewal':'New license')+')</span>':'';
       var statusHTML=d.done
         ? '<span class="dog-card__status dog-card__status--done">&#10003; Complete</span>'
         : '<span class="dog-card__status dog-card__status--needed">Details needed</span>';
@@ -924,7 +924,7 @@
       if(d.fromLookup){
         methodSection='<div style="background:#f0f7ff;border:1px solid #bee3f8;border-radius:4px;padding:12px 14px;margin-bottom:18px;">'+
           '<p style="font-family:var(--font-ui);font-size:13px;color:#0a4d8c;"><strong>Application type: Renewal</strong> — carried forward from license lookup.</p>'+
-          '<p style="font-family:var(--font-ui);font-size:11px;color:#797c7f;margin-top:4px;">Prototype note: actual lookup and prefill has not been confirmed with the development team.</p>'+
+          '<p style="font-family:var(--font-ui);font-size:11px;color:var(--cob-text-weak);margin-top:4px;">Prototype note: actual lookup and prefill has not been confirmed with the development team.</p>'+
         '</div>';
       } else if(state.path === 'new' && i === 0){
         methodSection='';
@@ -993,7 +993,7 @@
             '<span class="field-error" id="err-d-rf-'+i+'">Please upload a rabies vaccination certificate.</span>',
           '</div>',
           '<div class="file-upload">',
-            '<span class="file-upload__label">Spay/neuter certificate <span style="font-weight:400;color:#797c7f">(Optional)</span></span>',
+            '<span class="file-upload__label">Spay/neuter certificate <span style="font-weight:400;color:var(--cob-text-weak)">(Optional)</span></span>',
             '<p class="file-upload__desc">Upload proof if required and not already on file. Max 5 MB.</p>',
             '<input type="file" class="file-upload__input" id="d-sf-'+i+'" accept=".pdf,.jpg,.jpeg,.png" data-fi="spayFile" data-i="'+i+'">',
             d.spayFile?'<p class="file-upload__chosen is-visible" id="d-sfc-'+i+'">Selected: '+esc(d.spayFile)+'</p>':'<p class="file-upload__chosen" id="d-sfc-'+i+'"></p>',
@@ -1089,7 +1089,7 @@
         var color=[d.color1,d.color2].filter(Boolean).join(' and ')||'—';
         var sexLbl=SEX_MAP[d.sex]||d.sex||'—';
         var appType=d.method==='renewal'?'Renewal':'New license';
-        var lookupNote=d.fromLookup?'<span style="font-family:var(--font-ui);font-size:11px;color:#797c7f;display:block;margin-top:2px;">Prefilled from license lookup (simulated).</span>':'';
+        var lookupNote=d.fromLookup?'<span style="font-family:var(--font-ui);font-size:11px;color:var(--cob-text-weak);display:block;margin-top:2px;">Prefilled from license lookup (simulated).</span>':'';
         var age=d.ageY?(d.ageY+' yr'+(d.ageM?' '+d.ageM+' mo':'')):'—';
         var docRows='<div class="review-dl__row"><dt>Rabies cert</dt><dd>'+(d.rabiesFile?esc(d.rabiesFile):'Not uploaded')+'</dd></div>';
         if(d.spayFile) docRows+='<div class="review-dl__row"><dt>Spay/neuter cert</dt><dd>'+esc(d.spayFile)+'</dd></div>';
@@ -1188,14 +1188,14 @@
         '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #e2e2e2;">'+
           '<div>'+
             '<p style="font-family:var(--font-ui);font-weight:700;font-size:18px;color:var(--cob-navy);">'+esc(r.dogName)+'</p>'+
-            '<p style="font-family:var(--font-ui);font-size:13px;color:#797c7f;margin-top:3px;">License number: '+esc(r.licenseNum)+'</p>'+
+            '<p style="font-family:var(--font-ui);font-size:13px;color:var(--cob-text-weak);margin-top:3px;">License number: '+esc(r.licenseNum)+'</p>'+
           '</div>'+
           '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">'+
             '<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">'+licBadge+rabBadge+'</div>'+
             '<button type="button" class="btn-toggle-related" id="btn-toggle-match">Add to renewal</button>'+
           '</div>'+
         '</div>'+
-        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#797c7f;margin-bottom:10px;">Dog details</p>'+
+        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--cob-text-weak);margin-bottom:10px;">Dog details</p>'+
         '<div class="detail-dl">'+
           dlRow('Breed',r.breed)+
           dlRow('Sex',sexLbl)+
@@ -1204,13 +1204,13 @@
           dlRow('Coat color',color)+
         '</div>'+
         '<hr style="border:none;border-top:1px solid #e2e2e2;margin:14px 0;">'+
-        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#797c7f;margin-bottom:10px;">License details</p>'+
+        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--cob-text-weak);margin-bottom:10px;">License details</p>'+
         '<div class="detail-dl">'+
           dlRow('Date licensed',r.licensed)+
           dlRow('License expiration',r.licenseExpiry)+
         '</div>'+
         '<hr style="border:none;border-top:1px solid #e2e2e2;margin:14px 0;">'+
-        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#797c7f;margin-bottom:10px;">Rabies vaccination</p>'+
+        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--cob-text-weak);margin-bottom:10px;">Rabies vaccination</p>'+
         '<div class="detail-dl">'+
           dlRow('Vaccination date',r.vaccDate)+
           dlRow('Expiration date',r.vaccExpiry)+
