@@ -1269,7 +1269,7 @@
         '</div>';
       });
       $('related-dogs-list').innerHTML=html;
-      document.querySelectorAll('.btn-toggle-related').forEach(function(btn){
+      $('related-dogs-list').querySelectorAll('.btn-toggle-related').forEach(function(btn){
         btn.addEventListener('click',function(){
           toggleRelated(parseInt(this.getAttribute('data-ridx'),10));
         });
