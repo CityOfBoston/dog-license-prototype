@@ -345,8 +345,7 @@
 
           <nav class="step-nav" id="step-nav" aria-label="Application steps">
             <ol>
-              <li id="step-ind-0" style="display:none"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">1</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Find your renewal info</div></li>
-              <li id="step-ind-1"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">2</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Owner information</div></li>
+              <li id="step-ind-1"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">1</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Owner information</div></li>
               <li id="step-ind-2"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">3</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Dog information</div></li>
               <li id="step-ind-3"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">4</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Review</div></li>
             </ol>
@@ -808,32 +807,15 @@
 
     function setPath(p){
       state.path=p;
-      var s0=$('step-ind-0');
-      if(!s0) return;
-      if(p==='renewal'){
-        s0.style.display='';
-        s0.querySelector('.step-nav__circle').textContent='1';
-        $('step-ind-1').querySelector('.step-nav__circle').textContent='2';
-        $('step-ind-2').querySelector('.step-nav__circle').textContent='3';
-        $('step-ind-3').querySelector('.step-nav__circle').textContent='4';
-      } else {
-        s0.style.display='none';
-        $('step-ind-1').querySelector('.step-nav__circle').textContent='1';
-        $('step-ind-2').querySelector('.step-nav__circle').textContent='2';
-        $('step-ind-3').querySelector('.step-nav__circle').textContent='3';
-      }
     }
 
     function showStep0(){
       setMode('form');
-      var s0=$('step-ind-0'); if(s0){ s0.classList.remove('step--done'); s0.classList.add('step--active'); }
       for(var i=1;i<=3;i++){ var li=$('step-ind-'+i); li.classList.remove('step--active','step--done'); }
       state.step=0;
     }
     function showStep(n){
       setMode('form');
-      var s0=$('step-ind-0');
-      if(s0){ s0.classList.remove('step--active'); if(state.path==='renewal') s0.classList.add('step--done'); else s0.classList.remove('step--done'); }
       var names=['owner','dogs','review','payment'];
       showView('view-'+names[n-1]);
       for(var i=1;i<=3;i++){
