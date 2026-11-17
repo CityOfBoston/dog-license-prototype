@@ -388,6 +388,7 @@
 
               <div class="landing-section">
                 <p class="landing-section__heading">License fees</p>
+                <p style="font-family:var(--font-ui);font-size:14px;color:#58585b;margin-bottom:12px;">Massachusetts General Law, Chapter 140, Sections 137 and 141, and City Ordinance 10-1.9C mandate that every dog owner must obtain a license for their pet each year.</p>
                 <table class="fee-table">
                   <thead><tr><th>Dog type</th><th>Sex</th><th>Annual license fee</th></tr></thead>
                   <tbody>
@@ -409,21 +410,21 @@
             <!-- ══ CHOOSE PATH ══ -->
             <section id="view-choose-path" class="app-view" aria-labelledby="h-choose-path">
               <div id="path-selector">
-              <h2 class="view-heading" id="h-choose-path">New license or renewal?</h2>
+              <h2 class="view-heading" id="h-choose-path">What would you like to do?</h2>
               <p style="font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--cob-navy);margin-bottom:10px;">Select an option that applies to you <span style="color:var(--cob-freedom-red)">*</span></p>
               <div class="radio-group" style="margin-bottom:28px;">
                 <label class="radio-option" style="align-items:flex-start;gap:12px;padding:14px 16px;">
                   <input type="radio" name="app-path" value="new" id="path-new">
                   <div>
                     <span class="radio-option__label" style="display:block;">Apply for a new license</span>
-                    <span class="radio-option__desc">Enter your information and the dog's details</span>
+                    <span class="radio-option__desc">First time licensing my dog in Boston</span>
                   </div>
                 </label>
                 <label class="radio-option" style="align-items:flex-start;gap:12px;padding:14px 16px;">
                   <input type="radio" name="app-path" value="renewal" id="path-renewal">
                   <div>
                     <span class="radio-option__label" style="display:block;">Renew an existing license</span>
-                    <span class="radio-option__desc">Find and confirm your dog's record</span>
+                    <span class="radio-option__desc">I have an existing Boston dog license to renew</span>
                   </div>
                 </label>
               </div>
@@ -566,7 +567,7 @@
               <div id="owner-val-summary" class="validation-summary" role="alert"><p>Please complete all required fields before continuing.</p></div>
               <form id="form-owner" novalidate>
                 <div class="field-group">
-                  <p class="field-group__heading">Your contact information</p>
+                  <p class="field-group__heading">Contact information</p>
                   <p class="field-group__note">Fields marked with * are required.</p>
                   <div class="field-row field-row--1"><div class="field">
                     <label for="o-name">Owner's full name <span class="req" aria-hidden="true">*</span></label>
@@ -583,7 +584,7 @@
                   </div>
                 </div>
                 <div class="field-group">
-                  <p class="field-group__heading">Your Boston address</p>
+                  <p class="field-group__heading">Address</p>
                   <p class="field-group__note">Fields marked with * are required.</p>
                   <div class="field-row field-row--1"><div class="field">
                     <label for="o-street">Street address <span class="req" aria-hidden="true">*</span></label>
@@ -623,11 +624,11 @@
             <!-- ══ STEP 2: Dogs ══ -->
             <section id="view-dogs" class="app-view" aria-labelledby="h-dogs">
               <h2 class="view-heading" id="h-dogs">Dog information</h2>
-              <p class="view-subhead">Complete details and documents for each dog. You can include new licenses and renewals in the same application.</p>
+              <p class="view-subhead">Complete details for each dog.</p>
               <div id="dogs-val-summary" class="validation-summary" role="alert"><p id="dogs-val-msg">Please complete all required fields before continuing.</p></div>
               <div class="dogs-panel">
                 <p class="dogs-panel__heading">Dogs in this application</p>
-                <p class="dogs-panel__desc">Complete details for each dog. New licenses and renewals can be included together.</p>
+                <p class="dogs-panel__desc">Complete details for each dog.</p>
                 <div id="dog-cards"></div>
                 <span class="dog-counter" id="dog-counter"></span>
               </div>
@@ -749,7 +750,7 @@
     var MAX_DOGS = 3;
     var COLORS = ['Black','Brown','White','Gray / Silver','Tan / Beige','Golden / Yellow','Red / Rust','Brindle','Merle','Spotted / Patched','Other'];
     var BREEDS = ['American Bulldog','American Pit Bull Terrier','Beagle','Border Collie','Boston Terrier','Boxer','Bulldog','Chihuahua','Cocker Spaniel','Dachshund','German Shepherd','Golden Retriever','Great Dane','Husky','Labrador Retriever','Maltese','Mixed breed','Poodle','Pug','Rottweiler','Shih Tzu','Yorkshire Terrier','Other'];
-    var SEX_MAP = { 'intact-male':'Intact male', neutered:'Neutered male', 'intact-female':'Intact female', spayed:'Spayed female' };
+    var SEX_MAP = { 'intact-male':'Male', neutered:'Neutered male', 'intact-female':'Female', spayed:'Spayed female' };
 
     var DUMMY_OWNER = { name:'Jane Smith', phone:'617-555-0147', email:'jane.smith@email.com', street:'45 Commonwealth Ave', apt:'Apt 3B', neighborhood:'South End', zip:'02118' };
     var LOOKUP_RECORDS = [
@@ -865,6 +866,7 @@
       function chk(id,val,errId){ var el=$(id); if(!el) return; var v=!!(val&&String(val).trim().length>0); el.setAttribute('aria-invalid',v?'false':'true'); var e=$(errId); if(e) e.classList.toggle('is-visible',!v); if(!v&&!firstErr) firstErr=el; if(!v) ok=false; }
       chk('d-name-'+i, d.name,      'err-d-name-'+i);
       chk('d-ay-'+i,   d.ageY,      'err-d-ay-'+i);
+      chk('d-am-'+i,   d.ageM,      'err-d-am-'+i);
       chk('d-c1-'+i,   d.color1,    'err-d-c1-'+i);
       chk('d-b1-'+i,   d.breed1,    'err-d-b1-'+i);
       chk('d-vd-'+i,   d.vaccDate,  'err-d-vd-'+i);
@@ -951,7 +953,7 @@
           '<div class="field-row field-row--1"><div class="field"><label for="d-name-'+i+'">Dog\'s name <span class="req" aria-hidden="true">*</span></label><input type="text" id="d-name-'+i+'" value="'+esc(d.name)+'" data-f="name" data-i="'+i+'" aria-invalid="false"><span class="field-error" id="err-d-name-'+i+'">Dog\'s name is required.</span></div></div>',
           '<div class="field-row field-row--2col">',
             '<div class="field"><label for="d-ay-'+i+'">Age (years) <span class="req" aria-hidden="true">*</span></label><input type="number" id="d-ay-'+i+'" min="0" max="30" value="'+esc(d.ageY)+'" data-f="ageY" data-i="'+i+'" aria-invalid="false"><span class="field-error" id="err-d-ay-'+i+'">Age (years) is required.</span></div>',
-            '<div class="field"><label for="d-am-'+i+'">Age (months)</label><input type="number" id="d-am-'+i+'" min="0" max="11" value="'+esc(d.ageM)+'" data-f="ageM" data-i="'+i+'"></div>',
+            '<div class="field"><label for="d-am-'+i+'">Age (months) <span class="req" aria-hidden="true">*</span></label><input type="number" id="d-am-'+i+'" min="0" max="11" value="'+esc(d.ageM)+'" data-f="ageM" data-i="'+i+'" required aria-required="true" aria-invalid="false"><span class="field-error" id="err-d-am-'+i+'">Age (months) is required.</span></div>',
           '</div>',
           '<div class="field-row field-row--2">',
             '<div class="field"><label for="d-c1-'+i+'">Primary color <span class="req" aria-hidden="true">*</span></label><select id="d-c1-'+i+'" data-f="color1" data-i="'+i+'" aria-invalid="false"><option value="">Select</option>'+opts(COLORS,d.color1)+'</select><span class="field-error" id="err-d-c1-'+i+'">Please select a primary color.</span></div>',
@@ -963,9 +965,9 @@
           '</div>',
           '<p class="dog-form__section-head">Sex and spay/neuter status <span style="color:var(--cob-freedom-red)">*</span></p>',
           '<div class="radio-group" id="rg-sex-'+i+'">',
-            sexOpt(i,'intact-male',   'Intact male',   '$30',d.sex),
+            sexOpt(i,'intact-male',   'Male',          '$30',d.sex),
             sexOpt(i,'neutered',      'Neutered male', '$15',d.sex),
-            sexOpt(i,'intact-female', 'Intact female', '$30',d.sex),
+            sexOpt(i,'intact-female', 'Female',        '$30',d.sex),
             sexOpt(i,'spayed',        'Spayed female', '$15',d.sex),
           '</div>',
           '<span class="field-error" id="err-d-sex-'+i+'">Please select a sex and spay/neuter status.</span>',
