@@ -25,33 +25,23 @@
     .app-page-title { font-family:var(--font-ui);font-weight:800;font-size:clamp(22px,3.2vw,34px);text-transform:uppercase;color:var(--cob-navy);letter-spacing:.01em;margin-bottom:28px; }
 
     /* ── Form layout ── */
-    .app-layout { display:grid;grid-template-columns:210px 1fr;gap:48px;align-items:start; }
-    @media(max-width:767px){.app-layout{grid-template-columns:1fr;gap:20px;}}
-    .app-layout.full-width-mode { grid-template-columns:1fr; }
-    .app-layout.full-width-mode .step-nav { display:none; }
+    .app-layout { display:flex;flex-direction:column;gap:0; }
+    .app-layout.full-width-mode .cob-stepper { display:none; }
 
-    /* ── Step nav ── */
-    .step-nav { position:sticky;top:24px; }
-    @media(max-width:767px){.step-nav{position:static;}}
-    .step-nav ol { list-style:none;padding:0;margin:0; }
-    .step-nav li { display:flex;align-items:flex-start;gap:12px;min-height:56px; }
-    .step-nav__track { display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:32px; }
-    .step-nav__circle { width:32px;height:32px;border-radius:50%;border:2px solid #d2d2d2;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--cob-text-weak);flex-shrink:0;transition:all .2s; }
-    .step-nav li.step--active .step-nav__circle { background:var(--cob-theme);border-color:var(--cob-theme);color:white; }
-    .step-nav li.step--done  .step-nav__circle { background:var(--cob-navy);border-color:var(--cob-navy);color:white; }
-    .step-nav__connector { width:2px;flex:1;min-height:14px;background:#d2d2d2;margin-top:4px; }
-    .step-nav li.step--done .step-nav__connector { background:var(--cob-navy); }
-    .step-nav li:last-child .step-nav__connector { display:none; }
-    .step-nav__label { font-family:var(--font-ui);font-size:13px;font-weight:600;line-height:1.4;color:var(--cob-text-weak);padding-top:6px; }
-    .step-nav li.step--active .step-nav__label,
-    .step-nav li.step--done  .step-nav__label { color:var(--cob-navy);font-weight:700; }
+    /* ── CoB Stepper ── */
+    .cob-stepper { background:#f6f6f6;margin:0 calc(-1*var(--hero-pad,40px)); }
+    @media(max-width:1023px){.cob-stepper{margin:0 calc(-1*var(--sp-400,24px));}}
+    @media(max-width:767px){.cob-stepper{margin:0 -16px;}}
+    .cob-stepper__content { padding:8px 20px; }
+    .cob-stepper__label { font-family:var(--font-ui);font-weight:700;font-size:16px;color:#1b1b1b;margin:0;line-height:1.4; }
+    .cob-stepper__counter { font-family:var(--font-ui);font-size:16px;color:var(--cob-navy);margin:0; }
+    .cob-stepper__bar { display:flex;height:8px;gap:2px; }
+    .cob-stepper__segment { flex:1;background:#bec0c1;transition:background .2s; }
+    .cob-stepper__segment--done,.cob-stepper__segment--current { background:var(--cob-theme); }
+    #views-wrap { margin-top:24px;max-width:720px; }
     @media(max-width:767px){
-      .step-nav ol{display:flex;flex-wrap:wrap;gap:6px;}
-      .step-nav li{flex-direction:column;align-items:center;gap:4px;min-height:auto;padding:6px 10px;background:white;border-radius:4px;border:1px solid #d2d2d2;flex:1;min-width:72px;}
-      .step-nav li.step--active{border-color:var(--cob-theme);}
-      .step-nav__track{width:auto;}
-      .step-nav__connector{display:none!important;}
-      .step-nav__label{padding-top:0;text-align:center;font-size:11px;}
+      .step-buttons{flex-direction:column-reverse;}
+      .step-buttons .btn-primary,.step-buttons .btn-back{width:100%;justify-content:center;}
     }
 
     /* ── Views ── */
@@ -261,9 +251,30 @@
     .rabies-alert__icon { font-size:18px;flex-shrink:0; }
     .rabies-alert__text { font-family:var(--font-ui);font-size:13px;color:#5a3c00;line-height:1.55; }
     .rabies-alert__text strong { color:#7a5000; }
-    .detail-dl { display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px 16px; }
-    .detail-dl__row dt { font-family:var(--font-ui);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--cob-text-weak);margin-bottom:2px; }
-    .detail-dl__row dd { font-family:var(--font-body);font-size:14px;color:var(--cob-navy);line-height:1.4; }
+    /* ── Lookup result card ── */
+    .rcard { border:1px solid #d2d2d2;border-radius:4px;overflow:hidden;margin-bottom:12px;background:white;transition:border-color .15s; }
+    .rcard--matched { border:2px solid var(--cob-theme); }
+    .rcard--selected { border-color:var(--cob-theme) !important; }
+    .rcard__header { display:flex;align-items:center;gap:8px;padding:12px 14px;background:#f7f7fc; }
+    .rcard--matched .rcard__header,.rcard--selected .rcard__header { background:#f2f7ff; }
+    .rcard__name { font-family:var(--font-ui);font-weight:700;font-size:15px;color:var(--cob-navy);flex:1;min-width:0;line-height:1.3;margin:0; }
+    .rcard--matched .rcard__name { font-size:16px; }
+    .rcard__rabies { background:#fcf5f2;border-left:3px solid #bf2a1f;padding:10px 14px; }
+    .rcard__rabies-title { font-family:var(--font-ui);font-weight:700;font-size:12px;color:#bf2a1f;margin:0; }
+    .rcard__rabies-body { font-family:var(--font-ui);font-size:11px;color:#58585b;line-height:1.55;margin:3px 0 0; }
+    .rcard__details { background:white;padding:8px 14px 12px; }
+    .rcard__section { font-family:var(--font-ui);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--cob-text-weak);margin:10px 0 6px;display:block; }
+    .rcard__divider { border:none;border-top:1px solid #e2e2e2;margin:8px 0; }
+    .rcard__row { display:flex;align-items:baseline;gap:6px;margin-bottom:5px; }
+    .rcard__row:last-child { margin-bottom:0; }
+    .rcard__key { font-family:var(--font-ui);font-weight:700;font-size:11px;color:#797c7f;white-space:nowrap;flex-shrink:0; }
+    .rcard__val { font-family:var(--font-ui);font-size:12px;color:var(--cob-navy);flex:1;text-align:right;min-width:0; }
+    .rcard__action { display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid #d2d2d2;background:#fafafa;cursor:pointer; }
+    .rcard--matched .rcard__action,.rcard--selected .rcard__action { background:#f2f7ff; }
+    .rcard__action:hover { opacity:.85; }
+    .rcard__check { width:16px;height:16px;border-radius:3px;background:#e0e0e0;flex-shrink:0;transition:background .15s; }
+    .rcard--selected .rcard__check { background:var(--cob-theme); }
+    .rcard__action-text { font-family:var(--font-ui);font-weight:600;font-size:12px;color:var(--cob-navy);flex:1;min-width:0; }
     .select-bar { background:white;border:1px solid #e2e2e2;border-top:2px solid var(--cob-theme);border-radius:4px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px; }
     .select-bar__info { font-family:var(--font-ui);font-size:13px;color:#58585b; }
     .select-bar__info strong { color:var(--cob-navy); }
@@ -290,6 +301,7 @@
     .btn-toggle-related--remove:hover { background:#f8f8f8;color:var(--cob-navy); }
     @media(max-width:600px){ .related-card { flex-wrap:wrap; } .btn-toggle-related { width:100%; } }
     #result-detail-card.result-matched--selected { border-color:var(--cob-theme);background:#f0f7ff; }
+    .result-matched--selected { border-color:var(--cob-theme);background:#f0f7ff; }
     #btn-renew:disabled { opacity:.4;cursor:not-allowed; }
   </style>
 </head>
@@ -343,13 +355,17 @@
 
         <div class="app-layout full-width-mode" id="app-layout">
 
-          <nav class="step-nav" id="step-nav" aria-label="Application steps">
-            <ol>
-              <li id="step-ind-1"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">1</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Owner information</div></li>
-              <li id="step-ind-2"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">3</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Dog information</div></li>
-              <li id="step-ind-3"><div class="step-nav__track" aria-hidden="true"><div class="step-nav__circle">4</div><div class="step-nav__connector"></div></div><div class="step-nav__label">Review</div></li>
-            </ol>
-          </nav>
+          <div class="cob-stepper" id="step-nav" aria-label="Application steps">
+            <div class="cob-stepper__content">
+              <p class="cob-stepper__label" id="stepper-label">Owner information</p>
+              <p class="cob-stepper__counter" id="stepper-counter">Step 1 of 3</p>
+            </div>
+            <div class="cob-stepper__bar" aria-hidden="true">
+              <div class="cob-stepper__segment cob-stepper__segment--current" id="step-seg-1"></div>
+              <div class="cob-stepper__segment" id="step-seg-2"></div>
+              <div class="cob-stepper__segment" id="step-seg-3"></div>
+            </div>
+          </div>
 
           <div id="views-wrap">
 
@@ -518,7 +534,7 @@
                   <span class="rabies-alert__icon">&#9888;&#65039;</span>
                   <div class="rabies-alert__text"><strong>Check your rabies vaccination</strong> — The rabies expiration date shown in this record has passed. You may need an updated vaccination certificate in the next steps.</div>
                 </div>
-                <div class="review-block" id="result-detail-card"></div>
+                <div id="result-detail-card-wrap"></div>
               </div>
 
               <div id="related-dogs-section" hidden>
@@ -809,21 +825,26 @@
       state.path=p;
     }
 
+    var STEP_LABELS=['Owner information','Dog information','Review'];
+    function updateStepper(n){
+      var labelEl=$('stepper-label'), counterEl=$('stepper-counter');
+      if(labelEl) labelEl.textContent=STEP_LABELS[(n||1)-1]||'';
+      if(counterEl) counterEl.textContent='Step '+(n||1)+' of 3';
+      for(var i=1;i<=3;i++){
+        var seg=$('step-seg-'+i);
+        if(seg){ seg.classList.remove('cob-stepper__segment--done','cob-stepper__segment--current'); if(i<n) seg.classList.add('cob-stepper__segment--done'); else if(i===n) seg.classList.add('cob-stepper__segment--current'); }
+      }
+    }
     function showStep0(){
       setMode('form');
-      for(var i=1;i<=3;i++){ var li=$('step-ind-'+i); li.classList.remove('step--active','step--done'); }
+      updateStepper(1);
       state.step=0;
     }
     function showStep(n){
       setMode('form');
       var names=['owner','dogs','review','payment'];
       showView('view-'+names[n-1]);
-      for(var i=1;i<=3;i++){
-        var li=$('step-ind-'+i);
-        li.classList.remove('step--active','step--done');
-        if(i<n) li.classList.add('step--done');
-        else if(i===n) li.classList.add('step--active');
-      }
+      updateStepper(n);
       state.step=n;
     }
 
@@ -1140,61 +1161,46 @@
     ['ls-fname','ls-lname','ls-year-name','ls-dog-name'].forEach(function(id){ var el=$(id); if(el) el.addEventListener('input',function(){ if(this.value.trim()){ this.setAttribute('aria-invalid','false'); } if($('search-name-val')) $('search-name-val').classList.remove('is-visible'); }); });
 
     /* ── Lookup results ── */
-    function dlRow(label,value){
-      return '<div class="detail-dl__row"><dt>'+esc(label)+'</dt><dd>'+esc(value)+'</dd></div>';
+    function kv(lbl,val){
+      return '<div class="rcard__row"><span class="rcard__key">'+esc(lbl)+'</span><span class="rcard__val">'+esc(val)+'</span></div>';
     }
-
-    function renderSingleResult(r){
-      $('result-rabies-alert').hidden=!r.rabiesExpired;
+    function dogCardHtml(r,isMatched,isSel,idAttr,dataAttr){
       var sexLbl=SEX_MAP[r.sex]||r.sex;
       var spayLbl=(r.sex==='neutered'||r.sex==='spayed')?'Yes':'No';
       var color=[r.color1,r.color2].filter(Boolean).join(' and ');
-      var licBadge=r.licenseExpired?'<span class="badge badge--expired">License expired '+esc(r.licenseExpiry)+'</span>':'<span class="badge badge--active">License current</span>';
-      var rabBadge=r.rabiesExpired?'<span class="badge badge--warning">Rabies cert expired</span>':'<span class="badge badge--current">Rabies cert current</span>';
-      var card=$('result-detail-card');
-      card.innerHTML=
-        '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #e2e2e2;">'+
-          '<div>'+
-            '<p style="font-family:var(--font-ui);font-weight:700;font-size:18px;color:var(--cob-navy);">'+esc(r.dogName)+'</p>'+
-            '<p style="font-family:var(--font-ui);font-size:13px;color:var(--cob-text-weak);margin-top:3px;">License number: '+esc(r.licenseNum)+'</p>'+
-          '</div>'+
-          '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">'+
-            '<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">'+licBadge+rabBadge+'</div>'+
-            '<button type="button" class="btn-toggle-related" id="btn-toggle-match">Add to renewal</button>'+
-          '</div>'+
+      var fee=(r.sex==='neutered'||r.sex==='spayed')?'$15.00':'$30.00';
+      var licBadge=r.licenseExpired?'<span class="badge badge--expired">Expired</span>':'<span class="badge badge--active">Current</span>';
+      var rabBadge=r.rabiesExpired?'<span class="badge badge--warning">Rabies expired</span>':'';
+      var actionText=isMatched?'Renew '+esc(r.dogName)+"'s license — "+fee:'Add '+esc(r.dogName)+' to renewal — '+fee;
+      return '<div class="rcard'+(isMatched?' rcard--matched':'')+(isSel?' rcard--selected':'')+'" '+idAttr+'>'+
+        '<div class="rcard__header"><p class="rcard__name">'+esc(r.dogName)+'</p>'+licBadge+rabBadge+'</div>'+
+        (r.rabiesExpired?'<div class="rcard__rabies"><p class="rcard__rabies-title">Rabies certificate expired</p><p class="rcard__rabies-body">An up-to-date rabies certificate will be needed before this renewal can be processed.</p></div>':'')+
+        '<div class="rcard__details">'+
+          '<span class="rcard__section">Dog details</span>'+
+          kv('Breed',r.breed)+kv('Sex',sexLbl)+kv('Age',r.ageY+' year'+(r.ageY!=='1'?'s':''))+kv('Spayed or neutered',spayLbl)+kv('Coat color',color)+
+          '<hr class="rcard__divider">'+
+          '<span class="rcard__section">License details</span>'+
+          kv('Date licensed',r.licensed)+kv('License expiry',r.licenseExpiry)+
+          '<hr class="rcard__divider">'+
+          '<span class="rcard__section">Rabies vaccination</span>'+
+          kv('Vaccination date',r.vaccDate)+kv('Expiry date',r.vaccExpiry)+
         '</div>'+
-        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--cob-text-weak);margin-bottom:10px;">Dog details</p>'+
-        '<div class="detail-dl">'+
-          dlRow('Breed',r.breed)+
-          dlRow('Sex',sexLbl)+
-          dlRow('Age',r.ageY+' year'+(r.ageY!=='1'?'s':''))+
-          dlRow('Spayed or neutered',spayLbl)+
-          dlRow('Coat color',color)+
-        '</div>'+
-        '<hr style="border:none;border-top:1px solid #e2e2e2;margin:14px 0;">'+
-        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--cob-text-weak);margin-bottom:10px;">License details</p>'+
-        '<div class="detail-dl">'+
-          dlRow('Date licensed',r.licensed)+
-          dlRow('License expiration',r.licenseExpiry)+
-        '</div>'+
-        '<hr style="border:none;border-top:1px solid #e2e2e2;margin:14px 0;">'+
-        '<p style="font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--cob-text-weak);margin-bottom:10px;">Rabies vaccination</p>'+
-        '<div class="detail-dl">'+
-          dlRow('Vaccination date',r.vaccDate)+
-          dlRow('Expiration date',r.vaccExpiry)+
-        '</div>';
-      var toggleBtn=$('btn-toggle-match');
-      if(toggleBtn) toggleBtn.onclick=function(){ toggleMatchedDog(); };
+        '<div class="rcard__action"'+dataAttr+'><div class="rcard__check"></div><span class="rcard__action-text">'+actionText+'</span></div>'+
+      '</div>';
+    }
+
+    function renderSingleResult(r){
+      $('result-rabies-alert').hidden=true;
+      var wrap=$('result-detail-card-wrap');
+      wrap.innerHTML=dogCardHtml(r,true,selectedMatchedDog,'id="result-detail-card"','');
+      var action=$('result-detail-card').querySelector('.rcard__action');
+      if(action) action.addEventListener('click',function(){ toggleMatchedDog(); });
     }
 
     function toggleMatchedDog(){
       selectedMatchedDog=!selectedMatchedDog;
-      var btn=$('btn-toggle-match');
-      if(btn){
-        btn.textContent=selectedMatchedDog?'Remove':'Add to renewal';
-        btn.classList.toggle('btn-toggle-related--remove',selectedMatchedDog);
-      }
-      $('result-detail-card').classList.toggle('result-matched--selected',selectedMatchedDog);
+      var card=$('result-detail-card');
+      if(card) card.classList.toggle('rcard--selected',selectedMatchedDog);
       updateRenewButton();
     }
 
@@ -1239,19 +1245,7 @@
       var html='';
       related.forEach(function(r){
         var idx=LOOKUP_RECORDS.indexOf(r);
-        var isSel=selectedRelated.has(idx);
-        var licBadge=r.licenseExpired?'<span class="badge badge--expired">License expired</span>':'<span class="badge badge--active">License current</span>';
-        var rabBadge=r.rabiesExpired?'<span class="badge badge--warning">Rabies cert expired</span>':'<span class="badge badge--current">Rabies cert current</span>';
-        html+='<div class="related-card'+(isSel?' related-card--selected':'')+'" id="rcard-'+idx+'">'+
-          '<div class="related-card__info">'+
-            '<p class="related-card__name">'+esc(r.dogName)+'</p>'+
-            '<p class="related-card__sub">'+esc(r.breed)+' · License '+esc(r.licenseNum)+'</p>'+
-            '<div class="related-card__badges">'+licBadge+rabBadge+'</div>'+
-          '</div>'+
-          '<button type="button" class="btn-toggle-related'+(isSel?' btn-toggle-related--remove':'')+'" data-ridx="'+idx+'">'+
-            (isSel?'Remove':'Add to renewal')+
-          '</button>'+
-        '</div>';
+        html+=dogCardHtml(r,false,selectedRelated.has(idx),'id="rcard-'+idx+'"',' data-ridx="'+idx+'"');
       });
       $('related-dogs-list').innerHTML=html;
     }

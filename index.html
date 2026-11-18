@@ -206,94 +206,52 @@
 
     <!-- ===== CONTENT ZONE (off-white) ===== -->
     <div class="content-zone">
+
+      <!-- Mobile sticky "Step X of 9" dropdown (hidden on desktop) -->
+      <div class="step-mobile-toc" id="step-mobile-toc">
+        <button class="step-mobile-toc__toggle" type="button"
+          aria-expanded="false" aria-controls="step-mobile-toc-panel">
+          <span class="step-mobile-toc__current" id="step-mobile-toc-label">Step 1 of 9: Who can apply</span>
+          <svg class="step-mobile-toc__chevron" width="20" height="20" viewBox="0 0 24 24"
+            fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <nav id="step-mobile-toc-panel" class="step-mobile-toc__panel" hidden
+          aria-label="Jump to a step">
+          <p class="step-mobile-toc__title">Jump to a step</p>
+          <ul class="step-mobile-toc__list">
+            <li><a href="#who-can-apply" data-step-label="Step 1 of 9: Who can apply">Who can apply</a></li>
+            <li><a href="#before-you-apply" data-step-label="Step 2 of 9: Before you apply">Before you apply</a></li>
+            <li><a href="#required-documents" data-step-label="Step 3 of 9: Required documents">Required documents</a></li>
+            <li><a href="#fees" data-step-label="Step 4 of 9: Fees">Fees</a></li>
+            <li><a href="#how-to-apply" data-step-label="Step 5 of 9: How to apply">How to apply</a></li>
+            <li><a href="#after-you-apply" data-step-label="Step 6 of 9: After you apply">After you apply</a></li>
+            <li><a href="#renewals" data-step-label="Step 7 of 9: Renewals">Renewals</a></li>
+            <li><a href="#tag-replacement" data-step-label="Step 8 of 9: Tag replacement">Tag replacement</a></li>
+            <li><a href="#changes" data-step-label="Step 9 of 9: Changes">Changes</a></li>
+          </ul>
+        </nav>
+      </div>
+
       <div class="content-container">
         <div class="content-layout">
 
           <!-- Left: sticky TOC -->
           <nav class="toc" aria-label="On this page">
-            <p class="toc__heading">On this page</p>
-            <ol class="toc__list">
-              <li class="toc__item">
-                <div class="toc__track" aria-hidden="true">
-                  <div class="toc__circle toc__circle--active">1</div>
-                  <div class="toc__line"></div>
-                </div>
-                <div class="toc__link-wrap">
-                  <a href="#who-can-apply" class="toc__link">Who can apply</a>
-                </div>
-              </li>
-              <li class="toc__item">
-                <div class="toc__track" aria-hidden="true">
-                  <div class="toc__circle">2</div>
-                  <div class="toc__line"></div>
-                </div>
-                <div class="toc__link-wrap">
-                  <a href="#before-you-apply" class="toc__link">Before you apply</a>
-                </div>
-              </li>
-              <li class="toc__item">
-                <div class="toc__track" aria-hidden="true">
-                  <div class="toc__circle">3</div>
-                  <div class="toc__line"></div>
-                </div>
-                <div class="toc__link-wrap">
-                  <a href="#required-documents" class="toc__link">Required documents</a>
-                </div>
-              </li>
-              <li class="toc__item">
-                <div class="toc__track" aria-hidden="true">
-                  <div class="toc__circle">4</div>
-                  <div class="toc__line"></div>
-                </div>
-                <div class="toc__link-wrap">
-                  <a href="#fees" class="toc__link">Fees</a>
-                </div>
-              </li>
-              <li class="toc__item">
-                <div class="toc__track" aria-hidden="true">
-                  <div class="toc__circle">5</div>
-                  <div class="toc__line"></div>
-                </div>
-                <div class="toc__link-wrap">
-                  <a href="#how-to-apply" class="toc__link">How to apply</a>
-                </div>
-              </li>
-              <li class="toc__item">
-                <div class="toc__track" aria-hidden="true">
-                  <div class="toc__circle">6</div>
-                  <div class="toc__line"></div>
-                </div>
-                <div class="toc__link-wrap">
-                  <a href="#after-you-apply" class="toc__link">After you apply</a>
-                </div>
-              </li>
-              <li class="toc__item">
-                <div class="toc__track" aria-hidden="true">
-                  <div class="toc__circle">7</div>
-                  <div class="toc__line"></div>
-                </div>
-                <div class="toc__link-wrap">
-                  <a href="#renewals" class="toc__link">Renewals</a>
-                </div>
-              </li>
-              <li class="toc__item">
-                <div class="toc__track" aria-hidden="true">
-                  <div class="toc__circle">8</div>
-                  <div class="toc__line"></div>
-                </div>
-                <div class="toc__link-wrap">
-                  <a href="#tag-replacement" class="toc__link">Tag replacement</a>
-                </div>
-              </li>
-              <li class="toc__item">
-                <div class="toc__track" aria-hidden="true">
-                  <div class="toc__circle">9</div>
-                </div>
-                <div class="toc__link-wrap">
-                  <a href="#changes" class="toc__link">Changes</a>
-                </div>
-              </li>
-            </ol>
+            <p class="toc__heading">Jump to a step</p>
+            <ul class="toc__list">
+              <li class="toc__item"><a href="#who-can-apply" class="toc__link">Who can apply</a></li>
+              <li class="toc__item"><a href="#before-you-apply" class="toc__link">Before you apply</a></li>
+              <li class="toc__item"><a href="#required-documents" class="toc__link">Required documents</a></li>
+              <li class="toc__item"><a href="#fees" class="toc__link">Fees</a></li>
+              <li class="toc__item"><a href="#how-to-apply" class="toc__link">How to apply</a></li>
+              <li class="toc__item"><a href="#after-you-apply" class="toc__link">After you apply</a></li>
+              <li class="toc__item"><a href="#renewals" class="toc__link">Renewals</a></li>
+              <li class="toc__item"><a href="#tag-replacement" class="toc__link">Tag replacement</a></li>
+              <li class="toc__item"><a href="#changes" class="toc__link">Changes</a></li>
+            </ul>
           </nav>
 
           <!-- Right: section content -->
@@ -384,6 +342,7 @@
                 <p class="accordion-controls__desc">Choose one of the following options.</p>
                 <div class="accordion-controls__actions">
                   <button type="button" class="accordion-control" id="expand-all-btn">Expand all</button>
+                  <span class="accordion-controls__divider" aria-hidden="true">|</span>
                   <button type="button" class="accordion-control" id="collapse-all-btn">Collapse all</button>
                 </div>
               </div>
@@ -719,51 +678,31 @@
       <div class="related-container">
         <h2 id="h-related">Related resources</h2>
         <div class="related-list">
-          <div class="related-item">
-            <div class="related-item__title">
-              <a href="https://www.boston.gov/departments/parks-and-recreation/dogs-boston-parks">Dogs and Boston Parks</a>
-            </div>
-            <div class="related-item__body">
-              <p class="related-item__desc">We welcome dogs and their owners to City of Boston parks. We have information about dog recreation spaces, and our rules and regulations regarding your beloved pets.</p>
-              <p class="related-item__dept">Animal Care and Control</p>
-            </div>
-          </div>
-          <div class="related-item">
-            <div class="related-item__title">
-              <a href="https://www.boston.gov/departments/animal-care-and-control/keeping-your-pet-healthy-and-safe">Keeping Your Pet Healthy and Safe</a>
-            </div>
-            <div class="related-item__body">
-              <p class="related-item__desc">Learn about ways to care for your pet, and find out about common illnesses.</p>
-              <p class="related-item__dept">Animal Care and Control</p>
-            </div>
-          </div>
-          <div class="related-item">
-            <div class="related-item__title">
-              <a href="https://www.boston.gov/departments/animal-care-and-control/pet-behavior-tips">Pet Behavior Tips</a>
-            </div>
-            <div class="related-item__body">
-              <p class="related-item__desc">You love your pet and want what's best for them. Here are some behavior tips from the American Humane Association.</p>
-              <p class="related-item__dept">Animal Care and Control</p>
-            </div>
-          </div>
-          <div class="related-item">
-            <div class="related-item__title">
-              <a href="https://www.boston.gov/node/856">Rules and Regulations for Owning a Pet</a>
-            </div>
-            <div class="related-item__body">
-              <p class="related-item__desc">A summary of the rules for owning a pet in the City of Boston, including leash laws and animal welfare standards.</p>
-              <p class="related-item__dept">Animal Care and Control</p>
-            </div>
-          </div>
-          <div class="related-item">
-            <div class="related-item__title">
-              <a href="https://www.boston.gov/departments/animal-care-and-control">Animal Care and Control</a>
-            </div>
-            <div class="related-item__body">
-              <p class="related-item__desc">Learn about the services we provide and the work we do.</p>
-              <p class="related-item__dept">Animal Care and Control</p>
-            </div>
-          </div>
+          <a href="https://www.boston.gov/departments/parks-and-recreation/dogs-boston-parks" class="related-item">
+            <span class="related-item__title">Dogs and Boston Parks</span>
+            <span class="related-item__desc">We welcome dogs and their owners to City of Boston parks. We have information about dog recreation spaces, and our rules and regulations regarding your beloved pets.</span>
+            <span class="related-item__dept">Animal Care and Control</span>
+          </a>
+          <a href="https://www.boston.gov/departments/animal-care-and-control/keeping-your-pet-healthy-and-safe" class="related-item">
+            <span class="related-item__title">Keeping Your Pet Healthy and Safe</span>
+            <span class="related-item__desc">Learn about ways to care for your pet, and find out about common illnesses.</span>
+            <span class="related-item__dept">Animal Care and Control</span>
+          </a>
+          <a href="https://www.boston.gov/departments/animal-care-and-control/pet-behavior-tips" class="related-item">
+            <span class="related-item__title">Pet Behavior Tips</span>
+            <span class="related-item__desc">You love your pet and want what's best for them. Here are some behavior tips from the American Humane Association.</span>
+            <span class="related-item__dept">Animal Care and Control</span>
+          </a>
+          <a href="https://www.boston.gov/node/856" class="related-item">
+            <span class="related-item__title">Rules and Regulations for Owning a Pet</span>
+            <span class="related-item__desc">A summary of the rules for owning a pet in the City of Boston, including leash laws and animal welfare standards.</span>
+            <span class="related-item__dept">Animal Care and Control</span>
+          </a>
+          <a href="https://www.boston.gov/departments/animal-care-and-control" class="related-item">
+            <span class="related-item__title">Animal Care and Control</span>
+            <span class="related-item__desc">Learn about the services we provide and the work we do.</span>
+            <span class="related-item__dept">Animal Care and Control</span>
+          </a>
         </div>
       </div>
     </section>
@@ -849,6 +788,43 @@
       window.addEventListener('hashchange', openFromHash);
     }());
 
+    // Mobile step dropdown TOC
+    (function () {
+      var toggle = document.querySelector('.step-mobile-toc__toggle');
+      var panel = document.getElementById('step-mobile-toc-panel');
+      var label = document.getElementById('step-mobile-toc-label');
+      if (!toggle || !panel || !label) return;
+
+      toggle.addEventListener('click', function () {
+        var open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        panel.hidden = open;
+      });
+
+      // Close panel and update label when a link is clicked
+      panel.querySelectorAll('a[data-step-label]').forEach(function (a) {
+        a.addEventListener('click', function () {
+          label.textContent = a.getAttribute('data-step-label');
+          toggle.setAttribute('aria-expanded', 'false');
+          panel.hidden = true;
+        });
+      });
+
+      // Update label as sections scroll into view
+      if (window.IntersectionObserver) {
+        var headings = document.querySelectorAll('.content-body h2[id]');
+        var stepObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var id = entry.target.id;
+            var link = panel.querySelector('a[href="#' + id + '"]');
+            if (link) label.textContent = link.getAttribute('data-step-label');
+          });
+        }, { rootMargin: '-5% 0px -70% 0px' });
+        headings.forEach(function (h) { stepObserver.observe(h); });
+      }
+    }());
+
     // TOC: highlight active section as user scrolls
     (function () {
       if (!window.IntersectionObserver) return;
@@ -858,11 +834,8 @@
 
       function setActive(id) {
         links.forEach(function (link) {
-          var item = link.closest('.toc__item');
-          var circle = item && item.querySelector('.toc__circle');
-          if (!circle) return;
           var isActive = link.getAttribute('href') === '#' + id;
-          circle.classList.toggle('toc__circle--active', isActive);
+          link.classList.toggle('toc__link--active', isActive);
         });
       }
 
