@@ -39,6 +39,25 @@
     .cob-stepper__segment { flex:1;background:#bec0c1;transition:background .2s; }
     .cob-stepper__segment--done,.cob-stepper__segment--current { background:var(--cob-theme); }
     #views-wrap { margin-top:24px;max-width:720px; }
+
+    /* ── Vertical stepper (desktop ≥768px) ── */
+    .cob-stepper-v { display:none; }
+    @media(min-width:768px){
+      .app-layout:not(.full-width-mode) { flex-direction:row;align-items:flex-start;gap:40px; }
+      .app-layout:not(.full-width-mode) .cob-stepper { display:none; }
+      .app-layout:not(.full-width-mode) #views-wrap { margin-top:0;flex:1; }
+      .app-layout:not(.full-width-mode) .cob-stepper-v { display:block;width:200px;flex-shrink:0;padding-top:4px;position:sticky;top:24px; }
+    }
+    .csv-step { display:flex;gap:12px;align-items:flex-start; }
+    .csv-step__track { display:flex;flex-direction:column;align-items:center; }
+    .csv-step__circle { width:32px;height:32px;border-radius:50%;border:1px solid #909395;background:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-weight:700;font-size:13px;color:#909395;flex-shrink:0;transition:all .2s; }
+    .csv-step__trail { width:2px;height:36px;background:rgba(27,27,27,.18); }
+    .csv-step:last-child .csv-step__trail { display:none; }
+    .csv-step__label { font-family:var(--font-ui);font-size:14px;line-height:1.35;color:#58585b;padding-top:7px;font-weight:400; }
+    .csv-step--active .csv-step__circle { background:var(--cob-theme);border-color:var(--cob-theme);border-width:4px;color:white;box-shadow:0 0 0 3px var(--cob-theme-weak); }
+    .csv-step--active .csv-step__label { font-weight:700;color:var(--cob-navy); }
+    .csv-step--done .csv-step__circle { background:var(--cob-theme);border-color:var(--cob-theme);color:white; }
+    .csv-step--done .csv-step__label { color:var(--cob-navy); }
     @media(max-width:767px){
       .step-buttons{flex-direction:column-reverse;}
       .step-buttons .btn-primary,.step-buttons .btn-back{width:100%;justify-content:center;}
@@ -48,7 +67,7 @@
     .app-view { display:none; }
     .app-view.is-active { display:block; }
     .view-heading { font-family:var(--font-ui);font-weight:700;font-size:20px;color:var(--cob-navy);margin-bottom:4px; }
-    .view-subhead { font-family:var(--font-body);font-size:15px;line-height:1.65;color:#58585b;margin-bottom:24px; }
+    .view-subhead { font-family:var(--font-body);font-size:16px;line-height:1.65;color:#58585b;margin-bottom:24px; }
 
     /* ── Landing page ── */
     .landing-intro { font-family:var(--font-body);font-size:16px;line-height:1.7;color:#58585b;margin-bottom:28px; }
@@ -62,7 +81,7 @@
     .landing-what-item__label { font-family:var(--font-ui);font-weight:700;font-size:14px;color:var(--cob-navy); }
     .landing-what-item__desc { font-family:var(--font-ui);font-size:13px;color:#58585b;line-height:1.55; }
     .fee-table { width:100%;border-collapse:collapse;font-family:var(--font-ui); }
-    .fee-table th { font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#58585b;text-align:left;padding:8px 10px;border-bottom:2px solid #d2d2d2; }
+    .fee-table th { font-size:13px;font-weight:700;letter-spacing:.02em;color:#58585b;text-align:left;padding:8px 10px;border-bottom:2px solid #d2d2d2; }
     .fee-table td { font-size:14px;padding:10px 10px;border-bottom:1px solid #e2e2e2;color:var(--cob-navy); }
     .fee-table td:last-child { font-weight:700;text-align:right; }
     .fee-table tr:last-child td { border-bottom:none; }
@@ -71,6 +90,16 @@
     .landing-or { font-family:var(--font-ui);font-size:14px;color:var(--cob-text-weak);margin-bottom:12px; }
     .landing-footer-links { font-family:var(--font-ui);font-size:13px;color:#58585b;line-height:1.8; }
     .landing-footer-links a { color:var(--cob-theme);text-decoration:underline; }
+    .action-cards { display:flex;flex-direction:column;gap:12px;margin:28px 0 20px; }
+    .action-card { display:flex;align-items:center;gap:16px;background:white;border:2px solid #e2e2e2;border-radius:6px;padding:16px 20px;cursor:pointer;text-decoration:none;transition:border-color .2s,box-shadow .2s;text-align:left;width:100%;font:inherit; }
+    .action-card:hover,.action-card:focus { border-color:var(--cob-theme);box-shadow:0 2px 8px rgba(24,113,189,.12);outline:none; }
+    .action-card--primary { border-color:var(--cob-theme);background:#f8fbff; }
+    .action-card__icon { width:44px;height:44px;border-radius:50%;background:var(--cob-off-white);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--cob-theme); }
+    .action-card--primary .action-card__icon { background:#ddeeff; }
+    .action-card__content { flex:1;min-width:0; }
+    .action-card__title { font-family:var(--font-ui);font-weight:700;font-size:16px;color:var(--cob-navy);margin:0 0 3px;display:block; }
+    .action-card__desc { font-family:var(--font-ui);font-size:14px;color:#58585b;margin:0;line-height:1.5;display:block; }
+    .action-card__arrow { color:var(--cob-theme);flex-shrink:0; }
 
     /* ── Preconditions ── */
     .preconditions { background:#f8f8f8;border:1px solid #e2e2e2;border-left:4px solid var(--cob-navy);border-radius:0 4px 4px 0;padding:16px 20px;margin-bottom:28px; }
@@ -92,6 +121,7 @@
     .field-row--1 { grid-template-columns:1fr; }
     .field-row--2 { grid-template-columns:1fr; }
     .field-row--2col { grid-template-columns:1fr 1fr; }
+    @media(max-width:600px){ .field-row--2col { grid-template-columns:1fr; } }
     .field { display:flex;flex-direction:column;gap:5px; }
     .field label { font-family:var(--font-ui);font-weight:700;font-size:13px;line-height:1.4;color:var(--cob-navy);letter-spacing:.03em; }
     .field .req { color:var(--cob-freedom-red);margin-left:2px; }
@@ -145,7 +175,7 @@
     @media(max-width:600px){.dog-card__status-wrap{justify-content:flex-start;}}
     .dog-card__status { font-family:var(--font-ui);font-size:12px;font-weight:700;white-space:nowrap; }
     .dog-card__status--needed { color:var(--cob-text-weak); }
-    .dog-card__status--done { color:#2e7d32; }
+    .dog-card__status--done { color:#148014;background:#e8f7e8;border-radius:12px;padding:3px 10px 3px 5px;display:inline-flex;align-items:center;gap:5px; }
     .dog-card__actions { display:flex;gap:10px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid #e2e2e2; }
 
     /* Buttons */
@@ -174,8 +204,8 @@
 
     /* ── Review ── */
     .review-block { background:white;border:1px solid #e2e2e2;border-radius:4px;padding:18px 22px;margin-bottom:14px; }
-    .review-block__header { display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #e2e2e2; }
-    .review-block__title { font-family:var(--font-ui);font-weight:700;font-size:14px;color:var(--cob-navy);text-transform:uppercase;letter-spacing:.06em; }
+    .review-block__header { display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #e2e2e2; }
+    .review-block__title { font-family:var(--font-ui);font-weight:700;font-size:14px;color:var(--cob-navy);letter-spacing:.02em; }
     .review-dl { display:flex;flex-direction:column;gap:8px; }
     .review-dl__row { display:grid;grid-template-columns:150px 1fr;gap:8px; }
     @media(max-width:480px){.review-dl__row{grid-template-columns:1fr;gap:2px;}}
@@ -183,6 +213,7 @@
     .review-dl__row dd { font-family:var(--font-body);font-size:15px;line-height:1.55;color:var(--cob-navy); }
     .review-fee-table { width:100%;border-collapse:collapse;font-family:var(--font-ui); }
     .review-fee-table td { padding:8px 10px;font-size:14px;border-top:1px solid #e2e2e2; }
+    .review-fee-table tr:first-child td { border-top:none; }
     .review-fee-table td:last-child { text-align:right;color:var(--cob-navy);font-weight:600; }
     .review-fee-table td:first-child { color:#58585b; }
     .review-fee-table .total-row td { font-weight:700;font-size:15px;color:var(--cob-navy);border-top:2px solid var(--cob-navy); }
@@ -194,7 +225,7 @@
     .ic-placeholder { border:2px dashed #d2d2d2;border-radius:4px;background:white;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center;gap:14px; }
     .ic-placeholder__icon { font-size:44px;opacity:.2; }
     .ic-placeholder__name { font-family:var(--font-ui);font-weight:700;font-size:20px;color:var(--cob-text-weak); }
-    .ic-placeholder__body { font-family:var(--font-body);font-size:15px;line-height:1.65;color:var(--cob-text-weak);max-width:400px; }
+    .ic-placeholder__body { font-family:var(--font-body);font-size:16px;line-height:1.65;color:var(--cob-text-weak);max-width:400px; }
     .ic-placeholder__fee { font-family:var(--font-ui);font-weight:700;font-size:15px;color:var(--cob-navy); }
     .open-question { margin-top:20px;background:#fff8e6;border:1px solid var(--cob-amber);border-radius:4px;padding:14px 18px; }
     .open-question__head { font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#7a5000;margin-bottom:6px; }
@@ -205,7 +236,7 @@
     .modal-overlay[hidden] { display:none; }
     .modal { background:white;border-radius:8px;padding:32px;max-width:420px;width:100%;box-shadow:0 20px 40px rgba(9,31,47,.3); }
     .modal__title { font-family:var(--font-ui);font-weight:800;font-size:19px;color:var(--cob-navy);margin-bottom:12px;line-height:1.3; }
-    .modal__body { font-family:var(--font-body);font-size:15px;line-height:1.65;color:#58585b;margin-bottom:24px; }
+    .modal__body { font-family:var(--font-body);font-size:16px;line-height:1.65;color:#58585b;margin-bottom:24px; }
     .modal__actions { display:flex;flex-direction:column;gap:10px; }
     .btn-modal-primary { display:block;width:100%;background:var(--cob-theme);color:white;border:2px solid var(--cob-theme);border-radius:12px;padding:12px 20px;font-family:var(--font-ui);font-weight:600;font-size:15px;cursor:pointer;text-align:center;transition:background .15s; }
     .btn-modal-primary:hover { background:#135fa3;border-color:#135fa3; }
@@ -272,8 +303,8 @@
     .rcard__action { display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid #d2d2d2;background:#fafafa;cursor:pointer; }
     .rcard--matched .rcard__action,.rcard--selected .rcard__action { background:#f2f7ff; }
     .rcard__action:hover { opacity:.85; }
-    .rcard__check { width:16px;height:16px;border-radius:3px;background:#e0e0e0;flex-shrink:0;transition:background .15s; }
-    .rcard--selected .rcard__check { background:var(--cob-theme); }
+    .rcard__check { appearance:none;-webkit-appearance:none;width:18px;height:18px;min-width:18px;border:2px solid #909395;border-radius:3px;background:white;flex-shrink:0;transition:all .15s;cursor:pointer;pointer-events:none; }
+    .rcard--selected .rcard__check { background:var(--cob-theme);border-color:var(--cob-theme);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='8' viewBox='0 0 11 8'%3E%3Cpath d='M1 3.8L4 7 10 1' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center; }
     .rcard__action-text { font-family:var(--font-ui);font-weight:600;font-size:12px;color:var(--cob-navy);flex:1;min-width:0; }
     .select-bar { background:white;border:1px solid #e2e2e2;border-top:2px solid var(--cob-theme);border-radius:4px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px; }
     .select-bar__info { font-family:var(--font-ui);font-size:13px;color:#58585b; }
@@ -367,6 +398,29 @@
             </div>
           </div>
 
+          <nav class="cob-stepper-v" id="step-nav-v" aria-label="Application steps">
+            <div class="csv-step csv-step--active" id="csv-step-1">
+              <div class="csv-step__track">
+                <div class="csv-step__circle" id="csv-circle-1">1</div>
+                <div class="csv-step__trail"></div>
+              </div>
+              <p class="csv-step__label">Owner information</p>
+            </div>
+            <div class="csv-step" id="csv-step-2">
+              <div class="csv-step__track">
+                <div class="csv-step__circle" id="csv-circle-2">2</div>
+                <div class="csv-step__trail"></div>
+              </div>
+              <p class="csv-step__label">Dog information</p>
+            </div>
+            <div class="csv-step" id="csv-step-3">
+              <div class="csv-step__track">
+                <div class="csv-step__circle" id="csv-circle-3">3</div>
+              </div>
+              <p class="csv-step__label">Review</p>
+            </div>
+          </nav>
+
           <div id="views-wrap">
 
             <!-- ══ LANDING ══ -->
@@ -397,12 +451,12 @@
 
               <div class="landing-section">
                 <p class="landing-section__heading">License period</p>
-                <p style="font-family:var(--font-ui);font-size:14px;color:#58585b;">Dog licenses are valid from April 1 through March 31 each year.</p>
+                <p style="font-family:var(--font-ui);font-size:16px;color:#58585b;">Dog licenses are valid from April 1 through March 31 each year.</p>
               </div>
 
               <div class="landing-section">
                 <p class="landing-section__heading">License fees</p>
-                <p style="font-family:var(--font-ui);font-size:14px;color:#58585b;margin-bottom:12px;">Massachusetts General Law, Chapter 140, Sections 137 and 141, and City Ordinance 10-1.9C mandate that every dog owner must obtain a license for their pet each year.</p>
+                <p style="font-family:var(--font-ui);font-size:16px;color:#58585b;margin-bottom:12px;">Massachusetts General Law, Chapter 140, Sections 137 and 141, and City Ordinance 10-1.9C mandate that every dog owner must obtain a license for their pet each year.</p>
                 <table class="fee-table">
                   <thead><tr><th>Dog type</th><th>Sex</th><th>Annual license fee</th></tr></thead>
                   <tbody>
@@ -413,11 +467,38 @@
                 <p class="fee-note">Online payments have a 2.75% service charge, with a $1 minimum. Accepted cards: American Express, Discover, Mastercard, and Visa.</p>
               </div>
 
-              <div class="landing-cta-group">
-                <button type="button" class="btn-primary" id="btn-start-new">Start your application online</button>
-                <button type="button" class="btn-link" id="btn-find-license" style="font-size:15px;padding:0;">Find your license number</button>
+              <div class="action-cards">
+                <button type="button" class="action-card action-card--primary" id="btn-start-new">
+                  <div class="action-card__icon">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="4" y="2" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 7h6M8 11h6M8 15h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  </div>
+                  <div class="action-card__content">
+                    <span class="action-card__title">Start your application online</span>
+                    <span class="action-card__desc">Apply for a new license or renew an existing one.</span>
+                  </div>
+                  <svg class="action-card__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button type="button" class="action-card" id="btn-find-license">
+                  <div class="action-card__icon">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 15.5l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </div>
+                  <div class="action-card__content">
+                    <span class="action-card__title">Find your license number</span>
+                    <span class="action-card__desc">Look up an existing license by owner name or license number.</span>
+                  </div>
+                  <svg class="action-card__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <a href="../index.html" class="action-card">
+                  <div class="action-card__icon">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M4 10l7-7 7 7v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 20v-6h4v6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div class="action-card__content">
+                    <span class="action-card__title">Apply in person or by mail</span>
+                    <span class="action-card__desc">Visit an Animal Care and Control office or mail your application.</span>
+                  </div>
+                  <svg class="action-card__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
               </div>
-              <p class="landing-or">Or <a href="../index.html" style="color:var(--cob-theme);">apply in person or by mail</a></p>
               <p class="landing-footer-links">Questions? Email Animal Care and Control at <a href="mailto:animalcontrol@boston.gov">animalcontrol@boston.gov</a>.</p>
             </section>
 
@@ -833,6 +914,8 @@
       for(var i=1;i<=3;i++){
         var seg=$('step-seg-'+i);
         if(seg){ seg.classList.remove('cob-stepper__segment--done','cob-stepper__segment--current'); if(i<n) seg.classList.add('cob-stepper__segment--done'); else if(i===n) seg.classList.add('cob-stepper__segment--current'); }
+        var vs=$('csv-step-'+i);
+        if(vs){ vs.classList.remove('csv-step--active','csv-step--done'); if(i<n) vs.classList.add('csv-step--done'); else if(i===n) vs.classList.add('csv-step--active'); }
       }
     }
     function showStep0(){
@@ -887,8 +970,9 @@
       var isActive=state.activeDog===i;
       var name=d.name||((['First','Second','Third'][i]||'Dog '+(i+1))+' dog');
       var methodTag=d.method?'<span style="font-size:11px;font-weight:600;color:var(--cob-text-weak);letter-spacing:.04em;margin-left:8px;">('+(d.method==='renewal'?'Renewal':'New license')+')</span>':'';
+      var doneIcon='<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#148014"/><path d="M3.5 7L6 9.5 10.5 4.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       var statusHTML=d.done
-        ? '<span class="dog-card__status dog-card__status--done">&#10003; Complete</span>'
+        ? '<span class="dog-card__status dog-card__status--done">'+doneIcon+'Complete</span>'
         : '<span class="dog-card__status dog-card__status--needed">Details needed</span>';
       var removeBtn=i>0?'<button type="button" class="btn-link btn-link--danger" id="btn-rmcard-'+i+'">Remove</button>':'';
       var actionLabel=d.done?'Edit details':'Complete Details';
@@ -930,8 +1014,9 @@
           '<span class="field-error" id="err-d-method-'+i+'">Please select an application type.</span>',
         ].join('');
       }
+      var doneIcon2='<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#148014"/><path d="M3.5 7L6 9.5 10.5 4.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       var statusBadge=d.done
-        ?'<span class="dog-card__status dog-card__status--done" style="margin-left:10px;">&#10003; Complete</span>'
+        ?'<span class="dog-card__status dog-card__status--done" style="margin-left:10px;">'+doneIcon2+'Complete</span>'
         :'<span class="dog-card__status dog-card__status--needed" style="margin-left:10px;">Details needed</span>';
       return [
         '<div class="dog-form">',
@@ -1185,7 +1270,7 @@
           '<span class="rcard__section">Rabies vaccination</span>'+
           kv('Vaccination date',r.vaccDate)+kv('Expiry date',r.vaccExpiry)+
         '</div>'+
-        '<div class="rcard__action"'+dataAttr+'><div class="rcard__check"></div><span class="rcard__action-text">'+actionText+'</span></div>'+
+        '<div class="rcard__action"'+dataAttr+'><input type="checkbox" class="rcard__check" aria-hidden="true" tabindex="-1"'+(isSel?' checked':'')+' readonly><span class="rcard__action-text">'+actionText+'</span></div>'+
       '</div>';
     }
 
@@ -1200,7 +1285,11 @@
     function toggleMatchedDog(){
       selectedMatchedDog=!selectedMatchedDog;
       var card=$('result-detail-card');
-      if(card) card.classList.toggle('rcard--selected',selectedMatchedDog);
+      if(card){
+        card.classList.toggle('rcard--selected',selectedMatchedDog);
+        var cb=card.querySelector('.rcard__check');
+        if(cb) cb.checked=selectedMatchedDog;
+      }
       updateRenewButton();
     }
 

@@ -439,7 +439,7 @@ body {
 
 .fact-row__value {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--cob-body-text);
   margin: 4px 0 0;
@@ -452,7 +452,7 @@ body {
 }
 .fact-row__list li {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--cob-body-text);
 }
@@ -803,7 +803,7 @@ body {
 
 .fee-notes p {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--cob-text-weak);
 }
@@ -1156,7 +1156,7 @@ body {
 
 .related-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: var(--sp-300);
 }
 
