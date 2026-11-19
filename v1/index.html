@@ -90,16 +90,20 @@
     .landing-or { font-family:var(--font-ui);font-size:14px;color:var(--cob-text-weak);margin-bottom:12px; }
     .landing-footer-links { font-family:var(--font-ui);font-size:13px;color:#58585b;line-height:1.8; }
     .landing-footer-links a { color:var(--cob-theme);text-decoration:underline; }
-    .action-cards { display:flex;flex-direction:column;gap:12px;margin:28px 0 20px; }
-    .action-card { display:flex;align-items:center;gap:16px;background:white;border:2px solid #e2e2e2;border-radius:6px;padding:16px 20px;cursor:pointer;text-decoration:none;transition:border-color .2s,box-shadow .2s;text-align:left;width:100%;font:inherit; }
-    .action-card:hover,.action-card:focus { border-color:var(--cob-theme);box-shadow:0 2px 8px rgba(24,113,189,.12);outline:none; }
-    .action-card--primary { border-color:var(--cob-theme);background:#f8fbff; }
-    .action-card__icon { width:44px;height:44px;border-radius:50%;background:var(--cob-off-white);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--cob-theme); }
-    .action-card--primary .action-card__icon { background:#ddeeff; }
-    .action-card__content { flex:1;min-width:0; }
-    .action-card__title { font-family:var(--font-ui);font-weight:700;font-size:16px;color:var(--cob-navy);margin:0 0 3px;display:block; }
-    .action-card__desc { font-family:var(--font-ui);font-size:14px;color:#58585b;margin:0;line-height:1.5;display:block; }
-    .action-card__arrow { color:var(--cob-theme);flex-shrink:0; }
+    .landing-actions { display:flex;flex-direction:column;align-items:stretch;gap:10px;margin:28px 0 20px; }
+    .lbtn { display:flex;flex-direction:column;align-items:flex-start;width:100%;cursor:pointer;text-align:left;text-decoration:none;border-radius:8px;transition:background .15s,border-color .15s,color .15s;font:inherit; }
+    .lbtn:focus-visible { outline:3px solid #f4b942;outline-offset:2px; }
+    .lbtn-primary { background:var(--cob-theme);color:white;border:2px solid var(--cob-theme);padding:16px 22px; }
+    .lbtn-primary:hover { background:#135fa3;border-color:#135fa3; }
+    .lbtn-primary__title { font-family:var(--font-ui);font-weight:700;font-size:17px;color:white;line-height:1.3; }
+    .lbtn-primary__sub { font-family:var(--font-ui);font-size:13px;color:rgba(255,255,255,.8);margin-top:4px;line-height:1.4; }
+    .landing-actions-or { font-family:var(--font-ui);font-size:12px;color:#a8a8a8;text-align:center;text-transform:uppercase;letter-spacing:.08em;padding:4px 0; }
+    .lbtn-secondary { background:white;border:2px solid #d2d2d2;padding:13px 20px; }
+    .lbtn-secondary:hover { border-color:var(--cob-theme);background:#f8fbff; }
+    .lbtn-secondary__title { font-family:var(--font-ui);font-weight:600;font-size:15px;color:var(--cob-navy);line-height:1.3; }
+    .lbtn-secondary__sub { font-family:var(--font-ui);font-size:13px;color:#58585b;margin-top:3px;line-height:1.4; }
+    .lbtn-tertiary { background:none;border:none;padding:6px 0;color:var(--cob-theme);font-family:var(--font-ui);font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:5px;text-decoration:underline;cursor:pointer;border-radius:4px;margin-top:2px; }
+    .lbtn-tertiary:hover { color:var(--cob-navy); }
 
     /* ── Preconditions ── */
     .preconditions { background:#f8f8f8;border:1px solid #e2e2e2;border-left:4px solid var(--cob-navy);border-radius:0 4px 4px 0;padding:16px 20px;margin-bottom:28px; }
@@ -467,36 +471,19 @@
                 <p class="fee-note">Online payments have a 2.75% service charge, with a $1 minimum. Accepted cards: American Express, Discover, Mastercard, and Visa.</p>
               </div>
 
-              <div class="action-cards">
-                <button type="button" class="action-card action-card--primary" id="btn-start-new">
-                  <div class="action-card__icon">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><rect x="4" y="2" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 7h6M8 11h6M8 15h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                  </div>
-                  <div class="action-card__content">
-                    <span class="action-card__title">Start your application online</span>
-                    <span class="action-card__desc">Apply for a new license or renew an existing one.</span>
-                  </div>
-                  <svg class="action-card__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="landing-actions">
+                <button type="button" class="lbtn lbtn-primary" id="btn-start-new">
+                  <span class="lbtn-primary__title">Start your application online</span>
+                  <span class="lbtn-primary__sub">New license or renewal — apply in about 5 minutes</span>
                 </button>
-                <button type="button" class="action-card" id="btn-find-license">
-                  <div class="action-card__icon">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 15.5l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-                  </div>
-                  <div class="action-card__content">
-                    <span class="action-card__title">Find your license number</span>
-                    <span class="action-card__desc">Look up an existing license by owner name or license number.</span>
-                  </div>
-                  <svg class="action-card__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div class="landing-actions-or">or</div>
+                <button type="button" class="lbtn lbtn-secondary" id="btn-find-license">
+                  <span class="lbtn-secondary__title">Find your license number</span>
+                  <span class="lbtn-secondary__sub">Look up by owner name or license number</span>
                 </button>
-                <a href="../index.html" class="action-card">
-                  <div class="action-card__icon">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M4 10l7-7 7 7v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 20v-6h4v6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-                  </div>
-                  <div class="action-card__content">
-                    <span class="action-card__title">Apply in person or by mail</span>
-                    <span class="action-card__desc">Visit an Animal Care and Control office or mail your application.</span>
-                  </div>
-                  <svg class="action-card__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <a href="../index.html" class="lbtn-tertiary">
+                  Apply in person or by mail
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M4 2.5l5 4.5-5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
               <p class="landing-footer-links">Questions? Email Animal Care and Control at <a href="mailto:animalcontrol@boston.gov">animalcontrol@boston.gov</a>.</p>
