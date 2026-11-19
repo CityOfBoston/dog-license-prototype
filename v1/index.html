@@ -91,20 +91,22 @@
     .landing-footer-links { font-family:var(--font-ui);font-size:13px;color:#58585b;line-height:1.8; }
     .landing-footer-links a { color:var(--cob-theme);text-decoration:underline; }
     .landing-actions { display:flex;flex-direction:column;align-items:center;gap:10px;margin:28px 0 20px; }
-    .lbtn { display:flex;flex-direction:column;align-items:center;width:100%;max-width:360px;cursor:pointer;text-align:center;text-decoration:none;border-radius:8px;transition:background .15s,border-color .15s,color .15s;font:inherit; }
+    .landing-actions-row { display:flex;gap:10px;width:100%;max-width:400px; }
+    .lbtn { display:flex;flex-direction:column;align-items:center;flex:1;cursor:pointer;text-align:center;text-decoration:none;border-radius:8px;transition:background .15s,border-color .15s,color .15s;font:inherit; }
     .lbtn:focus-visible { outline:3px solid #f4b942;outline-offset:2px; }
-    .lbtn-primary { background:var(--cob-theme);color:white;border:2px solid var(--cob-theme);padding:16px 22px; }
+    .lbtn-primary { background:var(--cob-theme);color:white;border:2px solid var(--cob-theme);padding:14px 16px; }
     .lbtn-primary:hover { background:#135fa3;border-color:#135fa3; }
-    .lbtn-primary__title { font-family:var(--font-ui);font-weight:700;font-size:17px;color:white;line-height:1.3; }
-    .lbtn-primary__sub { font-family:var(--font-ui);font-size:13px;color:rgba(255,255,255,.8);margin-top:4px;line-height:1.4; }
-    .landing-actions-or { font-family:var(--font-ui);font-size:12px;color:#a8a8a8;text-align:center;text-transform:uppercase;letter-spacing:.08em;padding:4px 0; }
-    .lbtn-secondary { background:white;border:2px solid #d2d2d2;padding:13px 20px; }
+    .lbtn-primary__title { font-family:var(--font-ui);font-weight:700;font-size:15px;color:white;line-height:1.35; }
+    .lbtn-primary__sub { font-family:var(--font-ui);font-size:12px;color:rgba(255,255,255,.8);margin-top:4px;line-height:1.4; }
+    .landing-actions-or { display:flex;align-items:center;gap:10px;width:100%;max-width:400px;font-family:var(--font-ui);font-size:12px;color:#a8a8a8;text-transform:uppercase;letter-spacing:.08em; }
+    .landing-actions-or::before,.landing-actions-or::after { content:'';flex:1;height:1px;background:#e2e2e2; }
+    .lbtn-secondary { background:white;border:2px solid #d2d2d2;padding:14px 16px; }
     .lbtn-secondary:hover { border-color:var(--cob-theme);background:#f8fbff; }
-    .lbtn-secondary__title { font-family:var(--font-ui);font-weight:600;font-size:15px;color:var(--cob-navy);line-height:1.3; }
-    .lbtn-secondary__sub { font-family:var(--font-ui);font-size:13px;color:#58585b;margin-top:3px;line-height:1.4; }
-    .lbtn-ghost { background:transparent;border:2px solid var(--cob-theme);padding:11px 20px; }
-    .lbtn-ghost:hover { background:#f0f7ff; }
-    .lbtn-ghost__title { font-family:var(--font-ui);font-weight:600;font-size:15px;color:var(--cob-theme);line-height:1.3; }
+    .lbtn-secondary__title { font-family:var(--font-ui);font-weight:600;font-size:15px;color:var(--cob-navy);line-height:1.35; }
+    .lbtn-secondary__sub { font-family:var(--font-ui);font-size:12px;color:#58585b;margin-top:3px;line-height:1.4; }
+    .lbtn-ghost { background:transparent;border:2px solid transparent;padding:10px 20px; }
+    .lbtn-ghost:hover { background:#f0f7ff;border-radius:8px; }
+    .lbtn-ghost__title { font-family:var(--font-ui);font-weight:600;font-size:14px;color:var(--cob-navy);text-decoration:underline;line-height:1.3; }
 
     /* ── Preconditions ── */
     .preconditions { background:#f8f8f8;border:1px solid #e2e2e2;border-left:4px solid var(--cob-navy);border-radius:0 4px 4px 0;padding:16px 20px;margin-bottom:28px; }
@@ -473,15 +475,17 @@
               </div>
 
               <div class="landing-actions">
-                <button type="button" class="lbtn lbtn-primary" id="btn-start-new">
-                  <span class="lbtn-primary__title">Start your application online</span>
-                  <span class="lbtn-primary__sub">New license or renewal — apply in about 5 minutes</span>
-                </button>
+                <div class="landing-actions-row">
+                  <button type="button" class="lbtn lbtn-primary" id="btn-start-new">
+                    <span class="lbtn-primary__title">Start your application online</span>
+                    <span class="lbtn-primary__sub">New license or renewal</span>
+                  </button>
+                  <button type="button" class="lbtn lbtn-secondary" id="btn-find-license">
+                    <span class="lbtn-secondary__title">Find your license number</span>
+                    <span class="lbtn-secondary__sub">Look up by name or number</span>
+                  </button>
+                </div>
                 <div class="landing-actions-or">or</div>
-                <button type="button" class="lbtn lbtn-secondary" id="btn-find-license">
-                  <span class="lbtn-secondary__title">Find your license number</span>
-                  <span class="lbtn-secondary__sub">Look up by owner name or license number</span>
-                </button>
                 <a href="../index.html" class="lbtn lbtn-ghost">
                   <span class="lbtn-ghost__title">Apply in person or by mail</span>
                 </a>
