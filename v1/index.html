@@ -90,15 +90,15 @@
     .landing-or { font-family:var(--font-ui);font-size:14px;color:var(--cob-text-weak);margin-bottom:12px; }
     .landing-footer-links { font-family:var(--font-ui);font-size:13px;color:#58585b;line-height:1.8; }
     .landing-footer-links a { color:var(--cob-theme);text-decoration:underline; }
-    .landing-actions { display:flex;flex-direction:column;align-items:center;gap:10px;margin:28px 0 20px; }
-    .landing-actions-row { display:flex;gap:10px;width:100%;max-width:400px; }
-    .lbtn { display:flex;flex-direction:column;align-items:center;flex:1;cursor:pointer;text-align:center;text-decoration:none;border-radius:8px;transition:background .15s,border-color .15s,color .15s;font:inherit; }
+    .landing-actions { display:flex;flex-direction:column;align-items:stretch;gap:10px;margin:28px 0 20px; }
+    .landing-actions-row { display:contents; }
+    .lbtn { display:flex;flex-direction:column;align-items:center;width:100%;cursor:pointer;text-align:center;text-decoration:none;border-radius:8px;transition:background .15s,border-color .15s,color .15s;font:inherit; }
     .lbtn:focus-visible { outline:3px solid #f4b942;outline-offset:2px; }
     .lbtn-primary { background:var(--cob-theme);color:white;border:2px solid var(--cob-theme);padding:14px 16px; }
     .lbtn-primary:hover { background:#135fa3;border-color:#135fa3; }
     .lbtn-primary__title { font-family:var(--font-ui);font-weight:700;font-size:15px;color:white;line-height:1.35; }
     .lbtn-primary__sub { font-family:var(--font-ui);font-size:12px;color:rgba(255,255,255,.8);margin-top:4px;line-height:1.4; }
-    .landing-actions-or { display:flex;align-items:center;gap:10px;width:100%;max-width:400px;font-family:var(--font-ui);font-size:12px;color:#a8a8a8;text-transform:uppercase;letter-spacing:.08em; }
+    .landing-actions-or { display:flex;align-items:center;gap:10px;width:100%;font-family:var(--font-ui);font-size:12px;color:#a8a8a8;text-transform:uppercase;letter-spacing:.08em; }
     .landing-actions-or::before,.landing-actions-or::after { content:'';flex:1;height:1px;background:#e2e2e2; }
     .lbtn-secondary { background:white;border:2px solid #d2d2d2;padding:14px 16px; }
     .lbtn-secondary:hover { border-color:var(--cob-theme);background:#f8fbff; }
